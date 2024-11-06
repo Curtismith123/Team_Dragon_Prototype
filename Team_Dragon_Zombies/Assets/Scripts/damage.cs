@@ -13,8 +13,6 @@ public class damage : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if(type == damageType.bullet)
