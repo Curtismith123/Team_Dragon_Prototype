@@ -11,6 +11,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin, menuLose;
+    [SerializeField] GameObject spinObject;
 
     public Image playerHPBar;
     public GameObject playerDamageScreen;
