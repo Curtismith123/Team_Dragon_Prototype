@@ -13,11 +13,6 @@ public class damage : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
 
-<<<<<<< Updated upstream
-=======
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
->>>>>>> Stashed changes
     void Start()
     {
         if(type == damageType.bullet)
