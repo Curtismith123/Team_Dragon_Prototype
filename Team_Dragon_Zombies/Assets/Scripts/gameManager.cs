@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
-
     public static gameManager instance;
 
     [SerializeField] GameObject menuActive;
@@ -18,9 +18,9 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerScript;
 
-    public bool isPaused;
+    private bool isPaused;
 
-    float timeScaleOrig;
+    float timeScaleOG;
 
     int enemyCount;
 
@@ -28,7 +28,7 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        timeScaleOrig = Time.timeScale;
+        timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
     }
@@ -36,13 +36,13 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
-            if(menuActive == null)
+            if (menuActive == null)
             {
                 statePause();
                 menuActive = menuPause;
-                menuActive.SetActive(true);
+                menuActive.SetActive(IsPaused);
             }
             else if (menuActive == menuPause)
             {
@@ -51,29 +51,43 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    // Setting up getters and sitters for isPaused variable
+    public bool IsPaused
+    {
+        get { return isPaused; }
+        set
+        {
+            isPaused = !isPaused;
+            menuPause.SetActive(IsPaused);
+        }
+    }
+
+    // Pause State
     public void statePause()
     {
-        isPaused = !isPaused;
+        IsPaused = isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-
+    // Unpause state
     public void stateUnpause()
     {
-        isPaused = !isPaused;
-        Time.timeScale = 1;
+        IsPaused = isPaused;
+        Time.timeScale = timeScaleOG;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
     }
 
+    // Update game goal
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
 
+        // YOU WIN
         if (enemyCount <= 0)
         {
             statePause();
@@ -82,6 +96,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    // You lose menu
     public void youLose()
     {
         statePause();
