@@ -23,12 +23,21 @@ public class enemyAI : MonoBehaviour, IDamage
 
     Vector3 playerDir;
 
+<<<<<<< Updated upstream
+=======
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+>>>>>>> Stashed changes
     void Start()
     {
         colorOrig = model.material.color;
         gameManager.instance.updateGameGoal(1);
     }
 
+<<<<<<< Updated upstream
+=======
+    // Update is called once per frame
+>>>>>>> Stashed changes
     void Update()
     {
 

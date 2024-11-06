@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 dmg.takeDamage(shootDamage);
             }
+<<<<<<< Updated upstream
 
 
             EnemyDodge enemyDodge = hit.collider.GetComponent<EnemyDodge>(); //enemy dodge detect for raycast
@@ -118,6 +119,8 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 enemyDodge.AttemptDodge();
             }
+=======
+>>>>>>> Stashed changes
         }
 
         yield return new WaitForSeconds(shootRate);
