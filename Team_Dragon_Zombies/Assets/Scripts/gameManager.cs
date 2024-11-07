@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
+    // Initiating singlton class
     public static gameManager instance;
 
+    // Creating serialized fields and variables
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin, menuLose;
@@ -28,6 +30,7 @@ public class gameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        
         instance = this;
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
@@ -37,6 +40,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If cancel(escape) is pressed pause and unpause
         if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
@@ -44,10 +48,13 @@ public class gameManager : MonoBehaviour
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(IsPaused);
+                // Disabling spin object
+                spinObject.GetComponent<spin>().enabled = IsPaused;
             }
             else if (menuActive == menuPause)
             {
                 stateUnpause();
+                spinObject.GetComponent<spin>().enabled = true;
             }
         }
     }
