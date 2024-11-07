@@ -7,10 +7,8 @@ using TMPro;
 
 public class gameManager : MonoBehaviour
 {
-    // Initiating singleton class
     public static gameManager instance;
 
-    // Serialized fields and variables
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin, menuLose;
@@ -48,7 +46,7 @@ public class gameManager : MonoBehaviour
                 menuActive = menuPause;
                 menuActive.SetActive(IsPaused);
 
-                spinObject.GetComponent<spin>().enabled = IsPaused;
+                ToggleSpinObjects(IsPaused);
             }
             else if (menuActive == menuPause)
             {
@@ -68,7 +66,6 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    // Pause state method
     public void statePause()
     {
         if (!gameEnded)
@@ -80,7 +77,6 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    // Unpause state method
     public void stateUnpause()
     {
         IsPaused = isPaused;
@@ -94,7 +90,16 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    // Update game goal method
+    private void ToggleSpinObjects(bool enableSpin)
+    {
+        spin[] spinObjects = FindObjectsOfType<spin>();
+        foreach (var spinObject in spinObjects)
+        {
+            spinObject.enabled = enableSpin;
+        }
+    }
+
+
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;

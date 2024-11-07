@@ -27,14 +27,11 @@ public class PlayerController : MonoBehaviour, IDamage
     int jumpCount;
     int HPOrig;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
         updatePlayerUI();
     }
-
-    // Update is called once per frame
     void Update()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
@@ -49,7 +46,6 @@ public class PlayerController : MonoBehaviour, IDamage
             jumpCount = 0;
             playerVel = Vector3.zero;
         }
-        //moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         moveDir = (transform.forward * Input.GetAxis("Vertical")) +
                   (transform.right * Input.GetAxis("Horizontal"));

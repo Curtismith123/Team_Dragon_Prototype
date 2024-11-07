@@ -35,7 +35,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     void Update()
     {
 
-        if ((playerInRange))
+        if (playerInRange && canSeePlayer())
         {
             playerDir = gameManager.instance.player.transform.position - headPos.position;
 

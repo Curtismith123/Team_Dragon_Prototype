@@ -18,7 +18,6 @@ public class enemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemiesRoutine()
     {
-        //check enemy count for <maximum
         while (true)
         {
             if (currentEnemyCount < maxEnemies)
@@ -51,7 +50,7 @@ public class enemySpawner : MonoBehaviour
                     Instantiate(enemyPrefab, randomSpawnPosition, Quaternion.identity);
                     currentEnemyCount++;
 
-                    Debug.Log("Enemy Spawned. Current enemy count: " + gameManager.instance.enemyCount);
+                    Debug.Log("Spawned an enemy. Current enemy count: " + currentEnemyCount);
                 }
             }
             yield return new WaitForSeconds(1f);
