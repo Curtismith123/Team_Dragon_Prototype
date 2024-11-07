@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamage
 {
    
     [SerializeField] CharacterController controller;
 
+    [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
     [SerializeField] int jumpMax;
@@ -72,6 +73,15 @@ public class PlayerController : MonoBehaviour
         {
             speed /= sprintMod;
             isSprinting = false;
+        }
+    }
+
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        if (HP <= 0)
+        {
+            gameManager.instance.youLose();
         }
     }
 }
