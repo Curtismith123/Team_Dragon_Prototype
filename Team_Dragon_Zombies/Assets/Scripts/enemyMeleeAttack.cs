@@ -9,9 +9,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] private Transform headPos;
     [SerializeField] private int HP;
     [SerializeField] private int faceTargetSpeed;
-    [SerializeField] private float attackRate = 1.5f;
-    [SerializeField] private int meleeDamage = 10;
-    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackRate = 1.5f; //default 1.5s
+    [SerializeField] private int meleeDamage = 10; //default 10 dmg
+    [SerializeField] private float attackRange = 2f; //default 2 range
 
     private bool isAttacking;
     private bool playerInRange;
