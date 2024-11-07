@@ -1,32 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] Renderer model;
-    [SerializeField] Transform headPos;
-
-    [SerializeField] int HP;
-    [SerializeField] int faceTargetSpeed;
-    [SerializeField] int viewAngle;
-
-    [SerializeField] float attackRate = 1.5f; //default 1.5s
-    [SerializeField] int meleeDamage = 10; //default 10 dmg
-    [SerializeField] float attackRange = 2f; //default 2 range
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Renderer model;
+    [SerializeField] private Transform headPos;
+    [SerializeField] private int HP;
+    [SerializeField] private int faceTargetSpeed;
+    [SerializeField] private float attackRate = 1.5f; //default 1.5s
+    [SerializeField] private int meleeDamage = 10; //default 10 dmg
+    [SerializeField] private float attackRange = 2f; //default 2 range
 
     private bool isAttacking;
     private bool playerInRange;
 
-    Color colorOrig;
+    private Color colorOrig;
+    private Vector3 playerDir;
 
-    Vector3 playerDir;
-
-    float angleToPlayer;
-
-    void Start()
+    private void Start()
     {
         colorOrig = model.material.color;
         gameManager.instance.updateGameGoal(1);
@@ -34,42 +27,29 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         agent.stoppingDistance = attackRange;
     }
 
-    void Update()
+    private void Update()
     {
-        if (playerInRange && canSeePlayer())
+        if (gameManager.instance.player == null)
         {
-
+            playerInRange = false;
+            return;
         }
-    }
 
-    bool canSeePlayer()
-    {
-        playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-
-        Debug.DrawRay(headPos.position, playerDir);
-
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (playerInRange)
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
-            {
-                //can see player
-                agent.SetDestination(gameManager.instance.player.transform.position);
+            playerDir = gameManager.instance.player.transform.position - headPos.position;
+            agent.SetDestination(gameManager.instance.player.transform.position);
 
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                faceTarget();
 
                 if (!isAttacking)
                 {
                     StartCoroutine(MeleeAttack());
                 }
-                return true;
             }
         }
-        return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,14 +82,14 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator flashRed()
+    private IEnumerator flashRed()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
     }
 
-    IEnumerator MeleeAttack()
+    private IEnumerator MeleeAttack()
     {
         isAttacking = true;
 
@@ -127,7 +107,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         isAttacking = false;
     }
 
-    void faceTarget()
+    private void faceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);

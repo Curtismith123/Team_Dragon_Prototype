@@ -27,7 +27,7 @@ public class gameManager : MonoBehaviour
     private bool gameEnded; //flag to indicate win/lose state
 
     float timeScaleOriG;
-    public int enemyCount;
+    int enemyCount;
 
     void Awake()
     {
@@ -106,7 +106,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void showWinMenu()
+    private void showWinMenu()
     {
         gameEnded = true;
         Time.timeScale = 0;

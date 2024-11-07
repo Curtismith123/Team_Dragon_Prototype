@@ -25,14 +25,12 @@ public class damage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.isTrigger)
-        {
+        if(other.isTrigger)
             return;
-        }
 
         IDamage dmg = other.GetComponent<IDamage>();
 
-        if(dmg != null)
+        if(dmg != null )
         {
             dmg.takeDamage(damageAmount);
         }
