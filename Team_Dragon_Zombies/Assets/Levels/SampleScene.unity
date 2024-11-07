@@ -165,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &14013018
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -339,9 +339,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SPAWNERZED (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6148494147007484872, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: maxEnemies
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: spawnRange
@@ -385,7 +389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &59446464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -676,7 +680,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &184295748
 BoxCollider:
@@ -814,7 +818,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &189937549
 BoxCollider:
@@ -1297,13 +1301,13 @@ Transform:
   - {fileID: 602855996}
   - {fileID: 278015463}
   - {fileID: 2001332343}
-  - {fileID: 733799600}
+  - {fileID: 6367623609620315901}
   - {fileID: 1465680486}
   - {fileID: 1124374303}
   - {fileID: 380190751}
   - {fileID: 735766722}
   - {fileID: 12747211}
-  - {fileID: 1788341753}
+  - {fileID: 6367623609483035871}
   - {fileID: 999345112}
   - {fileID: 656507482}
   - {fileID: 466501167}
@@ -1316,7 +1320,7 @@ Transform:
   - {fileID: 828832113}
   - {fileID: 1595292707}
   - {fileID: 2026450297}
-  - {fileID: 634516216}
+  - {fileID: 6367623610300210829}
   - {fileID: 217865356}
   - {fileID: 477497762}
   - {fileID: 519227840}
@@ -1502,9 +1506,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SPAWNERZED
       objectReference: {fileID: 0}
+    - target: {fileID: 6148494147007484872, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: maxEnemies
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: spawnRange
@@ -1870,7 +1878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &511413062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2204,14 +2212,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4170092755379422616, guid: 4ff43159cf3a80248ae7346a45a4ee61, type: 3}
-      propertyPath: HP
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170092755379422616, guid: 4ff43159cf3a80248ae7346a45a4ee61, type: 3}
-      propertyPath: shootDamage
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5033676984100149040, guid: 4ff43159cf3a80248ae7346a45a4ee61, type: 3}
       propertyPath: m_Name
       value: PlayerCowboy
@@ -2356,7 +2356,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &549461245
 BoxCollider:
@@ -2494,7 +2494,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &586864656
 BoxCollider:
@@ -2803,23 +2803,13 @@ Transform:
   - {fileID: 1797035901}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &634516215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1517979527}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &634516216 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1517979527}
-  m_PrefabAsset: {fileID: 0}
 --- !u!208 &634516217
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634516215}
+  m_GameObject: {fileID: 8720358422612172034}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
@@ -2885,6 +2875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ORK (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2947,9 +2941,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SPAWNERZED (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6148494147007484872, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: maxEnemies
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: spawnRange
@@ -3193,23 +3191,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &733799599 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1944070135}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &733799600 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1944070135}
-  m_PrefabAsset: {fileID: 0}
 --- !u!208 &733799601
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733799599}
+  m_GameObject: {fileID: 8720358421917400434}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
@@ -3763,9 +3751,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SPAWNERZED (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6148494147007484872, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: maxEnemies
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: spawnRange
@@ -4038,7 +4030,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1088009325
 BoxCollider:
@@ -4239,6 +4231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ORK (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4377,9 +4373,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SPAWNERZED (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6148494147007484872, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: maxEnemies
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353298296078998413, guid: 93c0e95cd00a1404a94c4e49825e319c, type: 3}
       propertyPath: spawnRange
@@ -4422,7 +4422,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1171974843
 BoxCollider:
@@ -4560,7 +4560,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1199951499
 BoxCollider:
@@ -4734,6 +4734,10 @@ PrefabInstance:
     - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
       propertyPath: m_Name
       value: ORK (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4979,7 +4983,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1452080302
 BoxCollider:
@@ -5473,7 +5477,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1534806213
 BoxCollider:
@@ -5739,7 +5743,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1596872837
 BoxCollider:
@@ -5877,7 +5881,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1615852800
 BoxCollider:
@@ -6015,7 +6019,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1625187192
 BoxCollider:
@@ -6218,6 +6222,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 623461689331238733, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 623461689331238733, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 623461689331238733, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1881707738455008087, guid: d8829674e14353847b9bcc84060eb787, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6298,32 +6314,82 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3516556402436370134, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516556402436370134, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516556402436370134, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165193678469708108, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165193678469708108, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165193678469708108, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 308
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165193678469708108, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759003427018259295, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759003427018259295, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759003427018259295, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7432545499826632303, guid: d8829674e14353847b9bcc84060eb787, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904867945887826031, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904867945887826031, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904867945887826031, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904867945887826031, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904867945887826031, guid: d8829674e14353847b9bcc84060eb787, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -71
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8829674e14353847b9bcc84060eb787, type: 3}
---- !u!1 &1788341752 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1804574165}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1788341753 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
-  m_PrefabInstance: {fileID: 1804574165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!208 &1788341754
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788341752}
+  m_GameObject: {fileID: 8720358422313650000}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
@@ -6535,7 +6601,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &1904032588
 BoxCollider:
@@ -6953,7 +7019,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &2010571577
 BoxCollider:
@@ -7128,6 +7194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ORK (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7285,7 +7355,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &2097440029
 BoxCollider:
@@ -7460,6 +7530,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ORK (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8140933228114766244, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7489,7 +7563,7 @@ GameObject:
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &2125642420
 BoxCollider:
@@ -7684,6 +7758,21 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 602855997}
   m_SourcePrefab: {fileID: 100100000, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+--- !u!4 &6367623609483035871 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1804574165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6367623609620315901 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1944070135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6367623610300210829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6367623610935220490, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1517979527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7506164911836174744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7771,6 +7860,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8720358421917400434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1944070135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8720358422313650000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1804574165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8720358422612172034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
+  m_PrefabInstance: {fileID: 1517979527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

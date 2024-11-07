@@ -1612,15 +1612,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5033676984100149040}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.41664648, y: 1.3780003, z: 21.900532}
+  m_LocalRotation: {x: -0, y: -0.6087605, z: -0, w: 0.79335415}
+  m_LocalPosition: {x: -167.35669, y: 1.3780322, z: 29.898394}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8943868062105254830}
   - {fileID: 5948563249275960789}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -75, z: 0}
 --- !u!114 &4170092755379422616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,14 +1637,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   controller: {fileID: 8298549694272040420}
-  HP: 20
+  HP: 35
   speed: 5
   sprintMod: 3
   jumpMax: 2
   jumpSpeed: 12
   gravity: 28
   shootDamage: 5
-  shootRate: 0.5
+  shootRate: 0.2
   shootDist: 25
 --- !u!143 &8298549694272040420
 CharacterController:

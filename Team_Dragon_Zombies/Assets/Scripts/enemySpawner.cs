@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class enemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs;       //set enemies to spawn from prefab
-    public int maxEnemies = 10;             //max number of enemies that can exist (excluding static ones)
-    public float spawnRange = 10f;          //range from spawner where enemies can spawn
-    public float raycastDelayMin = 0.1f;    //min delay before spawning after raycast
-    public float raycastDelayMax = 0.2f;    //max delay before spawning after raycast
+    public GameObject[] enemyPrefabs; //set enemies to spawn from selected prefabs
+    public int maxEnemies = 10; //max number of enemies that can exist (excluding static ones)
+    public float spawnRange = 10f; //range from spawner where enemies can spawn
+    public float raycastDelayMin = 0.1f; //min delay before spawning after raycast
+    public float raycastDelayMax = 0.2f; //max delay before spawning after raycast
 
     private int currentEnemyCount = 0;
 
