@@ -16215,6 +16215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7505411805409336553}
   - component: {fileID: 2996852512771608740}
+  - component: {fileID: 3536414147339369552}
   - component: {fileID: 6330698930683556388}
   - component: {fileID: 5869803951974443298}
   - component: {fileID: 5477021916881426012}
@@ -16234,8 +16235,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8140933228114766244}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.72, y: -0.041166067, z: -3.15}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 72.72313, y: 255.34485, z: 324.28}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16263,9 +16264,25 @@ MonoBehaviour:
   headPos: {fileID: 7515499496232843712}
   HP: 40
   faceTargetSpeed: 5
+  viewAngle: 0
   attackRate: 2
   meleeDamage: 17
   attackRange: 2
+--- !u!114 &3536414147339369552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8140933228114766244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c798a90bdc2bf45aa0b35b035e2cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 5869803951974443298}
+  dodgeDistance: 5
+  dodgeChance: 1
 --- !u!95 &6330698930683556388
 Animator:
   serializedVersion: 7

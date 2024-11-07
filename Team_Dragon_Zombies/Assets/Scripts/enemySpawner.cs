@@ -1,70 +1,68 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+public class enemySpawner : MonoBehaviour
 {
-    // Spawn settings
-    [SerializeField] private GameObject[] enemyPrefabs;  //enemy types to spawn
-    [SerializeField] private Transform[] spawnPoints;    //spawn area
-    [SerializeField] private float spawnCooldown = 3f;    //spawn cooldown
-    [SerializeField] private int maxEnemiesOnMap = 10;    //enemy cap on map
-    [SerializeField] private float spawnProximity = 10f;  //proximity, if player in proximity then dont spawn
+    public GameObject[] enemyPrefabs;       //set enemies to spawn from prefab
+    public int maxEnemies = 10;             //max number of enemies that can exist (excluding static ones)
+    public float spawnRange = 10f;          //range from spawner where enemies can spawn
+    public float raycastDelayMin = 0.1f;    //min delay before spawning after raycast
+    public float raycastDelayMax = 0.2f;    //max delay before spawning after raycast
 
     private int currentEnemyCount = 0;
-    private GameObject player;
-    private bool canSpawn = true;
 
     void Start()
     {
-        player = gameManager.instance.player;
+        StartCoroutine(SpawnEnemiesRoutine());
     }
 
-    void Update()
+    IEnumerator SpawnEnemiesRoutine()
     {
-        if (canSpawn && currentEnemyCount < maxEnemiesOnMap)
+        //check enemy count for <maximum
+        while (true)
         {
-            //find potential spawn points
-            Vector3 spawnPosition = GetValidSpawnPoint();
-            if (spawnPosition != Vector3.zero)
+            if (currentEnemyCount < maxEnemies)
             {
-                SpawnEnemy(spawnPosition);
+                Vector3 randomSpawnPosition = GetRandomSpawnPosition();
+
+                RaycastHit hit;
+                Vector3 directionToPlayer = (gameManager.instance.player.transform.position - randomSpawnPosition).normalized;
+
+                //if raycast hits player, don't spawn
+                if (Physics.Raycast(randomSpawnPosition, directionToPlayer, out hit))
+                {
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        Debug.DrawRay(randomSpawnPosition, directionToPlayer * 10f, Color.red, 2f);
+                        yield return new WaitForSeconds(Random.Range(raycastDelayMin, raycastDelayMax));
+                        continue;
+                    }
+                }
+
+                //if the raycast hits an obstacle, spawn
+                if (hit.transform != null && hit.transform.CompareTag("Obstacle"))
+                {
+                    Debug.DrawRay(randomSpawnPosition, directionToPlayer * 10f, Color.green, 2f); //if location is valid (behind obstacle) shoot green raycast
+
+                    yield return new WaitForSeconds(Random.Range(raycastDelayMin, raycastDelayMax));
+
+                    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+
+                    Instantiate(enemyPrefab, randomSpawnPosition, Quaternion.identity);
+                    currentEnemyCount++;
+
+                    Debug.Log("Enemy Spawned. Current enemy count: " + gameManager.instance.enemyCount);
+                }
             }
+            yield return new WaitForSeconds(1f);
         }
     }
 
-    private Vector3 GetValidSpawnPoint()
+    Vector3 GetRandomSpawnPosition()
     {
-        foreach (Transform spawnPoint in spawnPoints)
-        {
-            if (Vector3.Distance(spawnPoint.position, player.transform.position) > spawnProximity)
-            {
-                return spawnPoint.position;
-            }
-        }
-        return Vector3.zero;
-    }
+        float xOffset = Random.Range(-spawnRange, spawnRange);
+        float zOffset = Random.Range(-spawnRange, spawnRange);
 
-    private void SpawnEnemy(Vector3 spawnPosition)
-    {
-        GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-
-        GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-
-        currentEnemyCount++;
-
-        StartCoroutine(SpawnCooldown());
-    }
-
-    private IEnumerator SpawnCooldown()
-    {
-        canSpawn = false;
-        yield return new WaitForSeconds(spawnCooldown);
-        canSpawn = true;
-    }
-
-    public void OnEnemyDestroyed()
-    {
-        currentEnemyCount--;
+        return new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z + zOffset);
     }
 }
