@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
-
         movement();
         sprint();
     }
@@ -97,19 +96,22 @@ public class PlayerController : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
         {
-            Debug.Log(hit.collider.name);
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-            if (dmg != null)
+            if (!hit.collider.isTrigger)
             {
-                dmg.takeDamage(shootDamage);
-            }
+                Debug.Log(hit.collider.name);
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
 
+                if (dmg != null)
+                {
+                    dmg.takeDamage(shootDamage);
+                }
 
-            EnemyDodge enemyDodge = hit.collider.GetComponent<EnemyDodge>(); //enemy dodge detect for raycast
-            if (enemyDodge != null)
-            {
-                enemyDodge.AttemptDodge();
+                EnemyDodge enemyDodge = hit.collider.GetComponent<EnemyDodge>(); //'dodge' reacts to raycast hit
+                if (enemyDodge != null)
+                {
+                    enemyDodge.AttemptDodge();
+                }
             }
         }
 
