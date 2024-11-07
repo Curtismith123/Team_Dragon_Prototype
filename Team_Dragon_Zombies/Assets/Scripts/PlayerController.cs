@@ -9,10 +9,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
+    [SerializeField] int jumpMax;
+    [SerializeField] int jumpSpeed;
+    [SerializeField] int gravity;
 
     Vector3 moveDir;
+    Vector3 playerVel;
 
     bool isSprinting;
+
+    int jumpCount;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,12 +35,30 @@ public class PlayerController : MonoBehaviour
     }
     void movement()
     {
+        if(controller.isGrounded)
+        {
+            jumpCount = 0;
+            playerVel = Vector3.zero;
+        }
         //moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         moveDir = (transform.forward * Input.GetAxis("Vertical")) +
                   (transform.right * Input.GetAxis("Horizontal"));
 
         controller.Move(moveDir * speed * Time.deltaTime);
+
+        jump();
+        controller.Move(playerVel * Time.deltaTime);
+        playerVel.y -= gravity * Time.deltaTime;
+    }
+
+    void jump()
+    {
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        {
+            jumpCount++;
+            playerVel.y = jumpSpeed;
+        }
     }
 
     void sprint()
