@@ -71,10 +71,13 @@ public class gameManager : MonoBehaviour
     // Pause state method
     public void statePause()
     {
-        IsPaused = isPaused;
-        Time.timeScale = 0;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        if (!gameEnded)
+        {
+            IsPaused = isPaused;
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
     }
 
     // Unpause state method
@@ -105,16 +108,20 @@ public class gameManager : MonoBehaviour
 
     private void showWinMenu()
     {
-        statePause();
         gameEnded = true;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
 
     public void youLose()
     {
-        statePause();
         gameEnded = true;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
         menuActive.SetActive(true);
     }

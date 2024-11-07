@@ -29,6 +29,12 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     private void Update()
     {
+        if (gameManager.instance.player == null)
+        {
+            playerInRange = false;
+            return;
+        }
+
         if (playerInRange)
         {
             playerDir = gameManager.instance.player.transform.position - headPos.position;
@@ -67,6 +73,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         HP -= amount;
         StartCoroutine(flashRed());
 
+        agent.SetDestination(gameManager.instance.player.transform.position);
+
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
@@ -85,7 +93,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     {
         isAttacking = true;
 
-        if (Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= attackRange)
+        if (gameManager.instance.player != null &&
+            Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= attackRange)
         {
             IDamage playerDamage = gameManager.instance.player.GetComponent<IDamage>();
             if (playerDamage != null)
