@@ -29,6 +29,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     void Start()
     {
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
         foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
         {
             renderers.Add(renderer);
