@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class enemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Renderer model;
+    [SerializeField] Renderer[] models;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
 
@@ -16,7 +16,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
 
-    Color colorOrig;
+    Color[] colorOrig;
 
     bool isShooting;
     bool playerInRange;
@@ -24,7 +24,11 @@ public class enemyAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     void Start()
     {
-        colorOrig = model.material.color;
+        colorOrig = new Color[models.Length];
+        for (int i = 0; i < models.Length; i++)
+        {
+            colorOrig[i] = models[i].material.color;
+        }
         gameManager.instance.updateGameGoal(1);
     }
 
@@ -81,9 +85,17 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
+        foreach (Renderer renderer in models)
+        {
+            renderer.material.color = Color.red;
+        }
+
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+
+        for (int i = 0; i < models.Length; i++)
+        {
+            models[i].material.color = colorOrig[i];
+        }
     }
 
 

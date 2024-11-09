@@ -21,6 +21,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     bool playerInRange;
 
     Color colorOrig;
+    List<Renderer> renderers = new List<Renderer>();
 
     Vector3 playerDir;
 
@@ -28,7 +29,11 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     void Start()
     {
-        colorOrig = model.material.color;
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+        {
+            renderers.Add(renderer);
+            colorOrig = renderer.material.color;
+        }
         gameManager.instance.updateGameGoal(1);
     }
 
@@ -115,9 +120,17 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = Color.red;
+        }
+
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = colorOrig;
+        }
     }
 
     IEnumerator MeleeAttack()
