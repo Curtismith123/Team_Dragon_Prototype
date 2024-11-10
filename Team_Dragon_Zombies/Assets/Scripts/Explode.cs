@@ -2,43 +2,76 @@ using UnityEngine;
 
 public class Explode : MonoBehaviour
 {
-    public int cubesPerAxis = 8;
-    public float delay = 1f;
-    public float force = 300f;
-    public float radius = 2f;
+    public float cubeSize = 0.2f;
+    public int cubesInRow = 5;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    float cubesPivotDistance;
+    Vector3 cubesPivot;
+
+    public float explosionForce = 50f;
+    public float explosionRadius = 4f;
+    public float explosionUpward = 0.4f;
+
+    // Use this for initialization
     void Start()
     {
-        Invoke("Main", delay);
+        // calculate pivot distance
+        cubesPivotDistance = cubeSize * cubesInRow / 2;
+        // use this value to create pivot vector
+        cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
     }
 
-   void Main()
+    // Update is called once per frame
+    private void OnTriggerEnter(Collider other)
     {
-        for (int x = 0; x < cubesPerAxis; x++) {
-           for (int y = 0; y < cubesPerAxis; y++) {
-                for (int z = 0; z < cubesPerAxis; z++) {
-                    CreateCube(new Vector3(x, y, z));
+        if (other.gameObject.name == "Floor") {
+            explode();
+        }
+    }
+
+    public void explode()
+    {
+        // make object disappear
+        gameObject.SetActive(false);
+
+        // loop 3 times to create 5x5x5 pieces in x,y,z coordinates
+        for (int x = 0; x < cubesInRow; x++) {
+            for (int y = 0; y < cubesInRow; y++) {
+                for (int z = 0; z < cubesInRow; z++) {
+                    createPiece(x, y, z);
                 }
             }
         }
-        Destroy(gameObject);
+
+        // get explosion position
+        Vector3 explosionPos = transform.position;
+        // get colliders in that position and radius
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
+        // add explosion force to all colliders in that overlap sphere
+        foreach (Collider hit in colliders) {
+            // get rigibody from colliders object
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (rb != null) {
+                // add explosion force to this body with given parameters
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpward);
+            }
+        }
+    
     }
 
-    void CreateCube(Vector3 coordinates)
-    {
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    void createPiece(int x, int y, int z) {
 
-        Renderer rd = cube.GetComponent<Renderer>();
-        rd.material = GetComponent<Renderer>().material;
+        // create piece
+        GameObject piece;
+        piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        cube.transform.localScale = transform.localScale / cubesPerAxis;
+        // set piece position and scale
+        piece.transform.position = transform.position + new Vector3(cubeSize * x, cubeSize * y, cubeSize * z) - cubesPivot;
+        piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
-        Vector3 firstCube = transform.position - transform.localScale / 2 + cube.transform.localScale / 2;
-        cube.transform.position = firstCube + Vector3.Scale(coordinates, cube.transform.localScale);
-
-        Rigidbody rb = cube.AddComponent<Rigidbody>();
-        rb.AddExplosionForce(force, transform.position, radius);
-
+        // add rigibody and set mass
+        piece.AddComponent<Rigidbody>();
+        piece.GetComponent<Rigidbody>().mass = cubeSize;
     }
+
 }

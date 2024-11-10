@@ -1812,6 +1812,7 @@ GameObject:
   - component: {fileID: 132056334}
   - component: {fileID: 132056333}
   - component: {fileID: 132056338}
+  - component: {fileID: 132056339}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Obstacle
@@ -1834,7 +1835,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1902,7 +1903,7 @@ Transform:
   m_GameObject: {fileID: 132056332}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
-  m_LocalPosition: {x: -229.36116, y: 3, z: 8.063234}
+  m_LocalPosition: {x: -39, y: 26, z: 8.063234}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1920,10 +1921,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14623ac37af589489a26ca7de53f9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubesPerAxis: 8
-  delay: 1
-  force: 300
-  radius: 2
+  cubeSize: 1
+  cubesInRow: 7
+  explosionForce: 500
+  explosionRadius: 10
+  explosionUpward: 0.8
 --- !u!208 &132056338
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1940,6 +1942,33 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!54 &132056339
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132056332}
+  serializedVersion: 4
+  m_Mass: 1.76
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!137 &149270869 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2628758629369728134, guid: 9ac3e35ee6b0c524aa1e4500b192d362, type: 3}
@@ -3675,7 +3704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5056485160936802347, guid: 4ff43159cf3a80248ae7346a45a4ee61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -210.00449
+      value: -37.004486
       objectReference: {fileID: 0}
     - target: {fileID: 5056485160936802347, guid: 4ff43159cf3a80248ae7346a45a4ee61, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9615,7 +9644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8428503565864561544, guid: b35685579c8160e4084aadbbebb38922, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -258.21674
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8428503565864561544, guid: b35685579c8160e4084aadbbebb38922, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9623,7 +9652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8428503565864561544, guid: b35685579c8160e4084aadbbebb38922, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8428503565864561544, guid: b35685579c8160e4084aadbbebb38922, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9660,6 +9689,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8402929200270990405, guid: b35685579c8160e4084aadbbebb38922, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7506164911836174746}
+    - targetCorrespondingSourceObject: {fileID: 8402929200270990405, guid: b35685579c8160e4084aadbbebb38922, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7506164911836174752}
   m_SourcePrefab: {fileID: 100100000, guid: b35685579c8160e4084aadbbebb38922, type: 3}
 --- !u!1 &7506164911836174745 stripped
 GameObject:
@@ -9688,6 +9720,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &7506164911836174752
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7506164911836174745}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8720358421917400434 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8720358421701384837, guid: fa6a35cb106c9364cbfd652f563e5cfb, type: 3}
