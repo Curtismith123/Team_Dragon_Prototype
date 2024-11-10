@@ -12,19 +12,31 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [SerializeField] int HP;
     [SerializeField] int faceTargetSpeed;
+    [SerializeField] int viewAngle;
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
 
     Color colorOrig;
+    List<Renderer> renderers = new List<Renderer>();
 
     bool isShooting;
     bool playerInRange;
 
     Vector3 playerDir;
+
+    float angleToPlayer;
+
     void Start()
     {
-        colorOrig = model.material.color;
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+        {
+            renderers.Add(renderer);
+            colorOrig = renderer.material.color;
+        }
         gameManager.instance.updateGameGoal(1);
     }
 
@@ -81,9 +93,17 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = Color.red;
+        }
+
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = colorOrig;
+        }
     }
 
 
