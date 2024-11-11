@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StickyProjectileAddon : MonoBehaviour
+public class ProjectileAddon : MonoBehaviour
 {
     private Rigidbody rb;
 
