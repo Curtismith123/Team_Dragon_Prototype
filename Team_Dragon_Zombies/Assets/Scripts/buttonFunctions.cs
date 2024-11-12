@@ -50,4 +50,9 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.resetDefault("Audio");
     }
 
+    public void gmPlayApply()
+    {
+        gameManager.instance.gameplayApply();
+    }
+
 }

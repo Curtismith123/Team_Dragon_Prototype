@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class gameManager : MonoBehaviour
 {
@@ -16,10 +17,17 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuSettings;
     [SerializeField] GameObject settingsActive;
     [SerializeField] GameObject inSetActive;
+    // Audio Objects
     [SerializeField] GameObject menuAudio;
     [SerializeField] private TMP_Text volumeTextValue;
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private float defaultVolume = 1.0f;
+    // Gameplay Objects
+    [SerializeField] GameObject menuGameplay;
+    [SerializeField] private TMP_Text sensTextValue;
+    [SerializeField] private Slider sensSlider;
+    [SerializeField] private int defaultSen = 300;
+    [SerializeField] private Toggle invertYToggle;
 
     [SerializeField] GameObject spinObject;
     [SerializeField] TMP_Text enemyCountText;
@@ -201,6 +209,14 @@ public class gameManager : MonoBehaviour
             inSetActive = null;
             settingsActive.SetActive(true);
         }
+
+        if (menuType == "Gameplay")
+        {
+            sensTextValue.text = defaultSen.ToString("F0");
+            sensSlider.value = defaultSen;
+            invertYToggle.isOn = false;
+            gameplayApply();
+        }
     }
 
     //public IEnumerator confirmBox()
@@ -209,5 +225,47 @@ public class gameManager : MonoBehaviour
     //    yield return new WaitForSeconds(1);
     //    confirmPromp.SetActive(false);
     //}
+    
+    // Gameplay
+    public void gameplayMenu()
+    {
+        settingsActive.SetActive(false);
+        inSetActive = menuGameplay;
+        inSetActive.SetActive(true);
+    }
 
+    public void setSensitivity(float sensitivity)
+    {
+
+        cameraController.camController.Sensitivity = (int)sensitivity;
+        
+        sensTextValue.text = sensitivity.ToString("F0");
+    }
+
+    public void gameplayApply()
+    {
+        if (invertYToggle.isOn)
+        {
+            cameraController.camController.InvertY = true;
+        }
+        else
+        {
+            cameraController.camController.InvertY = false;
+        }
+        inSetActive.SetActive(false);
+        inSetActive = null;
+        settingsActive.SetActive(true);
+    }
+
+    public void gameplayBack()
+    {
+        inSetActive.SetActive(false);
+        inSetActive = null;
+        settingsActive.SetActive(true);
+    }
+
+    public void gameplayDefault()
+    {
+
+    }
 }
