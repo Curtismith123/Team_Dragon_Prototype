@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2299817726758589751}
-  - component: {fileID: 5816720634901045321}
+  - component: {fileID: -6405004489337357587}
   - component: {fileID: 3105186375818727670}
   - component: {fileID: 1516217750491442818}
   - component: {fileID: 5879787066202177674}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,13 +29,13 @@ Transform:
   m_GameObject: {fileID: 511615523544547766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.01, y: 1.606, z: 0.964}
+  m_LocalPosition: {x: 0, y: 1.606, z: 0.964}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5816720634901045321
+--- !u!114 &-6405004489337357587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,11 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9945e69e1cccc7408fe4b7c74fa8a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  rb: {fileID: 5879787066202177674}
-  damageAmount: 1
-  speed: 25
-  destroyTime: 3
+  destroyTime: 5
 --- !u!135 &3105186375818727670
 SphereCollider:
   m_ObjectHideFlags: 0
