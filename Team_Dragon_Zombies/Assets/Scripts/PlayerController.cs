@@ -14,10 +14,6 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
 
-    [SerializeField] int shootDamage;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
-
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -34,7 +30,6 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
         movement();
         sprint();
@@ -56,10 +51,6 @@ public class PlayerController : MonoBehaviour, IDamage
         controller.Move(playerVel * Time.deltaTime);
         playerVel.y -= gravity * Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && !isShooting)
-        {
-            StartCoroutine(shoot());
-        }
     }
 
     void jump()
@@ -83,36 +74,6 @@ public class PlayerController : MonoBehaviour, IDamage
             speed /= sprintMod;
             isSprinting = false;
         }
-    }
-
-    IEnumerator shoot()
-    {
-        isShooting = true;
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
-        {
-
-            if (!hit.collider.isTrigger)
-            {
-                Debug.Log(hit.collider.name);
-                IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-                if (dmg != null)
-                {
-                    dmg.takeDamage(shootDamage);
-                }
-
-                EnemyDodge enemyDodge = hit.collider.GetComponent<EnemyDodge>(); //'dodge' reacts to raycast hit
-                if (enemyDodge != null)
-                {
-                    enemyDodge.AttemptDodge();
-                }
-            }
-        }
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
     }
 
     public void takeDamage(int amount)
