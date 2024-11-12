@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class ProjectileAddon : MonoBehaviour
 {
-    public int damage;
-  
-    private Rigidbody rb;
+    public int damage; 
 
+    private Rigidbody rb;
     private bool targetHit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-     rb = GetComponent<Rigidbody>();   
+     rb = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
