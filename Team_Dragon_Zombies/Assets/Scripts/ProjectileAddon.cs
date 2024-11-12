@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ProjectileAddon : MonoBehaviour
 {
+    public int damage;
+  
     private Rigidbody rb;
 
     private bool targetHit;
@@ -20,6 +22,16 @@ public class ProjectileAddon : MonoBehaviour
         else
             targetHit = true;
 
+        // check if you hit an enemy
+        if (collision.gameObject.GetComponent<BasicEnemy>() != null)
+        {
+            BasicEnemy enemy = collision.gameObject.GetComponent<BasicEnemy>();
+
+            enemy.takeDamage(damage);
+
+            Destroy(gameObject);
+        }
+
         // make sure projectile sticks to surface
         rb.isKinematic = true;
 
@@ -30,6 +42,9 @@ public class ProjectileAddon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (targetHit && rb.isKinematic)
+        {
+            rb.MovePosition(transform.position);
+        }
     }
 }
