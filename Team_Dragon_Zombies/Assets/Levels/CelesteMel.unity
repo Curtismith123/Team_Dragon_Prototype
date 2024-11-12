@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCowboy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8679844105975919948, guid: c9fd4bafdbc712d4ebf706afb4d3a48e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8899685436520344151, guid: c9fd4bafdbc712d4ebf706afb4d3a48e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1751277
@@ -499,6 +503,7 @@ GameObject:
   - component: {fileID: 1543816525}
   - component: {fileID: 1543816524}
   - component: {fileID: 1543816523}
+  - component: {fileID: 1543816527}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -596,6 +601,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543816527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543816522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 9e21eda5a7ed921449b2fd0363c3994c, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1795719231
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +759,14 @@ PrefabInstance:
     - target: {fileID: 5020954627453299176, guid: 532512b674ff1dc4e80e23cb24316de6, type: 3}
       propertyPath: m_Name
       value: objectToThrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020954627453299176, guid: 532512b674ff1dc4e80e23cb24316de6, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020954627453299176, guid: 532512b674ff1dc4e80e23cb24316de6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8633572377448555267, guid: 532512b674ff1dc4e80e23cb24316de6, type: 3}
       propertyPath: m_LocalPosition.x
