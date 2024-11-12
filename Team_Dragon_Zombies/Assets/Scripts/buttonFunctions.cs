@@ -24,4 +24,30 @@ public class buttonFunctions : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    // Settings Buttons
+    public void settingsMenu()
+    {
+        gameManager.instance.setMenu();
+    }
+
+    public void setBack()
+    {
+        gameManager.instance.settingsBack();
+    }
+    public void soundMenu()
+    {
+        gameManager.instance.audioMenu();
+    }
+
+    public void audioApply()
+    {
+        gameManager.instance.volumeApply();
+    }
+
+    public void audioReset()
+    {
+        gameManager.instance.resetDefault("Audio");
+    }
+
 }

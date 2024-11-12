@@ -12,6 +12,15 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin, menuLose;
+    // Settings Objects
+    [SerializeField] GameObject menuSettings;
+    [SerializeField] GameObject settingsActive;
+    [SerializeField] GameObject inSetActive;
+    [SerializeField] GameObject menuAudio;
+    [SerializeField] private TMP_Text volumeTextValue;
+    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private float defaultVolume = 1.0f;
+
     [SerializeField] GameObject spinObject;
     [SerializeField] TMP_Text enemyCountText;
 
@@ -23,6 +32,7 @@ public class gameManager : MonoBehaviour
 
     private bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
+    private bool individualSet;
 
     float timeScaleOriG;
     public int enemyCount;
@@ -130,4 +140,74 @@ public class gameManager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
+
+    // Settings methods
+    public void setMenu()
+    {
+        menuActive.SetActive(false);
+        settingsActive = menuSettings;
+        settingsActive.SetActive(true);
+    }
+
+    public void settingsBack()
+    {
+        settingsActive.SetActive(false);
+        settingsActive = null;
+        menuActive.SetActive(true);
+    }
+
+    public bool IndividualSet
+    {
+        get { return individualSet; }
+        set
+        {
+            individualSet = !individualSet;
+            inSetActive.SetActive(IndividualSet);
+        }
+    }
+
+    // Audio
+    public void audioMenu()
+    {
+        settingsActive.SetActive(false);
+        inSetActive = menuAudio;
+        inSetActive.SetActive(true);
+    }
+
+    public void setVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        volumeTextValue.text = volume.ToString("F1");
+    }
+
+    public void volumeApply()
+    {
+        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        inSetActive.SetActive(false);
+        inSetActive = null;
+        settingsActive.SetActive(true);
+        //StartCoroutine(confirmBox());
+    }
+
+    public void resetDefault(string menuType)
+    {
+        if (menuType == "Audio")
+        {
+            AudioListener.volume = defaultVolume;
+            volumeSlider.value = defaultVolume;
+            volumeTextValue.text = defaultVolume.ToString("F1");
+            volumeApply();
+            inSetActive.SetActive(false);
+            inSetActive = null;
+            settingsActive.SetActive(true);
+        }
+    }
+
+    //public IEnumerator confirmBox()
+    //{
+    //    confirmPromp.SetActive(true);
+    //    yield return new WaitForSeconds(1);
+    //    confirmPromp.SetActive(false);
+    //}
+
 }
