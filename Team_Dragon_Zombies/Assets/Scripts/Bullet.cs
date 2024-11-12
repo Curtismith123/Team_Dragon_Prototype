@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -7,7 +5,7 @@ public class Bullet : MonoBehaviour
     private int damageAmount;
     private float speed;
     private Rigidbody rb;
-    [SerializeField] private float destroyTime = 5f;
+    private float destroyTime = 5f;
 
     private void Awake()
     {
@@ -22,6 +20,11 @@ public class Bullet : MonoBehaviour
     public void SetSpeed(float bulletSpeed)
     {
         speed = bulletSpeed;
+    }
+
+    public void SetDestroyTime(float time)
+    {
+        destroyTime = time;
     }
 
     private void Start()
