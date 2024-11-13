@@ -19,6 +19,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     bool isAttacking;
     bool playerInRange;
+    bool isDead = false;
 
     Color colorOrig;
     List<Renderer> renderers = new List<Renderer>();
@@ -109,13 +110,14 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        if (isDead) return;
+
         HP -= amount;
         StartCoroutine(flashRed());
 
-        agent.SetDestination(gameManager.instance.player.transform.position);
-
         if (HP <= 0)
         {
+            isDead = true;
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
