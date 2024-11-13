@@ -48,11 +48,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: 222
-  damage: 15
+  damage: 1
   fireRate: 1.5
   bulletPrefab: {fileID: 511615523544547766, guid: 873281fe0354ebb4dbac4933f4df705b, type: 3}
   bulletSpeed: 20
   firePoint: {fileID: 5639471572003029953}
+  pelletsPerShot: 8
+  spreadAngle: 8
+  bulletDestroyTime: 2
 --- !u!135 &2615217591708535924
 SphereCollider:
   m_ObjectHideFlags: 0

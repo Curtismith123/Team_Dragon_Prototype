@@ -16221,7 +16221,7 @@ GameObject:
   - component: {fileID: 5362312062549157374}
   m_Layer: 8
   m_Name: ORK
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16260,10 +16260,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5869803951974443298}
   model: {fileID: 2376387387545403253}
+  anim: {fileID: 6330698930683556388}
   headPos: {fileID: 7515499496232843712}
   HP: 80
   faceTargetSpeed: 5
   viewAngle: 90
+  roamDist: 1
+  roamTimer: 0
+  animSpeedTrans: 2
   attackRate: 1.7
   meleeDamage: 17
   attackRange: 2
@@ -16351,7 +16355,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
