@@ -29,7 +29,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] private int defaultSen = 300;
     [SerializeField] private Toggle invertYToggle;
 
-    [SerializeField] GameObject spinObject;
     [SerializeField] TMP_Text enemyCountText;
 
     public Image playerHPBar;
@@ -69,7 +68,7 @@ public class gameManager : MonoBehaviour
             else if (menuActive == menuPause)
             {
                 stateUnpause();
-                spinObject.GetComponent<spin>().enabled = true;
+                ToggleSpinObjects(true);
             }
         }
     }
