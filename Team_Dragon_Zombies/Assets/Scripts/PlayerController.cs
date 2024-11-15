@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         Debug.Log("Ammo before shot: " + currentWeapon.ammoCur);
 
+        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
         currentWeapon.ammoCur--;  // Decrease ammo by 1 when shooting
 
         Debug.Log("Ammo after shot: " + currentWeapon.ammoCur);
