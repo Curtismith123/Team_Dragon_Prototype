@@ -82,11 +82,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
         playerVel.y -= gravity * Time.deltaTime;
 
-
-        if (Input.GetButton("Fire1") && weaponList.Count > 0 && weaponList[selectedWeapon].ammoCur > 0 && !isShooting)
-        {
-            StartCoroutine(shoot());
-        }
     }
 
     void jump()
@@ -119,7 +114,19 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
-        currentWeapon.ammoCur--;
+
+        if (currentWeapon.ammoCur <= 0)
+        {
+            // sound here for click if out of ammo
+            yield break;
+        }
+
+        Debug.Log("Ammo before shot: " + currentWeapon.ammoCur);
+
+        currentWeapon.ammoCur--;  // Decrease ammo by 1 when shooting
+
+        Debug.Log("Ammo after shot: " + currentWeapon.ammoCur);
+
         StartCoroutine(flashMuzzle());
 
         int bulletsToFire = currentWeapon.pelletsPerShot > 1 ? currentWeapon.pelletsPerShot : 1;
@@ -295,7 +302,8 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
         {
-            weaponList[selectedWeapon].ammoCur = weaponList[selectedWeapon].ammoMax;
+            Weapon currentWeapon = weaponList[selectedWeapon];
+            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax); // Ensure ammo doesn't exceed max
         }
     }
 
