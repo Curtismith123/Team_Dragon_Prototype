@@ -167,7 +167,7 @@ public class gameManager : MonoBehaviour
 
     public void ammoUpdate(int ammoAmount)
     {
-        ammoCount = ammoAmount;
+        ammoCount = Mathf.RoundToInt(ammoAmount);
         ammoCountText.text = ammoCount.ToString("F0");
     }
 

@@ -123,8 +123,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
         Debug.Log("Ammo before shot: " + currentWeapon.ammoCur);
 
-        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
         currentWeapon.ammoCur--;  // Decrease ammo by 1 when shooting
+        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
 
         Debug.Log("Ammo after shot: " + currentWeapon.ammoCur);
 
@@ -211,6 +211,7 @@ public class PlayerController : MonoBehaviour, IDamage
             Destroy(child.gameObject);
         }
         ApplyWeaponParts(weapon.weaponModel.transform);
+        gameManager.instance.ammoUpdate(weapon.ammoCur);
     }
 
     void ApplyWeaponParts(Transform weaponPart)
@@ -305,6 +306,7 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             Weapon currentWeapon = weaponList[selectedWeapon];
             currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax); // Ensure ammo doesn't exceed max
+            gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
         }
     }
 
