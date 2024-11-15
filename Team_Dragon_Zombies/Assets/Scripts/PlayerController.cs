@@ -4,49 +4,44 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
+    [Header("-----Class-----")]
     [SerializeField] LayerMask ignoreMask;
     [SerializeField] CharacterController controller;
-
+    [Header("-----Player Stats-----")]
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
     [SerializeField] int jumpMax;
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
-
+    [Header("-----Weapon Info-----")]
     [SerializeField] List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] GameObject weaponModel;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] Transform shootPos;
     [SerializeField] GameObject bullet;
-    [SerializeField] int shootDamage;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
-    [SerializeField] float bulletSpeed = 0f;
-    [SerializeField] int pelletsPerShot = 0;
-    [SerializeField] float spreadAngle = 0.01f;
+    float shootDamage;
+    float shootDist;
+    float shootRate;
+    float bulletSpeed;
+    int pelletsPerShot;
+    float spreadAngle;
 
     Vector3 moveDir;
-
     Vector3 playerVel;
-
     bool isSprinting;
     bool isShooting;
-
     int jumpCount;
     int HPOrig;
     int selectedWeapon;
-
     private bool canFire = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
         updatePlayerUI();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!gameManager.instance.IsPaused)
@@ -61,6 +56,7 @@ public class PlayerController : MonoBehaviour, IDamage
             selectWeapon();
             reload();
         }
+
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && weaponList[selectedWeapon].ammoCur > 0 && canFire)
         {
             StartCoroutine(shoot());
@@ -130,16 +126,21 @@ public class PlayerController : MonoBehaviour, IDamage
 
         for (int i = 0; i < bulletsToFire; i++)
         {
-            GameObject newBullet = Instantiate(bullet, shootPos.position, shootPos.rotation);
+            GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
+
+            Vector3 shootDirection = shootPos.forward;
 
             if (bulletsToFire > 1)
             {
                 float horizontalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
                 float verticalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
-                Quaternion rotation = Quaternion.Euler(shootPos.eulerAngles + new Vector3(verticalAngle, horizontalAngle, 0));
-                Vector3 spreadDirection = rotation * shootPos.forward;
-                newBullet.transform.forward = spreadDirection;
+                float depthAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+
+                Quaternion rotation = Quaternion.Euler(verticalAngle, horizontalAngle, depthAngle);
+                shootDirection = rotation * shootDirection;
             }
+
+            newBullet.transform.forward = shootDirection;
 
             Bullet bulletScript = newBullet.GetComponent<Bullet>();
             bulletScript.SetSpeed(currentWeapon.bulletSpeed);
@@ -190,42 +191,18 @@ public class PlayerController : MonoBehaviour, IDamage
             weaponList.Add(weapon);
         }
         selectedWeapon = weaponList.Count - 1;
-
-        Weapon currentWeapon = weaponList[selectedWeapon];
-        shootDamage = currentWeapon.shootDamage;
-        shootRate = currentWeapon.shootRate;
-        shootDist = currentWeapon.shootDist;
-        bulletSpeed = currentWeapon.bulletSpeed;
-        pelletsPerShot = currentWeapon.pelletsPerShot;
-        spreadAngle = currentWeapon.spreadAngle;
-        shootPos = FindShootPos(currentWeapon.weaponModel.transform);
+        shootDamage = weaponList[selectedWeapon].shootDamage;
+        shootDist = weaponList[selectedWeapon].shootDist;
+        shootRate = weaponList[selectedWeapon].shootRate;
+        bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
+        pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
+        spreadAngle = weaponList[selectedWeapon].spreadAngle;
 
         foreach (Transform child in weaponModel.transform)
         {
             Destroy(child.gameObject);
         }
         ApplyWeaponParts(weapon.weaponModel.transform);
-    }
-
-    Transform FindShootPos(Transform parent)
-    {
-        if (parent.name.Contains("ShootPos"))
-        {
-            Debug.Log("ShootPos found: " + parent.name);
-            return parent;
-        }
-
-        foreach (Transform child in parent)
-        {
-            Transform found = FindShootPos(child);
-            if (found != null)
-            {
-                return found;
-            }
-        }
-
-        Debug.LogWarning("ShootPos not found in " + parent.name);
-        return null;
     }
 
     void ApplyWeaponParts(Transform weaponPart)
@@ -269,11 +246,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void changeWeapon()
     {
-        shootPos = FindShootPos(weaponList[selectedWeapon].weaponModel.transform);
-        if (shootPos == null)
-        {
-            Debug.LogError("shootPos not found in new weapon model");
-        }
 
         foreach (Transform child in weaponModel.transform)
         {
@@ -310,19 +282,12 @@ public class PlayerController : MonoBehaviour, IDamage
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
 
-        shootPos = FindShootPos(weaponModel.transform);
-        if (shootPos == null)
-        {
-            Debug.LogError("shootPos not found in new weapon model");
-        }
-
-
     }
 
     IEnumerator FireCooldown()
     {
         canFire = false;
-        yield return new WaitForSeconds(shootRate);
+        yield return new WaitForSeconds(weaponList[selectedWeapon].shootRate);
         canFire = true;
     }
 
@@ -335,5 +300,3 @@ public class PlayerController : MonoBehaviour, IDamage
     }
 
 }
-
-
