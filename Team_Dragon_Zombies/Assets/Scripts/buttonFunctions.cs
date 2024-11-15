@@ -35,6 +35,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.settingsBack();
     }
+    // Audio
     public void soundMenu()
     {
         gameManager.instance.audioMenu();
@@ -50,9 +51,25 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.resetDefault("Audio");
     }
 
+    public void indiviualBack()
+    {
+        gameManager.instance.inSetBack();
+    }
+    // Gameplay
     public void gmPlayApply()
     {
         gameManager.instance.gameplayApply();
+    }
+
+    // Graphics
+    public void graphicsMenu()
+    {
+        gameManager.instance.graphMenu();
+    }
+
+    public void graphAppply()
+    {
+        gameManager.instance.graphicsApply();
     }
 
 }
