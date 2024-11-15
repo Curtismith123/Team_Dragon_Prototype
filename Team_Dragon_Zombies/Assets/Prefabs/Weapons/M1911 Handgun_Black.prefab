@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2550793914881264595}
-  - component: {fileID: 2558057050671916434}
   - component: {fileID: 4381452280279760978}
   m_Layer: 0
   m_Name: M1911 Handgun_Black
@@ -27,33 +26,16 @@ Transform:
   m_GameObject: {fileID: 2553938622012992933}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6830133, y: -0.6830133, z: -0.18301052, w: -0.18301052}
-  m_LocalPosition: {x: -4.8137703, y: 8.541731, z: -0.0032525063}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7780844884289098407}
   - {fileID: 6435099715538042976}
   - {fileID: 2556065591124247593}
   - {fileID: 8590029416973240202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -210, z: 90}
---- !u!114 &2558057050671916434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2553938622012992933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f776e9c61beee64dbc87de8f28947e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponID: 111
-  damage: 10
-  fireRate: 0.5
-  bulletPrefab: {fileID: 511615523544547766, guid: 873281fe0354ebb4dbac4933f4df705b, type: 3}
-  bulletSpeed: 20
-  firePoint: {fileID: 2556065591124247593}
 --- !u!136 &4381452280279760978
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -139,6 +121,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6435099715538042978}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
+--- !u!1 &4193812792640370533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7780844884289098407}
+  m_Layer: 0
+  m_Name: ShootPos -M1911 Handgun_Black
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7780844884289098407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193812792640370533}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.6830133, y: 0.6830133, z: 0.18301052, w: -0.18301052}
+  m_LocalPosition: {x: 0, y: 0.09980002, z: 0.1830001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2550793914881264595}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4604196412614466517
 GameObject:
   m_ObjectHideFlags: 0

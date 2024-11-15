@@ -2,19 +2,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int damageAmount;
     private float speed;
+    private int damage;
     private Rigidbody rb;
-    private float destroyTime = 5f;
+    private float destroyTime;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    public void SetDamage(int damage)
-    {
-        damageAmount = damage;
     }
 
     public void SetSpeed(float bulletSpeed)
@@ -27,6 +22,11 @@ public class Bullet : MonoBehaviour
         destroyTime = time;
     }
 
+    public void SetDamage(int bulletDamage)
+    {
+        damage = bulletDamage;
+    }
+
     private void Start()
     {
         rb.linearVelocity = transform.forward * speed;
@@ -37,10 +37,10 @@ public class Bullet : MonoBehaviour
     {
         if (other.isTrigger) return;
 
-        IDamage dmg = other.GetComponent<IDamage>();
-        if (dmg != null)
+        IDamage damageable = other.GetComponent<IDamage>();
+        if (damageable != null)
         {
-            dmg.takeDamage(damageAmount);
+            damageable.takeDamage(damage);
         }
 
         Destroy(gameObject);

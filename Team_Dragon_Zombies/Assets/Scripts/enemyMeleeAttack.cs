@@ -7,11 +7,15 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
+    [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
 
     [SerializeField] int HP;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int viewAngle;
+    [SerializeField] int roamDist;
+    [SerializeField] int roamTimer;
+    [SerializeField] int animSpeedTrans;
 
     [SerializeField] float attackRate = 1.5f; //default 1.5s
     [SerializeField] int meleeDamage = 10; //default 10 dmg
@@ -19,14 +23,17 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     bool isAttacking;
     bool playerInRange;
+    bool isRoaming;
     bool isDead = false;
 
     Color colorOrig;
     List<Renderer> renderers = new List<Renderer>();
 
     Vector3 playerDir;
+    Vector3 startingPos;
 
     float angleToPlayer;
+    float stoppingDistOrig;
 
     void Start()
     {
@@ -39,10 +46,16 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             colorOrig = renderer.material.color;
         }
         gameManager.instance.updateGameGoal(1);
+        stoppingDistOrig = agent.stoppingDistance;
+        startingPos = transform.position;
     }
 
     void Update()
     {
+        float agentSpeed = agent.velocity.normalized.magnitude;
+        float animSpeed = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTrans));
 
         if (playerInRange && canSeePlayer())
         {
@@ -57,9 +70,36 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
             if (!isAttacking)
             {
-                StartCoroutine(MeleeAttack());
+                StartCoroutine(melee());
             }
         }
+
+        if (playerInRange && !canSeePlayer())
+        {
+            if (!isRoaming && agent.remainingDistance < 0.05f)
+                StartCoroutine(roam());
+        }
+        else if (!playerInRange)
+        {
+            if (!isRoaming && agent.remainingDistance < 0.05f)
+                StartCoroutine(roam());
+        }
+    }
+
+    IEnumerator roam()
+    {
+        isRoaming = true;
+        yield return new WaitForSeconds(roamTimer);
+
+        agent.stoppingDistance = 0;
+        Vector3 randomDist = Random.insideUnitSphere * roamDist;
+        randomDist += startingPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDist, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
+
+        isRoaming = false;
     }
 
     bool canSeePlayer()
@@ -84,11 +124,13 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
                 if (!isAttacking)
                 {
-                    StartCoroutine(MeleeAttack());
+                    StartCoroutine(melee());
                 }
                 return true;
             }
         }
+        agent.stoppingDistance = 0;
+
         return false;
     }
 
@@ -115,6 +157,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         HP -= amount;
         StartCoroutine(flashRed());
 
+        agent.SetDestination(gameManager.instance.player.transform.position);
+
         if (HP <= 0)
         {
             isDead = true;
@@ -138,9 +182,10 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator MeleeAttack()
+    IEnumerator melee()
     {
         isAttacking = true;
+        anim.SetTrigger("Melee");
 
         if (gameManager.instance.player != null &&
             Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= attackRange)

@@ -14,7 +14,20 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
 
+    [SerializeField] List<Weapon> weaponList = new List<Weapon>();
+    [SerializeField] GameObject weaponModel;
+    [SerializeField] GameObject muzzleFlash;
+    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject bullet;
+    [SerializeField] int shootDamage;
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
+    [SerializeField] float bulletSpeed = 0f;
+    [SerializeField] int pelletsPerShot = 0;
+    [SerializeField] float spreadAngle = 0.01f;
+
     Vector3 moveDir;
+
     Vector3 playerVel;
 
     bool isSprinting;
@@ -22,18 +35,39 @@ public class PlayerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
+    int selectedWeapon;
 
+    private bool canFire = true;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
         updatePlayerUI();
     }
+
+    // Update is called once per frame
     void Update()
     {
+        if (!gameManager.instance.IsPaused)
+        {
+            movement();
+            sprint();
+        }
 
-        movement();
-        sprint();
+        if (weaponList.Count > 0)
+        {
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weaponList[selectedWeapon].shootDist, Color.red);
+            selectWeapon();
+            reload();
+        }
+        if (Input.GetButton("Fire1") && weaponList.Count > 0 && weaponList[selectedWeapon].ammoCur > 0 && canFire)
+        {
+            StartCoroutine(shoot());
+            StartCoroutine(FireCooldown());
+        }
     }
+
     void movement()
     {
         if (controller.isGrounded)
@@ -41,16 +75,22 @@ public class PlayerController : MonoBehaviour, IDamage
             jumpCount = 0;
             playerVel = Vector3.zero;
         }
-
         moveDir = (transform.forward * Input.GetAxis("Vertical")) +
-                  (transform.right * Input.GetAxis("Horizontal"));
+          (transform.right * Input.GetAxis("Horizontal"));
 
         controller.Move(moveDir * speed * Time.deltaTime);
 
         jump();
+
         controller.Move(playerVel * Time.deltaTime);
+
         playerVel.y -= gravity * Time.deltaTime;
 
+
+        if (Input.GetButton("Fire1") && weaponList.Count > 0 && weaponList[selectedWeapon].ammoCur > 0 && !isShooting)
+        {
+            StartCoroutine(shoot());
+        }
     }
 
     void jump()
@@ -61,6 +101,8 @@ public class PlayerController : MonoBehaviour, IDamage
             playerVel.y = jumpSpeed;
         }
     }
+
+
 
     void sprint()
     {
@@ -74,6 +116,46 @@ public class PlayerController : MonoBehaviour, IDamage
             speed /= sprintMod;
             isSprinting = false;
         }
+    }
+
+
+    IEnumerator shoot()
+    {
+        isShooting = true;
+        Weapon currentWeapon = weaponList[selectedWeapon];
+        currentWeapon.ammoCur--;
+        StartCoroutine(flashMuzzle());
+
+        int bulletsToFire = currentWeapon.pelletsPerShot > 1 ? currentWeapon.pelletsPerShot : 1;
+
+        for (int i = 0; i < bulletsToFire; i++)
+        {
+            GameObject newBullet = Instantiate(bullet, shootPos.position, shootPos.rotation);
+
+            if (bulletsToFire > 1)
+            {
+                float horizontalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+                float verticalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+                Quaternion rotation = Quaternion.Euler(shootPos.eulerAngles + new Vector3(verticalAngle, horizontalAngle, 0));
+                Vector3 spreadDirection = rotation * shootPos.forward;
+                newBullet.transform.forward = spreadDirection;
+            }
+
+            Bullet bulletScript = newBullet.GetComponent<Bullet>();
+            bulletScript.SetSpeed(currentWeapon.bulletSpeed);
+            bulletScript.SetDamage(currentWeapon.shootDamage);
+            bulletScript.SetDestroyTime(currentWeapon.bulletDestroyTime);
+        }
+
+        yield return new WaitForSeconds(currentWeapon.shootRate);
+        isShooting = false;
+    }
+
+    IEnumerator flashMuzzle()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        muzzleFlash.SetActive(false);
     }
 
     public void takeDamage(int amount)
@@ -101,5 +183,157 @@ public class PlayerController : MonoBehaviour, IDamage
 
     }
 
+    public void getWeaponStats(Weapon weapon)
+    {
+        if (!weaponList.Contains(weapon))
+        {
+            weaponList.Add(weapon);
+        }
+        selectedWeapon = weaponList.Count - 1;
+
+        Weapon currentWeapon = weaponList[selectedWeapon];
+        shootDamage = currentWeapon.shootDamage;
+        shootRate = currentWeapon.shootRate;
+        shootDist = currentWeapon.shootDist;
+        bulletSpeed = currentWeapon.bulletSpeed;
+        pelletsPerShot = currentWeapon.pelletsPerShot;
+        spreadAngle = currentWeapon.spreadAngle;
+        shootPos = FindShootPos(currentWeapon.weaponModel.transform);
+
+        foreach (Transform child in weaponModel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        ApplyWeaponParts(weapon.weaponModel.transform);
+    }
+
+    Transform FindShootPos(Transform parent)
+    {
+        if (parent.name.Contains("ShootPos"))
+        {
+            Debug.Log("ShootPos found: " + parent.name);
+            return parent;
+        }
+
+        foreach (Transform child in parent)
+        {
+            Transform found = FindShootPos(child);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+
+        Debug.LogWarning("ShootPos not found in " + parent.name);
+        return null;
+    }
+
+    void ApplyWeaponParts(Transform weaponPart)
+    {
+        foreach (Transform child in weaponPart)
+        {
+            MeshFilter meshFilter = child.GetComponent<MeshFilter>();
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+
+            if (meshFilter != null && meshRenderer != null)
+            {
+                GameObject weaponPartObj = new GameObject(child.name);
+                weaponPartObj.transform.SetParent(weaponModel.transform, false);
+                weaponPartObj.transform.localPosition = child.localPosition;
+                weaponPartObj.transform.localRotation = child.localRotation;
+                weaponPartObj.transform.localScale = child.localScale;
+
+                MeshFilter partMeshFilter = weaponPartObj.AddComponent<MeshFilter>();
+                MeshRenderer partMeshRenderer = weaponPartObj.AddComponent<MeshRenderer>();
+                partMeshFilter.sharedMesh = meshFilter.sharedMesh;
+                partMeshRenderer.sharedMaterial = meshRenderer.sharedMaterial;
+            }
+            ApplyWeaponParts(child);
+        }
+    }
+
+    void selectWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+        {
+            selectedWeapon++;
+            changeWeapon();
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+        {
+            selectedWeapon--;
+            changeWeapon();
+        }
+        selectedWeapon = Mathf.Clamp(selectedWeapon, 0, weaponList.Count - 1);
+    }
+
+    void changeWeapon()
+    {
+        shootPos = FindShootPos(weaponList[selectedWeapon].weaponModel.transform);
+        if (shootPos == null)
+        {
+            Debug.LogError("shootPos not found in new weapon model");
+        }
+
+        foreach (Transform child in weaponModel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        ApplyWeaponParts(weaponList[selectedWeapon].weaponModel.transform);
+
+        MeshFilter newMeshFilter = weaponList[selectedWeapon].weaponModel.GetComponent<MeshFilter>();
+        MeshRenderer newMeshRenderer = weaponList[selectedWeapon].weaponModel.GetComponent<MeshRenderer>();
+
+        if (newMeshFilter != null)
+        {
+            weaponModel.GetComponent<MeshFilter>().sharedMesh = newMeshFilter.sharedMesh;
+        }
+        else
+        {
+            Debug.LogWarning($"Weapon {weaponList[selectedWeapon].name} is missing a MeshFilter component.");
+        }
+
+        if (newMeshRenderer != null)
+        {
+            weaponModel.GetComponent<MeshRenderer>().sharedMaterial = newMeshRenderer.sharedMaterial;
+        }
+        else
+        {
+            Debug.LogWarning($"Weapon {weaponList[selectedWeapon].name} is missing a MeshRenderer component.");
+        }
+
+        shootDamage = weaponList[selectedWeapon].shootDamage;
+        shootDist = weaponList[selectedWeapon].shootDist;
+        shootRate = weaponList[selectedWeapon].shootRate;
+        bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
+        pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
+        spreadAngle = weaponList[selectedWeapon].spreadAngle;
+
+        shootPos = FindShootPos(weaponModel.transform);
+        if (shootPos == null)
+        {
+            Debug.LogError("shootPos not found in new weapon model");
+        }
+
+
+    }
+
+    IEnumerator FireCooldown()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(shootRate);
+        canFire = true;
+    }
+
+    void reload()
+    {
+        if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
+        {
+            weaponList[selectedWeapon].ammoCur = weaponList[selectedWeapon].ammoMax;
+        }
+    }
 
 }
+
+

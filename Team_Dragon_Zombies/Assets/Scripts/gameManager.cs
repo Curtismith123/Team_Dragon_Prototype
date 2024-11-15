@@ -39,7 +39,6 @@ public class gameManager : MonoBehaviour
     private bool isFullScreen;
     private float brightnesslevel;
 
-    [SerializeField] GameObject spinObject;
     [SerializeField] TMP_Text enemyCountText;
 
     public Image playerHPBar;
@@ -102,7 +101,7 @@ public class gameManager : MonoBehaviour
             else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
             {
                 stateUnpause();
-                spinObject.GetComponent<spin>().enabled = true;
+                ToggleSpinObjects(true);
             }
             else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
             {
