@@ -40,6 +40,7 @@ public class gameManager : MonoBehaviour
     private float brightnesslevel;
 
     [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text ammoCountText;
 
     public Image playerHPBar;
     public GameObject playerDamageScreen;
@@ -53,6 +54,7 @@ public class gameManager : MonoBehaviour
 
     float timeScaleOriG;
     public int enemyCount;
+    public int ammoCount;
 
     void Awake()
     {
@@ -163,6 +165,11 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    public void ammoUpdate(int ammoAmount)
+    {
+        ammoCount = ammoAmount;
+        ammoCountText.text = ammoCount.ToString("F0");
+    }
 
     public void updateGameGoal(int amount)
     {
