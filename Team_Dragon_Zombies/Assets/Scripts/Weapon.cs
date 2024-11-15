@@ -20,11 +20,10 @@ public class Weapon : ScriptableObject
     [Range(1, 12)] public int pelletsPerShot = 1;
     [Header("0.01f for single shot guns, 2-5 for shotgun or other")]
     [Range(0.01f, 5)] public float spreadAngle = 0.01f;
+
     [Header("-----Misc Components-----")]
     public ParticleSystem hitEffect;
     public AudioClip[] shootSound;
     public float shootVol;
 
-
-    //add public vec 3, instantiate bullet from enemy ai shoot pos + offset
 }
