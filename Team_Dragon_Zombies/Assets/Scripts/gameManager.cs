@@ -28,6 +28,16 @@ public class gameManager : MonoBehaviour
     [SerializeField] private Slider sensSlider;
     [SerializeField] private int defaultSen = 300;
     [SerializeField] private Toggle invertYToggle;
+    // Graphics Objects
+    [SerializeField] GameObject menuGraphics;
+    [SerializeField] private TMP_Dropdown qltyDropdown;
+    [SerializeField] private Toggle fullScrToggle;
+    public TMP_Dropdown resDropDown;
+    private Resolution[] resolutions;
+
+    private int qualityLevel;
+    private bool isFullScreen;
+    private float brightnesslevel;
 
     [SerializeField] GameObject spinObject;
     [SerializeField] TMP_Text enemyCountText;
@@ -51,14 +61,37 @@ public class gameManager : MonoBehaviour
         timeScaleOriG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+
+        resolutions = Screen.resolutions;
+        resDropDown.ClearOptions();
+
+        List<string> resOptions = new List<string>();
+        int currRes = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string res = resolutions[i].width + " x " + resolutions[i].height;
+            resOptions.Add(res);
+
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            {
+                currRes = i;
+            }
+        }
+
+        resDropDown.AddOptions(resOptions);
+        resDropDown.value = currRes;
+        resDropDown.RefreshShownValue();
+
     }
+
 
     void Update()
     {
 
         if (Input.GetButtonDown("Cancel") && !gameEnded)
         {
-            if (menuActive == null)
+            if (menuActive == null && settingsActive == null && inSetActive == null)
             {
                 statePause();
                 menuActive = menuPause;
@@ -66,10 +99,24 @@ public class gameManager : MonoBehaviour
 
                 ToggleSpinObjects(IsPaused);
             }
-            else if (menuActive == menuPause)
+            else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
             {
                 stateUnpause();
                 spinObject.GetComponent<spin>().enabled = true;
+            }
+            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
+            {
+                settingsActive.SetActive(false);
+                settingsActive = null;
+                stateUnpause();
+            }
+            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
+            {
+                inSetActive.SetActive(false);
+                inSetActive = null;
+                settingsActive.SetActive(false);
+                settingsActive = null;
+                stateUnpause();
             }
         }
     }
@@ -194,7 +241,13 @@ public class gameManager : MonoBehaviour
         inSetActive.SetActive(false);
         inSetActive = null;
         settingsActive.SetActive(true);
-        //StartCoroutine(confirmBox());
+    }
+
+    public void inSetBack()
+    {
+        inSetActive.SetActive(false);
+        inSetActive = null;
+        settingsActive.SetActive(true);
     }
 
     public void resetDefault(string menuType)
@@ -217,14 +270,21 @@ public class gameManager : MonoBehaviour
             invertYToggle.isOn = false;
             gameplayApply();
         }
-    }
 
-    //public IEnumerator confirmBox()
-    //{
-    //    confirmPromp.SetActive(true);
-    //    yield return new WaitForSeconds(1);
-    //    confirmPromp.SetActive(false);
-    //}
+        if (menuType == "Graphics")
+        {
+            //Reset brightness
+            qltyDropdown.value = 1;
+            QualitySettings.SetQualityLevel(1);
+            fullScrToggle.isOn = true;
+            Screen.fullScreen = true;
+
+            Resolution currRes = Screen.currentResolution;
+            Screen.SetResolution(currRes.width, currRes.height, Screen.fullScreen);
+            resDropDown.value = resolutions.Length;
+            graphicsApply();
+        }
+    }
     
     // Gameplay
     public void gameplayMenu()
@@ -257,15 +317,48 @@ public class gameManager : MonoBehaviour
         settingsActive.SetActive(true);
     }
 
-    public void gameplayBack()
+    // Graphics
+    public void graphMenu()
     {
-        inSetActive.SetActive(false);
-        inSetActive = null;
-        settingsActive.SetActive(true);
+        settingsActive.SetActive(false);
+        inSetActive = menuGraphics;
+        inSetActive.SetActive(true);
     }
 
-    public void gameplayDefault()
+    public bool IsFullScreen
     {
+        get { return isFullScreen; }
+        set
+        {
+            isFullScreen = !isFullScreen;
+        }
+    }
 
+    public void setFullScreen(bool fullScreen)
+    {
+        isFullScreen = fullScreen;
+    }
+
+    public void setQuality(int qualityIndex)
+    {
+        qualityLevel = qualityIndex;
+    }
+
+    public void graphicsApply()
+    {
+        //brightness
+        PlayerPrefs.SetInt("masterQuality", qualityLevel);
+        QualitySettings.SetQualityLevel(qualityLevel);
+
+        PlayerPrefs.SetInt("masterFullSCreen", (IsFullScreen ? 1 : 0));
+        Screen.fullScreen = IsFullScreen;
+        setResolution(resDropDown.value);
+        inSetBack();
+    }
+
+    public void setResolution(int resIndex)
+    {
+        Resolution resolution = resolutions[resIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }
