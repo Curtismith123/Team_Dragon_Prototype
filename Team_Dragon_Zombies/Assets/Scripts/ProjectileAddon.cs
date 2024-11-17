@@ -38,12 +38,4 @@ public class ProjectileAddon : MonoBehaviour
         transform.SetParent(collision.transform);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (targetHit && rb.isKinematic)
-        {
-            rb.MovePosition(transform.position);
-        }
-    }
 }
