@@ -6,23 +6,24 @@ using UnityEngine;
 
 public class Weapon : ScriptableObject
 {
-
+    [Header("-----Weapon Stats-----")]
     public GameObject weaponModel;
-    public int shootDamage;
-    public int shootDist;
-    public float shootRate;
-    public float bulletSpeed = 20f;
+    [Range(1, 15)] public int shootDamage;
+    [Range(1, 100)] public int shootDist;
+    [Range(1, 10)] public float shootRate;
+    [Range(1, 100)] public float bulletSpeed = 20f;
     public int ammoCur, ammoMax;
-    public float bulletDestroyTime = 5f;
+    [Range(1, 10)] public float bulletDestroyTime = 5f;
 
-    //shotgun stats
-    public int pelletsPerShot = 1;
-    public float spreadAngle = 0.01f;
+    [Header("-----Shotgun Stats-----")]
+    [Header("1 for single shot guns, 2+ for shotguns or other")]
+    [Range(1, 12)] public int pelletsPerShot = 1;
+    [Header("0.01f for single shot guns, 2-5 for shotgun or other")]
+    [Range(0.01f, 5)] public float spreadAngle = 0.01f;
 
+    [Header("-----Misc Components-----")]
     public ParticleSystem hitEffect;
     public AudioClip[] shootSound;
     public float shootVol;
 
-
-    //add public vec 3, instantiate bullet from enemy ai shoot pos + offset
 }
