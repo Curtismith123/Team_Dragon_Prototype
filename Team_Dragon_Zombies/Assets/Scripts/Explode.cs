@@ -14,14 +14,19 @@ public class Explode : MonoBehaviour
 
     public Rigidbody rb;
     public bool isBroken;
+    public LayerMask ignoreLayers; 
 
     // Use this for initialization
     void Start()
     {
         // calculate pivot distance
         cubesPivotDistance = cubeSize * cubesInRow / 2;
+
         // use this value to create pivot vector
         cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
+
+        // Set Rigidbody to be Kinematic initialy 
+        rb.isKinematic = true;
     }
 
     void Update()
@@ -35,6 +40,11 @@ public class Explode : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
+        if ((ignoreLayers.value & (1 << other.gameObject.layer)) != 0)
+        {
+            return;
+        }
+
         if (other.CompareTag("Breaker"))
         {
             isBroken = true;
