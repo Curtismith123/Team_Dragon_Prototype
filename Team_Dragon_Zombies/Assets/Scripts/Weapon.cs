@@ -10,7 +10,7 @@ public class Weapon : ScriptableObject
     public GameObject weaponModel;
     [Range(1, 15)] public int shootDamage;
     [Range(1, 100)] public int shootDist;
-    [Range(1, 10)] public float shootRate;
+    [Range(0.15f, 10)] public float shootRate;
     [Range(1, 100)] public float bulletSpeed = 20f;
     public int ammoCur, ammoMax;
     [Range(1, 10)] public float bulletDestroyTime = 5f;
