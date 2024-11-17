@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class ObjectDamage : MonoBehaviour
 {
     [Header("Stats")]
     public int health;
