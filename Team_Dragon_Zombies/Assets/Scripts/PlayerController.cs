@@ -38,6 +38,15 @@ public class PlayerController : MonoBehaviour, IDamage
     int pelletsPerShot;
     float spreadAngle;
 
+    [Header("-----Audio-----")]
+    [SerializeField] AudioSource aud;
+
+    [SerializeField] AudioClip[] audJump;
+    [SerializeField][Range(0,1)] float audJumpVol;
+    [SerializeField] AudioClip[] audLanding;
+    [SerializeField][Range(0, 1)] float audLandingVol;
+
+
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour, IDamage
     int SpeedAlt;
     int selectedWeapon;
     private bool canFire = true;
+    private bool hasJumped;
 
     void Start()
     {
@@ -53,6 +63,7 @@ public class PlayerController : MonoBehaviour, IDamage
         SpeedAlt = Speed;
         currentStamina = maxStamina;
         updatePlayerUI();
+        
     }
 
     void Update()
@@ -75,6 +86,8 @@ public class PlayerController : MonoBehaviour, IDamage
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
         }
+
+
     }
 
     void movement()
@@ -95,6 +108,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         playerVel.y -= gravity * Time.deltaTime;
 
+        CheckLanding();
     }
 
     void jump()
@@ -103,7 +117,22 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             jumpCount++;
             playerVel.y = jumpSpeed;
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+            hasJumped = true;
         }
+        
+        
+    }
+
+    //play landing sound
+    void CheckLanding()
+    {
+       if (controller.isGrounded && hasJumped)
+        {
+            aud.PlayOneShot(audLanding[Random.Range(0, audLanding.Length)], audLandingVol);
+            hasJumped = false;
+        }
+
     }
 
 
