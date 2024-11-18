@@ -1,4 +1,6 @@
+// ThrowObjects.cs
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThrowObjects : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class ThrowObjects : MonoBehaviour
     public GameObject objectToThrow;
 
     [Header("Settings")]
-    public int totalThrows;
+    [Range(3, 3)] public int totalThrows; // Set the initial number of throws
     public float throwCooldown;
 
     [Header("Throwing")]
@@ -16,16 +18,19 @@ public class ThrowObjects : MonoBehaviour
     public float throwForce;
     public float throwUpwardForce;
 
+    private int remainingThrows; // Track remaining throws
     bool readyToThrow;
 
     private void Start()
     {
         readyToThrow = true;
+        remainingThrows = totalThrows; // Initialize remaining throws
+        gameManager.instance.UpdateThrowers(remainingThrows); // Set the initial fill bar state
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
+        if (Input.GetKeyDown(throwKey) && readyToThrow && remainingThrows > 0)
         {
             Throw();
         }
@@ -35,36 +40,41 @@ public class ThrowObjects : MonoBehaviour
     {
         readyToThrow = false;
 
-        // instantiate object to throw 
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation); 
+        // Instantiate object to throw 
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
 
-        // get rigibody component
+        // Get Rigidbody component
         Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
 
-        // calculate direction
+        // Calculate direction
         Vector3 forceDirection = cam.transform.forward;
 
         RaycastHit hit;
 
-        if(Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+        if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
         {
             forceDirection = (hit.point - attackPoint.position).normalized;
         }
 
-        // add force
+        // Add force
         Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-
         projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
 
-        totalThrows--;
+        // Decrement remaining throws
+        remainingThrows--;
+        gameManager.instance.UpdateThrowers(remainingThrows); // Update the fill bar immediately
 
-        // implement throwCooldown
+        // Implement throwCooldown
         Invoke(nameof(ResetThrow), throwCooldown);
+    }
+
+    public int GetTotalThrows()
+    {
+        return totalThrows;
     }
 
     private void ResetThrow()
     {
         readyToThrow = true;
     }
-
 }

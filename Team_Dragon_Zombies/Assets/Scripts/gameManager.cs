@@ -42,12 +42,15 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
+    public GameObject player;
     public Image playerHPBar;
     public Image playerStaminaBar;
+    public PlayerController playerScript;
     public GameObject playerDamageScreen;
 
-    public GameObject player;
-    public PlayerController playerScript;
+    public ThrowObjects throwObjects;
+    public Image Throwers;
+
 
     private bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
@@ -56,6 +59,7 @@ public class gameManager : MonoBehaviour
     float timeScaleOriG;
     public int enemyCount;
     public int ammoCount;
+
 
     void Awake()
     {
@@ -81,12 +85,18 @@ public class gameManager : MonoBehaviour
             }
         }
 
+        throwObjects = player.GetComponent<ThrowObjects>();
+
         resDropDown.AddOptions(resOptions);
         resDropDown.value = currRes;
         resDropDown.RefreshShownValue();
 
     }
 
+    void Start()
+    {
+        InitializeThrowers();
+    }
 
     void Update()
     {
@@ -170,6 +180,18 @@ public class gameManager : MonoBehaviour
     {
         ammoCount = Mathf.RoundToInt(ammoAmount);
         ammoCountText.text = ammoCount.ToString("F0");
+    }
+
+
+    public void InitializeThrowers()
+    {
+        UpdateThrowers(throwObjects.GetTotalThrows());
+    }
+
+    public void UpdateThrowers(int remainingThrows)
+    {
+        float fillAmount = Mathf.Clamp01((float)remainingThrows / throwObjects.GetTotalThrows());
+        Throwers.fillAmount = fillAmount;
     }
 
     public void updateGameGoal(int amount)

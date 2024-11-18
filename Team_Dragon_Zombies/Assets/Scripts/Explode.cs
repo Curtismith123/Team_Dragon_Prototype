@@ -14,7 +14,7 @@ public class Explode : MonoBehaviour
 
     public Rigidbody rb;
     public bool isBroken;
-    public LayerMask ignoreLayers; 
+    public LayerMask ignoreLayers;
 
     // Use this for initialization
     void Start()
@@ -25,7 +25,7 @@ public class Explode : MonoBehaviour
         // use this value to create pivot vector
         cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
 
-        // Set Rigidbody to be Kinematic initialy 
+        // Set Rigidbody to be Kinematic initially
         rb.isKinematic = true;
     }
 
@@ -37,7 +37,6 @@ public class Explode : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
         if ((ignoreLayers.value & (1 << other.gameObject.layer)) != 0)
@@ -45,14 +44,11 @@ public class Explode : MonoBehaviour
             return;
         }
 
+        // Check if the collided object has the "Breaker" tag
         if (other.CompareTag("Breaker"))
         {
             isBroken = true;
-        }
-
-        if (!other.isTrigger)
-        {
-            ExplodeObjects();
+            ExplodeObjects(); // Trigger the explosion if hit by a "Breaker"
         }
     }
 
@@ -61,7 +57,7 @@ public class Explode : MonoBehaviour
         // make object disappear
         gameObject.SetActive(false);
 
-        // loop 3 times to create 5x5x5 pieces in x,y,z coordinates
+        // loop 3 times to create 5x5x5 pieces in x, y, z coordinates
         for (int x = 0; x < cubesInRow; x++)
         {
             for (int y = 0; y < cubesInRow; y++)
@@ -75,12 +71,14 @@ public class Explode : MonoBehaviour
 
         // get explosion position
         Vector3 explosionPos = transform.position;
+
         // get colliders in that position and radius
         Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
+
         // add explosion force to all colliders in that overlap sphere
         foreach (Collider hit in colliders)
         {
-            // get rigibody from colliders object
+            // get Rigidbody from colliders object
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -88,12 +86,10 @@ public class Explode : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpward);
             }
         }
-
     }
 
     void createPiece(int x, int y, int z)
     {
-
         // create piece
         GameObject piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
@@ -101,9 +97,8 @@ public class Explode : MonoBehaviour
         piece.transform.position = transform.position + new Vector3(cubeSize * x, cubeSize * y, cubeSize * z) - cubesPivot;
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
-        // add rigibody and set mass
+        // add Rigidbody and set mass
         Rigidbody rb = piece.AddComponent<Rigidbody>();
         rb.mass = cubeSize;
     }
-
 }
