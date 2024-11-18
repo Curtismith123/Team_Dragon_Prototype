@@ -12,11 +12,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int HP;
 
     [Header("-----Sprint Modifiers-----")]
-    [SerializeField] [Range(1, 10)] int Speed = 5;
+    [SerializeField][Range(1, 10)] int Speed = 5;
     [SerializeField] float maxStamina = 100f;
-    [SerializeField] [Range(1, 20)] float staminaRegenRate = 10;
-    [SerializeField] [Range(1, 10)] float staminaDepletionRate = 20f;
-    [SerializeField] [Range(1, 5)] int sprintMod = 2;
+    [SerializeField][Range(1, 20)] float staminaRegenRate = 10;
+    [SerializeField][Range(1, 10)] float staminaDepletionRate = 20f;
+    [SerializeField][Range(1, 5)] int sprintMod = 2;
     private float currentStamina;
     private bool isSprinting;
 
@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Sprint") && currentStamina > 0)
         {
 
-                SpeedAlt *= sprintMod;
-                isSprinting = true;
+            SpeedAlt *= sprintMod;
+            isSprinting = true;
 
 
             currentStamina -= staminaDepletionRate * Time.deltaTime;
@@ -124,9 +124,9 @@ public class PlayerController : MonoBehaviour, IDamage
         else if (Input.GetButtonUp("Sprint"))
         {
 
-                SpeedAlt = Speed;
-                isSprinting = false;
-            
+            SpeedAlt = Speed;
+            isSprinting = false;
+
 
             if (currentStamina < maxStamina)
             {
@@ -149,12 +149,18 @@ public class PlayerController : MonoBehaviour, IDamage
             yield break;
         }
 
-        Debug.Log("Ammo before shot: " + currentWeapon.ammoCur);
+        //------------------------Ammo decrament logic
+        weaponList[selectedWeapon].ammoCur--;
 
-        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
-        currentWeapon.ammoCur--;
-
-        Debug.Log("Ammo after shot: " + currentWeapon.ammoCur);
+        if (weaponList[selectedWeapon].ammoCur <= 0)
+        {
+            gameManager.instance.ammoUpdate(0);
+        }
+        else
+        {
+            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
+        }
+        //------------------------
 
         StartCoroutine(flashMuzzle());
 
@@ -337,7 +343,8 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
         {
             Weapon currentWeapon = weaponList[selectedWeapon];
-            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax); // Ensure ammo doesn't exceed max
+            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax);
+            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
         }
     }
 

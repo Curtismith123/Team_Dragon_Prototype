@@ -292,7 +292,7 @@ public class gameManager : MonoBehaviour
             graphicsApply();
         }
     }
-    
+
     // Gameplay
     public void gameplayMenu()
     {
@@ -305,7 +305,7 @@ public class gameManager : MonoBehaviour
     {
 
         cameraController.camController.Sensitivity = (int)sensitivity;
-        
+
         sensTextValue.text = sensitivity.ToString("F0");
     }
 

@@ -24,6 +24,7 @@ public class Equip : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.instance.playerScript.getWeaponStats(weapon);
+            gameManager.instance.ammoUpdate(weapon.ammoCur);
             Destroy(gameObject);
         }
     }
