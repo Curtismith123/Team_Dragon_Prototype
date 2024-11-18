@@ -7,13 +7,24 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Class-----")]
     [SerializeField] LayerMask ignoreMask;
     [SerializeField] CharacterController controller;
+
     [Header("-----Player Stats-----")]
     [SerializeField] int HP;
-    [SerializeField] int speed;
-    [SerializeField] int sprintMod;
+
+    [Header("-----Sprint Modifiers-----")]
+    [SerializeField] [Range(1, 10)] int Speed = 5;
+    [SerializeField] float maxStamina = 100f;
+    [SerializeField] [Range(1, 20)] float staminaRegenRate = 10;
+    [SerializeField] [Range(1, 10)] float staminaDepletionRate = 20f;
+    [SerializeField] [Range(1, 5)] int sprintMod = 2;
+    private float currentStamina;
+    private bool isSprinting;
+
+    [Header("-----Jump Modifiers-----")]
     [SerializeField] int jumpMax;
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
+
     [Header("-----Weapon Info-----")]
     [SerializeField] List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] GameObject weaponModel;
@@ -29,16 +40,18 @@ public class PlayerController : MonoBehaviour, IDamage
 
     Vector3 moveDir;
     Vector3 playerVel;
-    bool isSprinting;
     bool isShooting;
     int jumpCount;
     int HPOrig;
+    int SpeedAlt;
     int selectedWeapon;
     private bool canFire = true;
 
     void Start()
     {
         HPOrig = HP;
+        SpeedAlt = Speed;
+        currentStamina = maxStamina;
         updatePlayerUI();
     }
 
@@ -74,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage
         moveDir = (transform.forward * Input.GetAxis("Vertical")) +
           (transform.right * Input.GetAxis("Horizontal"));
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDir * SpeedAlt * Time.deltaTime);
 
         jump();
 
@@ -97,16 +110,31 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+
+        if (Input.GetButtonDown("Sprint") && currentStamina > 0)
         {
-            speed *= sprintMod;
-            isSprinting = true;
+
+                SpeedAlt *= sprintMod;
+                isSprinting = true;
+
+
+            currentStamina -= staminaDepletionRate * Time.deltaTime;
+            currentStamina = Mathf.Max(currentStamina, 0);
         }
         else if (Input.GetButtonUp("Sprint"))
         {
-            speed /= sprintMod;
-            isSprinting = false;
+
+                SpeedAlt = Speed;
+                isSprinting = false;
+            
+
+            if (currentStamina < maxStamina)
+            {
+                currentStamina += staminaRegenRate * Time.deltaTime;
+                currentStamina = Mathf.Min(currentStamina, maxStamina);
+            }
         }
+        updateStaminaUI();
     }
 
 
@@ -182,6 +210,11 @@ public class PlayerController : MonoBehaviour, IDamage
     public void updatePlayerUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    public void updateStaminaUI()
+    {
+        gameManager.instance.playerStaminaBar.fillAmount = currentStamina / maxStamina;
     }
 
     IEnumerator flashDmage()

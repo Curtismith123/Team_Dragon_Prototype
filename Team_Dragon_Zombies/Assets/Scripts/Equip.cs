@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Equip : MonoBehaviour
 {
-    enum pickupType { weapon, HP, stamina }
+    enum pickupType { weapon, HP, stamina, ammo, key }
     [SerializeField] pickupType type;
     [SerializeField] Weapon weapon;
 

@@ -43,6 +43,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text ammoCountText;
 
     public Image playerHPBar;
+    public Image playerStaminaBar;
     public GameObject playerDamageScreen;
 
     public GameObject player;
