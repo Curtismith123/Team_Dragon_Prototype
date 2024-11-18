@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Sprint Modifiers-----")]
     [SerializeField][Range(1, 10)] int Speed = 5;
     [SerializeField] float maxStamina = 100f;
-    [SerializeField][Range(1, 20)] float staminaRegenRate = 10;
-    [SerializeField][Range(1, 10)] float staminaDepletionRate = 20f;
+    [SerializeField][Range(1, 100)] float staminaRegenRate = 10;
+    [SerializeField][Range(1, 100)] float staminaDepletionRate = 20f;
     [SerializeField][Range(1, 5)] int sprintMod = 2;
     private float currentStamina;
     private bool isSprinting;
@@ -107,26 +107,27 @@ public class PlayerController : MonoBehaviour, IDamage
     }
 
 
-
+    //-------------------------------------------Stamina Logic (COMPLETE)
     void sprint()
     {
-
-        if (Input.GetButtonDown("Sprint") && currentStamina > 0)
+        if (Input.GetButton("Sprint") && currentStamina > 0)
         {
-
-            SpeedAlt *= sprintMod;
-            isSprinting = true;
-
+            if (!isSprinting)
+            {
+                SpeedAlt *= sprintMod;
+                isSprinting = true;
+            }
 
             currentStamina -= staminaDepletionRate * Time.deltaTime;
             currentStamina = Mathf.Max(currentStamina, 0);
         }
-        else if (Input.GetButtonUp("Sprint"))
+        else
         {
-
-            SpeedAlt = Speed;
-            isSprinting = false;
-
+            if (isSprinting)
+            {
+                SpeedAlt = Speed;
+                isSprinting = false;
+            }
 
             if (currentStamina < maxStamina)
             {
@@ -134,8 +135,16 @@ public class PlayerController : MonoBehaviour, IDamage
                 currentStamina = Mathf.Min(currentStamina, maxStamina);
             }
         }
+
+        if (currentStamina <= 0 && isSprinting)
+        {
+            SpeedAlt = Speed;
+            isSprinting = false;
+        }
+
         updateStaminaUI();
     }
+    //-------------------------------------------
 
 
     IEnumerator shoot()
@@ -149,7 +158,7 @@ public class PlayerController : MonoBehaviour, IDamage
             yield break;
         }
 
-        //------------------------Ammo decrament logic
+        //------------------------Ammo decrament logic (COMPLETE)
         weaponList[selectedWeapon].ammoCur--;
 
         if (weaponList[selectedWeapon].ammoCur <= 0)
@@ -218,10 +227,12 @@ public class PlayerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
+    //-------------------------------------------Stamina Logic (COMPLETE)
     public void updateStaminaUI()
     {
         gameManager.instance.playerStaminaBar.fillAmount = currentStamina / maxStamina;
     }
+    //-------------------------------------------
 
     IEnumerator flashDmage()
     {
@@ -329,6 +340,8 @@ public class PlayerController : MonoBehaviour, IDamage
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
 
+        gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
+
     }
 
     IEnumerator FireCooldown()
@@ -338,6 +351,8 @@ public class PlayerController : MonoBehaviour, IDamage
         canFire = true;
     }
 
+
+    //-------------------------------------------AMMO LOGIC (COMPLETE)
     void reload()
     {
         if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
@@ -347,5 +362,5 @@ public class PlayerController : MonoBehaviour, IDamage
             gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
         }
     }
-
+    //-------------------------------------------
 }
