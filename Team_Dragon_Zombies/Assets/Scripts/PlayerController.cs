@@ -7,13 +7,24 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Class-----")]
     [SerializeField] LayerMask ignoreMask;
     [SerializeField] CharacterController controller;
+
     [Header("-----Player Stats-----")]
     [SerializeField] int HP;
-    [SerializeField] int speed;
-    [SerializeField] int sprintMod;
+
+    [Header("-----Sprint Modifiers-----")]
+    [SerializeField][Range(1, 10)] int Speed = 5;
+    [SerializeField] float maxStamina = 100f;
+    [SerializeField][Range(1, 100)] float staminaRegenRate = 10;
+    [SerializeField][Range(1, 100)] float staminaDepletionRate = 20f;
+    [SerializeField][Range(1, 5)] int sprintMod = 2;
+    private float currentStamina;
+    private bool isSprinting;
+
+    [Header("-----Jump Modifiers-----")]
     [SerializeField] int jumpMax;
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
+
     [Header("-----Weapon Info-----")]
     [SerializeField] List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] GameObject weaponModel;
@@ -29,16 +40,18 @@ public class PlayerController : MonoBehaviour, IDamage
 
     Vector3 moveDir;
     Vector3 playerVel;
-    bool isSprinting;
     bool isShooting;
     int jumpCount;
     int HPOrig;
+    int SpeedAlt;
     int selectedWeapon;
     private bool canFire = true;
 
     void Start()
     {
         HPOrig = HP;
+        SpeedAlt = Speed;
+        currentStamina = maxStamina;
         updatePlayerUI();
     }
 
@@ -74,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage
         moveDir = (transform.forward * Input.GetAxis("Vertical")) +
           (transform.right * Input.GetAxis("Horizontal"));
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDir * SpeedAlt * Time.deltaTime);
 
         jump();
 
@@ -94,20 +107,44 @@ public class PlayerController : MonoBehaviour, IDamage
     }
 
 
-
+    //-------------------------------------------Stamina Logic (COMPLETE)
     void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+        if (Input.GetButton("Sprint") && currentStamina > 0)
         {
-            speed *= sprintMod;
-            isSprinting = true;
+            if (!isSprinting)
+            {
+                SpeedAlt *= sprintMod;
+                isSprinting = true;
+            }
+
+            currentStamina -= staminaDepletionRate * Time.deltaTime;
+            currentStamina = Mathf.Max(currentStamina, 0);
         }
-        else if (Input.GetButtonUp("Sprint"))
+        else
         {
-            speed /= sprintMod;
+            if (isSprinting)
+            {
+                SpeedAlt = Speed;
+                isSprinting = false;
+            }
+
+            if (currentStamina < maxStamina)
+            {
+                currentStamina += staminaRegenRate * Time.deltaTime;
+                currentStamina = Mathf.Min(currentStamina, maxStamina);
+            }
+        }
+
+        if (currentStamina <= 0 && isSprinting)
+        {
+            SpeedAlt = Speed;
             isSprinting = false;
         }
+
+        updateStaminaUI();
     }
+    //-------------------------------------------
 
 
     IEnumerator shoot()
@@ -121,12 +158,18 @@ public class PlayerController : MonoBehaviour, IDamage
             yield break;
         }
 
-        Debug.Log("Ammo before shot: " + currentWeapon.ammoCur);
+        //------------------------Ammo decrament logic (COMPLETE)
+        weaponList[selectedWeapon].ammoCur--;
 
-        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
-        currentWeapon.ammoCur--;
-
-        Debug.Log("Ammo after shot: " + currentWeapon.ammoCur);
+        if (weaponList[selectedWeapon].ammoCur <= 0)
+        {
+            gameManager.instance.ammoUpdate(0);
+        }
+        else
+        {
+            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
+        }
+        //------------------------
 
         StartCoroutine(flashMuzzle());
 
@@ -183,6 +226,13 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
+
+    //-------------------------------------------Stamina Logic (COMPLETE)
+    public void updateStaminaUI()
+    {
+        gameManager.instance.playerStaminaBar.fillAmount = currentStamina / maxStamina;
+    }
+    //-------------------------------------------
 
     IEnumerator flashDmage()
     {
@@ -290,6 +340,8 @@ public class PlayerController : MonoBehaviour, IDamage
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
 
+        gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
+
     }
 
     IEnumerator FireCooldown()
@@ -299,13 +351,16 @@ public class PlayerController : MonoBehaviour, IDamage
         canFire = true;
     }
 
+
+    //-------------------------------------------AMMO LOGIC (COMPLETE)
     void reload()
     {
         if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
         {
             Weapon currentWeapon = weaponList[selectedWeapon];
-            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax); // Ensure ammo doesn't exceed max
+            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax);
+            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
         }
     }
-
+    //-------------------------------------------
 }
