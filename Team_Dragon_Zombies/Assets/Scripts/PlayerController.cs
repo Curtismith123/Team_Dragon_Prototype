@@ -47,10 +47,6 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audLandingVol;
     [SerializeField] AudioClip[] audHurt;
     [SerializeField][Range(0, 1)] float audHurtVol;
-    [SerializeField] AudioClip[] audSteps;
-    [SerializeField][Range(0, 1)] float audStepsVol;
-
-    bool isPlayingSteps;
 
 
     Vector3 moveDir;
@@ -62,7 +58,6 @@ public class PlayerController : MonoBehaviour, IDamage
     int selectedWeapon;
     private bool canFire = true;
     private bool hasJumped;
-
 
     void Start()
     {
@@ -116,9 +111,6 @@ public class PlayerController : MonoBehaviour, IDamage
         playerVel.y -= gravity * Time.deltaTime;
 
         CheckLanding();
-
-        if(controller.isGrounded && moveDir.magnitude > 0.3f && !isPlayingSteps)
-            StartCoroutine(playStep());
     }
 
     void jump()
@@ -185,20 +177,6 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     //-------------------------------------------
 
-    IEnumerator playStep()
-    {
-        isPlayingSteps = true;
-
-        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
-
-        if (!isSprinting)
-            yield return new WaitForSeconds(0.42f);
-        else
-            yield return new WaitForSeconds(0.3f);
-
-        isPlayingSteps = false;
-    }
-
 
     IEnumerator shoot()
     {
@@ -208,18 +186,11 @@ public class PlayerController : MonoBehaviour, IDamage
         if (currentWeapon.ammoCur <= 0)
         {
             // sound here for click if out of ammo
-            //aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
-            //yield return new WaitForSeconds(0.5f);
-
-            //isShooting = false;
             yield break;
-            
         }
 
         //------------------------Ammo decrament logic (COMPLETE)
         weaponList[selectedWeapon].ammoCur--;
-        //Audio for shooting
-        aud.PlayOneShot(weaponList[selectedWeapon].shootSound[Random.Range(0, weaponList[selectedWeapon].shootSound.Length)], weaponList[selectedWeapon].shootVol);
 
         if (weaponList[selectedWeapon].ammoCur <= 0)
         {
