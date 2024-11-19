@@ -45,8 +45,6 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField][Range(0,1)] float audJumpVol;
     [SerializeField] AudioClip[] audLanding;
     [SerializeField][Range(0, 1)] float audLandingVol;
-    [SerializeField] AudioClip[] audHurt;
-    [SerializeField][Range(0, 1)] float audHurtVol;
 
 
     Vector3 moveDir;
@@ -244,7 +242,6 @@ public class PlayerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         updatePlayerUI();
         StartCoroutine(flashDmage());
 
