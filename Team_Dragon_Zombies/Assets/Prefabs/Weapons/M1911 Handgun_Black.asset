@@ -17,11 +17,15 @@ MonoBehaviour:
   shootDist: 50
   shootRate: 0.5
   bulletSpeed: 50
-  ammoCur: 9
+  ammoCur: 0
   ammoMax: 19
   bulletDestroyTime: 5
   pelletsPerShot: 1
   spreadAngle: 0.01
   hitEffect: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
-  shootSound: []
-  shootVol: 0
+  shootSound:
+  - {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
+  shootVol: 0.5
+  outOfAmmo:
+  - {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
+  outOfAmmoVol: 0.5

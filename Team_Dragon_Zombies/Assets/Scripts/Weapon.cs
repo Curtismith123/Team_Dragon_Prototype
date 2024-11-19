@@ -25,5 +25,7 @@ public class Weapon : ScriptableObject
     public ParticleSystem hitEffect;
     public AudioClip[] shootSound;
     public float shootVol;
+    public AudioClip[] outOfAmmo;
+    public float outOfAmmoVol;
 
 }
