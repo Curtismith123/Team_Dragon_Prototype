@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f776e9c61beee64dbc87de8f28947e1, type: 3}
   m_Name: Double-barrel_gun
   m_EditorClassIdentifier: 
-  weaponModel: {fileID: 3272923628227775298, guid: 110d9d3979eee904b905ca33c0dcdd8c, type: 3}
+  weaponModel: {fileID: 2871453870556794473, guid: 3cc1fdd5318adca44822decf912db944, type: 3}
   shootDamage: 2
   shootDist: 25
   shootRate: 1
   bulletSpeed: 32
-  ammoCur: 1
+  ammoCur: 2
   ammoMax: 2
   bulletDestroyTime: 5
   pelletsPerShot: 8
   spreadAngle: 4.5
   hitEffect: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
-  shootSound: []
+  shootSound:
+  - {fileID: 8300000, guid: 65a8e1f13143c47ab9b96881eac40dff, type: 3}
   shootVol: 0
+  outOfAmmo: []
+  outOfAmmoVol: 0

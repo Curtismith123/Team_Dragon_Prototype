@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: New Weapon
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 0}
-  shootPoint: {fileID: 0}
-  shootDamage: 0
-  shootDist: 0
-  shootRate: 0
+  shootDamage: 1
+  shootDist: 1
+  shootRate: 0.15
+  bulletSpeed: 20
   ammoCur: 0
   ammoMax: 0
   bulletDestroyTime: 5
@@ -25,3 +25,5 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   shootSound: []
   shootVol: 0
+  outOfAmmo: []
+  outOfAmmoVol: 0
