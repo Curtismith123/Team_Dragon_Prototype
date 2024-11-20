@@ -26,6 +26,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     bool isRoaming;
     bool isDead = false;
 
+    public delegate void OnDeathEvent();
+    public event OnDeathEvent OnDeath;
+
     Color colorOrig;
     List<Renderer> renderers = new List<Renderer>();
 
@@ -162,9 +165,16 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             isDead = true;
+            OnDeath?.Invoke();
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
+    }
+
+    public bool IsDead()
+    {
+        Debug.Log("IsDead() called. HP: " + HP);
+        return HP <= 0;
     }
 
     IEnumerator flashRed()
