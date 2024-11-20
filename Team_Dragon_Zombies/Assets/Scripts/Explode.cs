@@ -15,6 +15,7 @@ public class Explode : MonoBehaviour
     public Rigidbody rb;
     public bool isBroken;
     public LayerMask ignoreLayers;
+    public Material pieceMaterial; 
 
     // Use this for initialization
     void Start()
@@ -96,6 +97,12 @@ public class Explode : MonoBehaviour
         // set piece position and scale
         piece.transform.position = transform.position + new Vector3(cubeSize * x, cubeSize * y, cubeSize * z) - cubesPivot;
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+
+        // Apply material to the piece
+        if (pieceMaterial != null)
+        {
+            piece.GetComponent<Renderer>().material = pieceMaterial;
+        }
 
         // add Rigidbody and set mass
         Rigidbody rb = piece.AddComponent<Rigidbody>();
