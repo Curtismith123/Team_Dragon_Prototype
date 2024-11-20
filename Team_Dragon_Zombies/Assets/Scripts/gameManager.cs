@@ -197,11 +197,15 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
-        enemyCountText.text = enemyCount.ToString("F0");
 
-        if (enemyCount <= 0)
+        if (enemyCount > 0)
         {
-            showWinMenu();
+            enemyCountText.text = enemyCount.ToString("F0");
+            enemyCountText.gameObject.SetActive(true);
+        }
+        else
+        {
+            enemyCountText.gameObject.SetActive(false);
         }
     }
 
