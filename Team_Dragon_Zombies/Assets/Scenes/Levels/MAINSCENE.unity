@@ -40763,6 +40763,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 0.3
   speed: 1
+--- !u!114 &1638461268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638461254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a1f06b08ac1d241aa7ac8d8c790c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  weapon: {fileID: 0}
 --- !u!1 &1639466821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3266058050364467304, guid: 49ff66d8237034f45b749a51d5115799, type: 3}
@@ -52799,7 +52813,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8124299796040578722, guid: ffec39736a779c74a8011ebfc599c7d5, type: 3}
-      insertIndex: 3
+      insertIndex: 1
+      addedObject: {fileID: 1638461268}
+    - targetCorrespondingSourceObject: {fileID: 8124299796040578722, guid: ffec39736a779c74a8011ebfc599c7d5, type: 3}
+      insertIndex: 4
       addedObject: {fileID: 1638461261}
   m_SourcePrefab: {fileID: 100100000, guid: ffec39736a779c74a8011ebfc599c7d5, type: 3}
 --- !u!1001 &8523606943917158530
