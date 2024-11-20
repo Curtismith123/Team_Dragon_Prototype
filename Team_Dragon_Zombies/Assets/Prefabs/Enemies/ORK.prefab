@@ -16236,7 +16236,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 72.72313, y: 255.34485, z: 324.28}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8332126567832392808}
@@ -16262,15 +16262,15 @@ MonoBehaviour:
   model: {fileID: 2376387387545403253}
   anim: {fileID: 6330698930683556388}
   headPos: {fileID: 7515499496232843712}
-  HP: 80
+  HP: 350
   faceTargetSpeed: 5
-  viewAngle: 90
-  roamDist: 1
+  viewAngle: 115
+  roamDist: 0
   roamTimer: 0
   animSpeedTrans: 2
-  attackRate: 1.7
-  meleeDamage: 17
-  attackRange: 2
+  attackRate: 1.5
+  meleeDamage: 20
+  attackRange: 5
 --- !u!95 &6330698930683556388
 Animator:
   serializedVersion: 7
@@ -16303,7 +16303,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -16334,7 +16334,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 11.6
+  m_Radius: 5.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &5362312062549157374
 CapsuleCollider:
