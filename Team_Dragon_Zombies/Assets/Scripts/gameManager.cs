@@ -185,7 +185,7 @@ public class gameManager : MonoBehaviour
 
     public void InitializeThrowers()
     {
-        UpdateThrowers(throwObjects.GetTotalThrows());
+        UpdateThrowers(throwObjects.maxThrows);
     }
 
     public void UpdateThrowers(int remainingThrows)
