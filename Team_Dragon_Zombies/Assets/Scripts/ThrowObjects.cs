@@ -1,4 +1,4 @@
-// ThrowObjects.cs
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +10,7 @@ public class ThrowObjects : MonoBehaviour
     public GameObject objectToThrow;
 
     [Header("Settings")]
-    [Range(3, 3)] public int totalThrows; // Set the initial number of throws
+    [Range(3, 3)] public int maxThrows = 3; // Max throws player can hold
     public float throwCooldown;
 
     [Header("Throwing")]
@@ -18,14 +18,13 @@ public class ThrowObjects : MonoBehaviour
     public float throwForce;
     public float throwUpwardForce;
 
-    private int remainingThrows; // Track remaining throws
-    bool readyToThrow;
+    private int remainingThrows = 0; // Start with zero throws
+    private bool readyToThrow;
 
     private void Start()
     {
         readyToThrow = true;
-        remainingThrows = totalThrows; // Initialize remaining throws
-        gameManager.instance.UpdateThrowers(remainingThrows); // Set the initial fill bar state
+        gameManager.instance.UpdateThrowers(remainingThrows); // Update the UI
     }
 
     private void Update()
@@ -38,43 +37,71 @@ public class ThrowObjects : MonoBehaviour
 
     private void Throw()
     {
-        readyToThrow = false;
-
-        // Instantiate object to throw 
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
-
-        // Get Rigidbody component
-        Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
-
-        // Calculate direction
-        Vector3 forceDirection = cam.transform.forward;
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+        if (remainingThrows > 0) // Ensure throws count is valid
         {
-            forceDirection = (hit.point - attackPoint.position).normalized;
+            readyToThrow = false;
+
+            // Instantiate object to throw
+            GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+
+            // Get Rigidbody component
+            Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+
+            // Calculate direction
+            Vector3 forceDirection = cam.transform.forward;
+            RaycastHit hit;
+
+            if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+            {
+                forceDirection = (hit.point - attackPoint.position).normalized;
+            }
+
+            // Add force
+            Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
+
+            // Access the Pickable component already attached to the prefab
+            Pickable pickable = projectile.GetComponent<Pickable>();
+            if (pickable != null)
+            {
+                pickable.throwObjectsScript = this;
+                pickable.canPickUp = false;  // Disable pickup immediately after throw
+
+                // Start a timer to enable pickup after a delay
+                StartCoroutine(EnablePickupAfterDelay(pickable, 0.5f)); // 0.5-second delay
+            }
+
+            // Decrement remaining throws immediately after throwing
+            remainingThrows--;
+            gameManager.instance.UpdateThrowers(remainingThrows); // Update UI
+
+            // Implement throw cooldown
+            Invoke(nameof(ResetThrow), throwCooldown);
         }
-
-        // Add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-        projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
-
-        // Decrement remaining throws
-        remainingThrows--;
-        gameManager.instance.UpdateThrowers(remainingThrows); // Update the fill bar immediately
-
-        // Implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);
     }
 
-    public int GetTotalThrows()
+    private IEnumerator EnablePickupAfterDelay(Pickable pickable, float delay)
     {
-        return totalThrows;
+        yield return new WaitForSeconds(delay);
+        pickable.canPickUp = true;
+    }
+
+    public void AddThrow()
+    {
+        if (remainingThrows < maxThrows)
+        {
+            remainingThrows++;
+            gameManager.instance.UpdateThrowers(remainingThrows); // Update UI
+        }
     }
 
     private void ResetThrow()
     {
         readyToThrow = true;
     }
+
+    public int GetTotalThrows()
+{
+    return maxThrows;
+}
 }
