@@ -185,7 +185,7 @@ public class gameManager : MonoBehaviour
 
     public void InitializeThrowers()
     {
-        UpdateThrowers(throwObjects.maxThrows);
+        UpdateThrowers(throwObjects.remainingThrows);
     }
 
     public void UpdateThrowers(int remainingThrows)
