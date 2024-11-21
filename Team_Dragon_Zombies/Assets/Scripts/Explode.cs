@@ -89,20 +89,31 @@ public class Explode : MonoBehaviour
 
     void createPiece(int x, int y, int z)
     {
-        // create piece
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            Debug.LogWarning("No Renderer found on exploding object!");
+            return;
+        }
+
+        Vector3 boundsCenter = renderer.bounds.center;
+
+        Vector3 adjustedPivot = new Vector3(
+            cubesPivotDistance - (cubesInRow * cubeSize) / 2f,
+            cubesPivotDistance - (cubesInRow * cubeSize) / 2f,
+            cubesPivotDistance - (cubesInRow * cubeSize) / 2f
+        );
+
         GameObject piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        // set piece position and scale
-        piece.transform.position = transform.position + new Vector3(cubeSize * x, cubeSize * y, cubeSize * z) - cubesPivot;
+        piece.transform.position = boundsCenter + new Vector3(cubeSize * x, cubeSize * y, cubeSize * z) - adjustedPivot;
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
-        // Apply material to the piece
         if (pieceMaterial != null)
         {
             piece.GetComponent<Renderer>().material = pieceMaterial;
         }
 
-        // add Rigidbody and set mass
         Rigidbody rb = piece.AddComponent<Rigidbody>();
         rb.mass = cubeSize;
     }
