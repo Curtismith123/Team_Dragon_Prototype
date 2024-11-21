@@ -21,6 +21,12 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] int meleeDamage = 10; //default 10 dmg
     [SerializeField] float attackRange = 2f; //default 2 range
 
+    //[Header("-----Audio-----")]
+    //[SerializeField] AudioSource aud;
+
+    //[SerializeField] AudioClip[] audDeath;
+    //[SerializeField][Range(0, 1)] float audDeathVol;
+
     bool isAttacking;
     bool playerInRange;
     bool isRoaming;
@@ -167,6 +173,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             isDead = true;
             OnDeath?.Invoke();
             gameManager.instance.updateGameGoal(-1);
+            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             Destroy(gameObject);
         }
     }
