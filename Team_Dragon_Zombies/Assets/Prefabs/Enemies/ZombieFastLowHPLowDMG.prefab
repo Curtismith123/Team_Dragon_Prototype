@@ -2291,7 +2291,7 @@ MonoBehaviour:
   model: {fileID: 6657918378756639283}
   anim: {fileID: 8866374661110000780}
   headPos: {fileID: 2439672669723028192}
-  HP: 9
+  HP: 15
   faceTargetSpeed: 10
   viewAngle: 90
   roamDist: 5
@@ -2300,10 +2300,10 @@ MonoBehaviour:
   attackRate: 1.5
   meleeDamage: 3
   attackRange: 2
-  aud: {fileID: -8768390774569154293}
-  audDeath:
-  - {fileID: 8300000, guid: 093a5dc60018d476791de718279859f3, type: 3}
-  audDeathVol: 0.3
+  walkSound: {fileID: 8300000, guid: 7347e93a1754960468be095dff3d4add, type: 3}
+  attackSound: {fileID: 8300000, guid: c1e97379440980946b80ef57b56b059a, type: 3}
+  walkSoundVolume: 0.25
+  attackSoundVolume: 0.28
 --- !u!95 &8866374661110000780
 Animator:
   serializedVersion: 7
@@ -2388,10 +2388,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.225
-  m_Height: 1.5
+  m_Radius: 0.4
+  m_Height: 1.9
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!82 &-8768390774569154293
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2404,7 +2404,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2414,7 +2414,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2449,7 +2449,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

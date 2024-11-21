@@ -5945,9 +5945,10 @@ MonoBehaviour:
   attackRate: 3
   meleeDamage: 30
   attackRange: 5
-  aud: {fileID: -2220712949897801642}
-  audDeath: []
-  audDeathVol: 0
+  walkSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 443e4eda0eb452641b76dcc8346a0da4, type: 3}
+  walkSoundVolume: 0
+  attackSoundVolume: 0.5
 --- !u!114 &7405112255542864483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6061,7 +6062,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

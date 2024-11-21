@@ -27,6 +27,13 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     //[SerializeField] AudioClip[] audDeath;
     //[SerializeField][Range(0, 1)] float audDeathVol;
 
+    [SerializeField] AudioClip walkSound;
+    [SerializeField] AudioClip attackSound;
+    [SerializeField][Range(0, 1)] float walkSoundVolume = 0.5f;
+    [SerializeField][Range(0, 1)] float attackSoundVolume = 1f;
+
+    private AudioSource audioSource;
+
     bool isAttacking;
     bool playerInRange;
     bool isRoaming;
@@ -48,6 +55,12 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
         foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
         {
@@ -92,6 +105,23 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         {
             if (!isRoaming && agent.remainingDistance < 0.05f)
                 StartCoroutine(roam());
+        }
+
+        if (agent.velocity.magnitude > 0.1f && !audioSource.isPlaying)
+        {
+            audioSource.clip = walkSound;
+            audioSource.loop = true;
+            audioSource.volume = walkSoundVolume;
+            audioSource.Play();
+        }
+        else if (agent.velocity.magnitude < 0.1f && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        if (playerInRange && !isAttacking)
+        {
+            StartCoroutine(Attack());
         }
     }
 
@@ -215,6 +245,17 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         }
 
         yield return new WaitForSeconds(attackRate);
+        isAttacking = false;
+    }
+
+    IEnumerator Attack()
+    {
+        isAttacking = true;
+        audioSource.PlayOneShot(attackSound, attackSoundVolume);
+
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(attackRate);
+
         isAttacking = false;
     }
 
