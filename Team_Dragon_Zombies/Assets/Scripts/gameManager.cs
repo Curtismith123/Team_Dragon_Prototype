@@ -42,6 +42,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
+    private HashSet<string> keyInventory = new HashSet<string>();
+
     public GameObject player;
     public Image playerHPBar;
     public Image playerStaminaBar;
@@ -182,6 +184,26 @@ public class gameManager : MonoBehaviour
         ammoCountText.text = ammoCount.ToString("F0");
     }
 
+    public void AddKey(string keyID)
+    {
+        if (!keyInventory.Contains(keyID))
+        {
+            keyInventory.Add(keyID);
+            Debug.Log($"Key {keyID} collected!");
+        }
+    }
+
+    public bool UseKey(string keyID)
+    {
+        if (keyInventory.Contains(keyID))
+        {
+            keyInventory.Remove(keyID);
+            Debug.Log($"Key {keyID} used!");
+            return true;
+        }
+        Debug.LogWarning($"Key {keyID} not yet obtained!");
+        return false;
+    }
 
     public void InitializeThrowers()
     {

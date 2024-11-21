@@ -55,10 +55,6 @@ public class Explode : MonoBehaviour
 
     public void ExplodeObjects()
     {
-        // make object disappear
-        gameObject.SetActive(false);
-
-        // loop 3 times to create 5x5x5 pieces in x, y, z coordinates
         for (int x = 0; x < cubesInRow; x++)
         {
             for (int y = 0; y < cubesInRow; y++)
@@ -70,23 +66,19 @@ public class Explode : MonoBehaviour
             }
         }
 
-        // get explosion position
         Vector3 explosionPos = transform.position;
 
-        // get colliders in that position and radius
         Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
 
-        // add explosion force to all colliders in that overlap sphere
         foreach (Collider hit in colliders)
         {
-            // get Rigidbody from colliders object
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                // add explosion force to this body with given parameters
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpward);
             }
         }
+        Destroy(gameObject, 0.1f);
     }
 
     void createPiece(int x, int y, int z)
