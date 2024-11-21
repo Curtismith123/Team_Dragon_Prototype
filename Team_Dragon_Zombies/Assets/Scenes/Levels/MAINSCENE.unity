@@ -18711,7 +18711,6 @@ GameObject:
   m_Component:
   - component: {fileID: 504904647}
   - component: {fileID: 504904646}
-  - component: {fileID: 504904648}
   - component: {fileID: 504904645}
   - component: {fileID: 504904644}
   - component: {fileID: 504904643}
@@ -18824,19 +18823,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &504904648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504904642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82632627b31c1147aa231ba7622c397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToDestroy: {fileID: 1260542379}
 --- !u!1001 &506062859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48059,11 +48045,6 @@ Transform:
   - {fileID: 205295798}
   m_Father: {fileID: 698611802}
   m_LocalEulerAnglesHint: {x: 0, y: -142.049, z: 0}
---- !u!1 &1260542379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1415473554340502203, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-  m_PrefabInstance: {fileID: 4012468358044890}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1261226216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5148856180325692077, guid: ce76ebfaafbbc804f883fa5def58db84, type: 3}
