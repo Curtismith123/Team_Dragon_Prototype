@@ -55,6 +55,12 @@ public class Explode : MonoBehaviour
 
     public void ExplodeObjects()
     {
+        DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
+        if (destroyActivate != null && destroyActivate.objectToDestroy == gameObject)
+        {
+            destroyActivate.OnObjectDestroyed();
+        }
+
         for (int x = 0; x < cubesInRow; x++)
         {
             for (int y = 0; y < cubesInRow; y++)
