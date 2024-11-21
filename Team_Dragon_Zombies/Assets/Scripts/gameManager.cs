@@ -18,6 +18,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject settingsActive;
     [SerializeField] GameObject inSetActive;
     // Audio Objects
+    [Header("-----Audio-----")]
+    [SerializeField] AudioSource aud;
+
+    [SerializeField] AudioClip audWinMenu;
+    [SerializeField][Range(0, 1)] float audWinVol;
+    [SerializeField] AudioClip audLoseMenu;
+    [SerializeField][Range(0, 1)] float audLoseVol;
+
     [SerializeField] GameObject menuAudio;
     [SerializeField] private TMP_Text volumeTextValue;
     [SerializeField] private Slider volumeSlider;
@@ -102,14 +110,19 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
+        
 
         if (Input.GetButtonDown("Cancel") && !gameEnded)
         {
+            
+
             if (menuActive == null && settingsActive == null && inSetActive == null)
             {
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(IsPaused);
+                
+
 
                 ToggleSpinObjects(IsPaused);
             }
@@ -117,12 +130,14 @@ public class gameManager : MonoBehaviour
             {
                 stateUnpause();
                 ToggleSpinObjects(true);
+                
             }
             else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
             {
                 settingsActive.SetActive(false);
                 settingsActive = null;
                 stateUnpause();
+                
             }
             else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
             {
@@ -131,6 +146,7 @@ public class gameManager : MonoBehaviour
                 settingsActive.SetActive(false);
                 settingsActive = null;
                 stateUnpause();
+                
             }
         }
     }
@@ -153,6 +169,7 @@ public class gameManager : MonoBehaviour
             Time.timeScale = 0;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
+            
         }
     }
 
@@ -167,6 +184,7 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(false);
             menuActive = null;
         }
+        
     }
 
     private void ToggleSpinObjects(bool enableSpin)
