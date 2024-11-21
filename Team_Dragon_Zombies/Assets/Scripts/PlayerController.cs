@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour, IDamage
             selectWeapon();
             reload();
         }
-
-        if (Input.GetButton("Fire1") && weaponList.Count > 0 && weaponList[selectedWeapon].ammoCur > 0 && canFire)
+        //&& weaponList[selectedWeapon].ammoCur > 0
+        if (Input.GetButton("Fire1") && weaponList.Count > 0  && canFire)
         {
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
@@ -205,13 +205,16 @@ public class PlayerController : MonoBehaviour, IDamage
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
 
-        if (currentWeapon.ammoCur <= 0)
+        if (currentWeapon.ammoCur <= 0 )
         {
-            // sound here for click if out of ammo
-            //aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
-            //yield return new WaitForSeconds(0.5f);
+            //sound here for click if out of ammo
+            if (Input.GetButton("Fire1"))
+            {
+                aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
+            }
 
-            //isShooting = false;
+            yield return new WaitForSeconds(0.5f);
+            isShooting = false;
             yield break;
             
         }
