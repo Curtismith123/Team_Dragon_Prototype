@@ -2265,8 +2265,8 @@ Transform:
   m_GameObject: {fileID: 3510126856991399112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75.08313, y: 255.3456, z: 324.55}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalPosition: {x: 4.05, y: -0.0000038146973, z: 0.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2597820927979177874}
@@ -2287,11 +2287,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2446967069493747216}
-  model: {fileID: 5743446777140744494}
+  model: {fileID: 6657918378756639283}
+  anim: {fileID: 8866374661110000780}
   headPos: {fileID: 2439672669723028192}
   HP: 9
   faceTargetSpeed: 10
   viewAngle: 90
+  roamDist: 5
+  roamTimer: 3
+  animSpeedTrans: 1
   attackRate: 1.5
   meleeDamage: 3
   attackRange: 2
@@ -2327,8 +2331,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 14
-  m_Acceleration: 15
+  m_Speed: 6
+  m_Acceleration: 7
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1

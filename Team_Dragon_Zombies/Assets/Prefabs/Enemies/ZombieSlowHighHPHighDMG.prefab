@@ -2302,9 +2302,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6054089759676829921}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 77.10695, y: 255.38602, z: 324.64337}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.8221138, y: 0.0000009536743, z: -1.122863}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4132818251374983661}
@@ -2338,13 +2338,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 6400840030258747383}
   model: {fileID: 2061578716600782517}
+  anim: {fileID: 1941575366709923320}
   headPos: {fileID: 7677364173352209175}
-  HP: 22
+  HP: 30
   faceTargetSpeed: 8
   viewAngle: 90
+  roamDist: 5
+  roamTimer: 3
+  animSpeedTrans: 5
   attackRate: 1.5
-  meleeDamage: 10
-  attackRange: 2
+  meleeDamage: 15
+  attackRange: 2.5
 --- !u!95 &1941575366709923320
 Animator:
   serializedVersion: 7
@@ -2358,7 +2362,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2ef8e6599b7f9934e8ff0d64c5325a1f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -2398,8 +2402,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 9
-  m_Acceleration: 7
+  m_Speed: 4
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1
@@ -2432,7 +2436,7 @@ CapsuleCollider:
   m_Radius: 0.25
   m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6243699898183904074
 GameObject:
   m_ObjectHideFlags: 0
