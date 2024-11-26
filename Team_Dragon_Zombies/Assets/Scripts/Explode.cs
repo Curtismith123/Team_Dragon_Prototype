@@ -45,11 +45,11 @@ public class Explode : MonoBehaviour
             return;
         }
 
-        // Check if the collided object has the "Breaker" tag
+        //only break if breaker tag is on it
         if (other.CompareTag("Breaker"))
         {
             isBroken = true;
-            ExplodeObjects(); // Trigger the explosion if hit by a "Breaker"
+            ExplodeObjects();
         }
     }
 
