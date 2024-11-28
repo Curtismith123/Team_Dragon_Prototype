@@ -1777,12 +1777,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4945407791842959151}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.001000002, y: 0.254, z: 0.233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4460428050440362324}
+  m_Father: {fileID: 2240209529603791878}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &4523720709699230228
 Light:
@@ -2153,7 +2153,6 @@ Transform:
   - {fileID: 8599782801896820270}
   - {fileID: 6871480090794655944}
   - {fileID: 8538685441782959041}
-  - {fileID: 8778455116075226118}
   m_Father: {fileID: 2240209529603791878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2206493564831521797
@@ -2172,6 +2171,15 @@ MonoBehaviour:
   lockVertMin: -90
   lockVertMax: 90
   invertY: 0
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraRadius: 0.5
+  smoothSpeed: 10
+  firstPersonView: {fileID: 0}
+  overShoulderView: {fileID: 0}
+  isFPV: 1
+  player: {fileID: 0}
 --- !u!20 &7162180268672449792
 Camera:
   m_ObjectHideFlags: 0
@@ -2211,7 +2219,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1071095
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2518,6 +2526,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8778455116075226118}
   - {fileID: 4460428050440362324}
   - {fileID: 464597288020068763}
   m_Father: {fileID: 0}
@@ -2604,6 +2613,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1a7741daba5446e46a40f8074aae75dc, type: 3}
   - {fileID: 8300000, guid: 0bc66974c41ff8c4fa15f46d21ad3548, type: 3}
   audStepsVol: 0.15
+  hat: {fileID: 0}
 --- !u!114 &5538549582337728177
 MonoBehaviour:
   m_ObjectHideFlags: 0

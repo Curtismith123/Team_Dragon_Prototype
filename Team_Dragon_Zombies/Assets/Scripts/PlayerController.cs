@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioSource aud;
 
     [SerializeField] AudioClip[] audJump;
-    [SerializeField][Range(0,1)] float audJumpVol;
+    [SerializeField][Range(0, 1)] float audJumpVol;
     [SerializeField] AudioClip[] audLanding;
     [SerializeField][Range(0, 1)] float audLandingVol;
     [SerializeField] AudioClip[] audHurt;
@@ -51,7 +51,9 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audStepsVol;
 
     bool isPlayingSteps;
-
+    [Header("-----Misc-----")]
+    public GameObject hat;
+    private bool hatVis = true;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour, IDamage
         SpeedAlt = Speed;
         currentStamina = maxStamina;
         updatePlayerUI();
-        
+        hat.SetActive(false);
     }
 
     void Update()
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour, IDamage
             reload();
         }
         //&& weaponList[selectedWeapon].ammoCur > 0
-        if (Input.GetButton("Fire1") && weaponList.Count > 0  && canFire)
+        if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire)
         {
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
@@ -117,7 +119,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         CheckLanding();
 
-        if(controller.isGrounded && moveDir.magnitude > 0.3f && !isPlayingSteps)
+        if (controller.isGrounded && moveDir.magnitude > 0.3f && !isPlayingSteps)
             StartCoroutine(playStep());
     }
 
@@ -130,14 +132,14 @@ public class PlayerController : MonoBehaviour, IDamage
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             hasJumped = true;
         }
-        
-        
+
+
     }
 
     //play landing sound
     void CheckLanding()
     {
-       if (controller.isGrounded && hasJumped)
+        if (controller.isGrounded && hasJumped)
         {
             aud.PlayOneShot(audLanding[Random.Range(0, audLanding.Length)], audLandingVol);
             hasJumped = false;
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour, IDamage
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
 
-        if (currentWeapon.ammoCur <= 0 )
+        if (currentWeapon.ammoCur <= 0)
         {
             //sound here for click if out of ammo
             if (Input.GetButton("Fire1"))
@@ -216,7 +218,7 @@ public class PlayerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.5f);
             isShooting = false;
             yield break;
-            
+
         }
 
         //------------------------Ammo decrament logic (COMPLETE)
@@ -415,6 +417,7 @@ public class PlayerController : MonoBehaviour, IDamage
         canFire = true;
     }
 
+ 
 
     //-------------------------------------------AMMO LOGIC (COMPLETE)
     void reload()
@@ -427,4 +430,18 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
     //-------------------------------------------
+
+    void hatTog()
+    {
+        if(hatVis)
+        {
+            hat.SetActive(false);
+            hatVis = false;
+        }
+        else
+        {
+            hat.SetActive(true);
+            hatVis = true;  
+        }
+    }
 }
