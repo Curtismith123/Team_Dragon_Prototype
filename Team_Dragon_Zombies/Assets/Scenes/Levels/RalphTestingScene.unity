@@ -484,6 +484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1202799899432049504, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
+      propertyPath: overlayMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
     - target: {fileID: 3510126856991399112, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
       propertyPath: m_Name
       value: ZombieFastLowHPLowDMG
@@ -1624,17 +1628,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2446967069493747216, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3510126856991399112, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
       propertyPath: m_Name
       value: ZombieFastLowHPLowDMG
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510126856991399112, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5597521151531818973, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1681,11 +1677,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18a45a3b61acbde40813a9f654908bd9, type: 3}
---- !u!4 &1812224027 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1949970165472196263, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-  m_PrefabInstance: {fileID: 8355153398447854270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2073817199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,33 +1899,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: HP
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: conversionGauge
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: conversionRange
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: conversionShootPos
-      value: 
-      objectReference: {fileID: 1812224027}
     - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: conversionGaugeRefillRate
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: conversionProjectileSpeed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: conversionProjectilePrefab
-      value: 
-      objectReference: {fileID: 511615523544547766, guid: b68a3c5e8c84018468285fa658b1653a, type: 3}
     - target: {fileID: 2240209529603791878, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8499994
