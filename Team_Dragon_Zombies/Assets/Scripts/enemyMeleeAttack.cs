@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyTier { Tier1, Tier2, Tier3 }
+
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
@@ -18,14 +20,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] int animSpeedTrans;
 
     [SerializeField] float attackRate = 1.5f; //default 1.5s
-    [SerializeField] int meleeDamage = 10; //default 10 dmg
-    [SerializeField] float attackRange = 2f; //default 2 range
-
-    //[Header("-----Audio-----")]
-    //[SerializeField] AudioSource aud;
-
-    //[SerializeField] AudioClip[] audDeath;
-    //[SerializeField][Range(0, 1)] float audDeathVol;
+    [SerializeField] int meleeDamage = 10;    //default 10 dmg
+    [SerializeField] float attackRange = 2f;  //default 2 range
 
     [SerializeField] AudioClip walkSound;
     [SerializeField] AudioClip attackSound;
@@ -35,7 +31,6 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     private AudioSource audioSource;
 
     bool isAttacking;
-    bool playerInRange;
     bool isRoaming;
     bool isDead = false;
 
@@ -45,28 +40,39 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     Color colorOrig;
     List<Renderer> renderers = new List<Renderer>();
 
-    Vector3 playerDir;
+    Vector3 targetDir;
     Vector3 startingPos;
 
-    float angleToPlayer;
+    float angleToTarget;
     float stoppingDistOrig;
+
+    [Header("-----Enemy Conversion-----")]
+    [SerializeField] EnemyTier enemyTier;
+    [SerializeField] float conversionTime;
+    private bool isConverting = false;
+
+    private GameObject target;
+
+    //variables for target switching
+    [SerializeField] float detectionRadius = 15f;
+    private float timeSinceLastHit = Mathf.Infinity;
+    [SerializeField] float timeToSwitchTarget = 3f;
 
     void Start()
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
 
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        anim.applyRootMotion = false;
+
+        audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
 
         foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
         {
             renderers.Add(renderer);
             colorOrig = renderer.material.color;
         }
+
         gameManager.instance.updateGameGoal(1);
         stoppingDistOrig = agent.stoppingDistance;
         startingPos = transform.position;
@@ -74,39 +80,57 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     void Update()
     {
-        float agentSpeed = agent.velocity.normalized.magnitude;
+        float agentSpeed = agent.velocity.magnitude;
         float animSpeed = anim.GetFloat("Speed");
-
         anim.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTrans));
 
-        if (playerInRange && canSeePlayer())
+        timeSinceLastHit += Time.deltaTime;
+
+        if (target != null)
         {
-            playerDir = gameManager.instance.player.transform.position - headPos.position;
-
-            agent.SetDestination(gameManager.instance.player.transform.position);
-
-            if (agent.remainingDistance <= agent.stoppingDistance)
+            if (canSeeTarget())
             {
-                faceTarget();
+                targetDir = target.transform.position - headPos.position;
+                agent.SetDestination(target.transform.position);
+
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
+                if (!isAttacking)
+                {
+                    StartCoroutine(melee());
+                }
+            }
+            else
+            {
+                //can't see target, switch if necessary
+                if (timeSinceLastHit >= timeToSwitchTarget)
+                {
+                    FindClosestTarget();
+                }
+            }
+        }
+        else
+        {
+            if (timeSinceLastHit >= timeToSwitchTarget)
+            {
+                FindClosestTarget();
             }
 
-            if (!isAttacking)
+            if (target == null && !isRoaming && agent.remainingDistance < 0.05f)
             {
-                StartCoroutine(melee());
+                StartCoroutine(roam());
             }
         }
 
-        if (playerInRange && !canSeePlayer())
-        {
-            if (!isRoaming && agent.remainingDistance < 0.05f)
-                StartCoroutine(roam());
-        }
-        else if (!playerInRange)
-        {
-            if (!isRoaming && agent.remainingDistance < 0.05f)
-                StartCoroutine(roam());
-        }
+        HandleAudio();
+        HandleConversion();
+    }
 
+    void HandleAudio()
+    {
         if (agent.velocity.magnitude > 0.1f && !audioSource.isPlaying)
         {
             audioSource.clip = walkSound;
@@ -118,10 +142,25 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         {
             audioSource.Stop();
         }
+    }
 
-        if (playerInRange && !isAttacking)
+    void HandleConversion()
+    {
+        if (isConverting)
         {
-            StartCoroutine(Attack());
+            if (target != null && target.CompareTag("Player"))
+            {
+                conversionTime -= Time.deltaTime;
+                if (conversionTime <= 0)
+                {
+                    ConvertToFriendly();
+                }
+            }
+            else
+            {
+                Debug.Log($"Conversion of {name} stopped. Player not in range.");
+                isConverting = false;
+            }
         }
     }
 
@@ -131,87 +170,88 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         yield return new WaitForSeconds(roamTimer);
 
         agent.stoppingDistance = 0;
-        Vector3 randomDist = Random.insideUnitSphere * roamDist;
-        randomDist += startingPos;
+        Vector3 randomDist = Random.insideUnitSphere * roamDist + startingPos;
 
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomDist, out hit, roamDist, 1);
-        agent.SetDestination(hit.position);
+        if (NavMesh.SamplePosition(randomDist, out hit, roamDist, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+        }
 
         isRoaming = false;
     }
 
-    bool canSeePlayer()
+    bool canSeeTarget()
     {
-        playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+        if (target == null)
+            return false;
 
-        Debug.DrawRay(headPos.position, playerDir);
+        targetDir = target.transform.position - headPos.position;
+        angleToTarget = Vector3.Angle(targetDir, transform.forward);
+
+        if (Vector3.Distance(transform.position, target.transform.position) > detectionRadius)
+            return false;
 
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, targetDir, out hit, detectionRadius))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if ((hit.collider.CompareTag("Player") || hit.collider.CompareTag("Friendly")) && angleToTarget <= viewAngle)
             {
-                //can see player
-                agent.SetDestination(gameManager.instance.player.transform.position);
-
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
-
-                if (!isAttacking)
-                {
-                    StartCoroutine(melee());
-                }
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
 
         return false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void FindClosestTarget()
     {
-        if (other.CompareTag("Player"))
+        timeSinceLastHit = 0f;
+        float shortestDistance = detectionRadius;
+        GameObject nearestTarget = null;
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        foreach (var collider in hitColliders)
         {
-            playerInRange = true;
+            if (collider.CompareTag("Player") || collider.CompareTag("Friendly"))
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    nearestTarget = collider.gameObject;
+                }
+            }
+        }
+
+        if (nearestTarget != null)
+        {
+            target = nearestTarget;
+        }
+        else
+        {
+            target = null;
+            StartCoroutine(roam());
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
-
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, GameObject attacker)
     {
         if (isDead) return;
 
         HP -= amount;
         StartCoroutine(flashRed());
 
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        timeSinceLastHit = 0f;
+        target = attacker;
 
         if (HP <= 0)
         {
             isDead = true;
             OnDeath?.Invoke();
             gameManager.instance.updateGameGoal(-1);
-            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             Destroy(gameObject);
         }
-    }
-
-    public bool IsDead()
-    {
-        Debug.Log("IsDead() called. HP: " + HP);
-        return HP <= 0;
     }
 
     IEnumerator flashRed()
@@ -233,35 +273,88 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     {
         isAttacking = true;
         anim.SetTrigger("Melee");
-
-        if (gameManager.instance.player != null &&
-            Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= attackRange)
-        {
-            IDamage playerDamage = gameManager.instance.player.GetComponent<IDamage>();
-            if (playerDamage != null)
-            {
-                playerDamage.takeDamage(meleeDamage);
-            }
-        }
-
-        yield return new WaitForSeconds(attackRate);
-        isAttacking = false;
-    }
-
-    IEnumerator Attack()
-    {
-        isAttacking = true;
         audioSource.PlayOneShot(attackSound, attackSoundVolume);
 
-        anim.SetTrigger("Attack");
-        yield return new WaitForSeconds(attackRate);
+        yield return new WaitForSeconds(0.1f);
 
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+        {
+            IDamage targetDamage = target.GetComponent<IDamage>();
+            targetDamage?.takeDamage(meleeDamage, gameObject);
+        }
+
+        yield return new WaitForSeconds(attackRate - 0.1f);
         isAttacking = false;
     }
 
     void faceTarget()
     {
-        Quaternion rot = Quaternion.LookRotation(playerDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+        if (targetDir != Vector3.zero)
+        {
+            Vector3 direction = new Vector3(targetDir.x, 0, targetDir.z);
+            Quaternion rot = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+        }
+    }
+
+    public void StartConversion()
+    {
+        if (gameObject.CompareTag("Friendly"))
+        {
+            return;
+        }
+
+        if (!isConverting)
+        {
+            switch (enemyTier)
+            {
+                case EnemyTier.Tier1:
+                    ConvertToFriendly();
+                    break;
+                case EnemyTier.Tier2:
+                    conversionTime = 5f;
+                    isConverting = true;
+                    break;
+                case EnemyTier.Tier3:
+                    conversionTime = 15f;
+                    isConverting = true;
+                    break;
+            }
+        }
+    }
+
+    void ConvertToFriendly()
+    {
+        gameObject.tag = "Friendly";
+
+        int friendlyLayer = LayerMask.NameToLayer("Friendly");
+        if (friendlyLayer != -1)
+        {
+            gameObject.layer = friendlyLayer;
+        }
+
+        FriendlyAI friendlyAI = gameObject.AddComponent<FriendlyAI>();
+
+        //transfer stats
+        friendlyAI.HP = this.HP;
+        friendlyAI.faceTargetSpeed = this.faceTargetSpeed;
+        friendlyAI.animSpeedTrans = this.animSpeedTrans;
+        friendlyAI.attackRate = this.attackRate;
+        friendlyAI.meleeDamage = this.meleeDamage;
+        friendlyAI.attackRange = this.attackRange;
+
+        //transfer references
+        friendlyAI.agent = this.agent;
+        friendlyAI.model = this.model;
+        friendlyAI.headPos = this.headPos;
+        friendlyAI.anim = this.anim;
+        friendlyAI.walkSound = this.walkSound;
+        friendlyAI.attackSound = this.attackSound;
+        friendlyAI.walkSoundVolume = this.walkSoundVolume;
+        friendlyAI.attackSoundVolume = this.attackSoundVolume;
+
+        gameManager.instance.updateGameGoal(-1);
+
+        Destroy(this);
     }
 }

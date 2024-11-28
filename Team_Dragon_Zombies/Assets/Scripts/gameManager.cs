@@ -55,12 +55,16 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public Image playerHPBar;
     public Image playerStaminaBar;
+    public Image playerConversionBar;
     public PlayerController playerScript;
     public GameObject playerDamageScreen;
 
     public ThrowObjects throwObjects;
     public Image Throwers;
 
+    [Header("-----Friendly Setting-----")]
+    [SerializeField][Range(1, 6)] public int maxFriendlies = 3;
+    private List<FriendlyAI> friendlyUnits = new List<FriendlyAI>();
 
     private bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
@@ -434,4 +438,50 @@ public class gameManager : MonoBehaviour
         Resolution resolution = resolutions[resIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+
+    public void RegisterFriendly(FriendlyAI friendly)
+    {
+        if (!friendlyUnits.Contains(friendly))
+        {
+            if (friendlyUnits.Count >= maxFriendlies)
+            {
+
+                FriendlyAI oldestFriendly = friendlyUnits[0];
+                oldestFriendly.Die();
+            }
+            friendlyUnits.Add(friendly);
+            UpdateFollowOffsets();
+        }
+    }
+
+    public void RemoveFriendly(FriendlyAI friendly)
+    {
+        if (friendlyUnits.Contains(friendly))
+        {
+            friendlyUnits.Remove(friendly);
+            UpdateFollowOffsets();
+        }
+    }
+
+    public int GetFriendlyIndex(FriendlyAI friendly)
+    {
+        return friendlyUnits.IndexOf(friendly);
+    }
+
+    public int GetFriendlyCount()
+    {
+        return friendlyUnits.Count;
+    }
+
+    private void UpdateFollowOffsets()
+    {
+        int totalFriendlies = GetFriendlyCount();
+        for (int i = 0; i < totalFriendlies; i++)
+        {
+            FriendlyAI friendly = friendlyUnits[i];
+            friendly.AssignFollowOffset(i, totalFriendlies);
+        }
+    }
 }
+
