@@ -311,9 +311,12 @@ public class gameManager : MonoBehaviour
     public void volumeApply()
     {
         PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
-        inSetActive.SetActive(false);
-        inSetActive = null;
-        settingsActive.SetActive(true);
+        if (inSetActive != null)
+        {
+            inSetActive.SetActive(false);
+            inSetActive = null;
+            settingsActive.SetActive(true);
+        }
     }
 
     public void inSetBack()
@@ -331,9 +334,12 @@ public class gameManager : MonoBehaviour
             volumeSlider.value = defaultVolume;
             volumeTextValue.text = defaultVolume.ToString("F1");
             volumeApply();
-            inSetActive.SetActive(false);
-            inSetActive = null;
-            settingsActive.SetActive(true);
+            if (inSetActive != null)
+            {
+                inSetActive.SetActive(false);
+                inSetActive = null;
+                settingsActive.SetActive(true);
+            }
         }
 
         if (menuType == "Gameplay")
