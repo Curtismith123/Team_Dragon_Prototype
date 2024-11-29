@@ -25,6 +25,12 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
 
+    [Header("-----Animation-----")]
+    [SerializeField] Animator anim;
+
+
+
+
     [Header("-----Weapon Info-----")]
     [SerializeField] List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] GameObject weaponModel;
@@ -60,6 +66,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] audHurt;
     [SerializeField][Range(0, 1)] float audHurtVol;
     [SerializeField] AudioClip[] audSteps;
+    [SerializeField] float stepRate = 0.4f;
     [SerializeField][Range(0, 1)] float audStepsVol;
 
     bool isPlayingSteps;
@@ -95,6 +102,8 @@ public class PlayerController : MonoBehaviour, IDamage
             movement();
             sprint();
         }
+        // Update the animator's Speed parameter
+        UpdateAnimator();
 
         if (weaponList.Count > 0)
         {
@@ -124,6 +133,13 @@ public class PlayerController : MonoBehaviour, IDamage
             TryConvertEnemy();
         }
 
+    }
+
+    private void UpdateAnimator()
+    {
+        // Set the Speed parameter in the Animator based on movement magnitude
+        float movementSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
+        anim.SetFloat("Speed", movementSpeed * SpeedAlt);
     }
 
     void movement()
@@ -221,9 +237,9 @@ public class PlayerController : MonoBehaviour, IDamage
         aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
 
         if (!isSprinting)
-            yield return new WaitForSeconds(0.42f);
+            yield return new WaitForSeconds(stepRate);
         else
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(stepRate / sprintMod);
 
         isPlayingSteps = false;
     }
@@ -445,7 +461,7 @@ public class PlayerController : MonoBehaviour, IDamage
         canFire = true;
     }
 
- 
+
 
     //-------------------------------------------AMMO LOGIC (COMPLETE)
     void reload()
@@ -521,7 +537,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void hatTog()
     {
-        if(hatVis)
+        if (hatVis)
         {
             hat.SetActive(false);
             hatVis = false;
@@ -529,7 +545,7 @@ public class PlayerController : MonoBehaviour, IDamage
         else
         {
             hat.SetActive(true);
-            hatVis = true;  
+            hatVis = true;
         }
     }
 }
