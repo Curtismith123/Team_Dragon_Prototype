@@ -38,6 +38,18 @@ public class PlayerController : MonoBehaviour, IDamage
     int pelletsPerShot;
     float spreadAngle;
 
+    [Header("-----Conversion-----")]
+    [SerializeField] float conversionRange = 5f;
+    [Header("-----Conversion Gauge-----")]
+    [SerializeField] private float maxConversionGauge = 100f;
+    [SerializeField] private float conversionGauge = 100f;
+    [SerializeField] private float conversionGaugeRefillRate = 5f;
+    [SerializeField] private float conversionGaugePerAttempt = 20f;
+    [Header("-----Conversion Projectile-----")]
+    [SerializeField] GameObject conversionProjectilePrefab;
+    [SerializeField] Transform conversionShootPos;
+    [SerializeField] float conversionProjectileSpeed = 10f;
+
     [Header("-----Audio-----")]
     [SerializeField] AudioSource aud;
 
@@ -64,6 +76,7 @@ public class PlayerController : MonoBehaviour, IDamage
     int selectedWeapon;
     private bool canFire = true;
     private bool hasJumped;
+
 
 
     void Start()
@@ -96,6 +109,20 @@ public class PlayerController : MonoBehaviour, IDamage
             StartCoroutine(FireCooldown());
         }
 
+        if (conversionGauge < maxConversionGauge)
+        {
+            conversionGauge += conversionGaugeRefillRate * Time.deltaTime;
+            if (conversionGauge > maxConversionGauge)
+            {
+                conversionGauge = maxConversionGauge;
+            }
+            UpdateConversionGaugeUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            TryConvertEnemy();
+        }
 
     }
 
@@ -262,6 +289,7 @@ public class PlayerController : MonoBehaviour, IDamage
             bulletScript.SetSpeed(currentWeapon.bulletSpeed);
             bulletScript.SetDamage(currentWeapon.shootDamage);
             bulletScript.SetDestroyTime(currentWeapon.bulletDestroyTime);
+            bulletScript.SetAttacker(gameObject);
         }
 
         yield return new WaitForSeconds(currentWeapon.shootRate);
@@ -275,7 +303,7 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, GameObject attacker)
     {
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
@@ -430,6 +458,66 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
     //-------------------------------------------
+
+    public void UpdateConversionGaugeUI()
+    {
+        gameManager.instance.playerConversionBar.fillAmount = conversionGauge / maxConversionGauge;
+    }
+
+    public void AddConversionGauge(float amount)
+    {
+        conversionGauge += amount;
+        if (conversionGauge > maxConversionGauge)
+        {
+            conversionGauge = maxConversionGauge;
+        }
+        UpdateConversionGaugeUI();
+    }
+
+    void TryConvertEnemy()
+    {
+        if (conversionGauge >= conversionGaugePerAttempt)
+        {
+            conversionGauge -= conversionGaugePerAttempt;
+            UpdateConversionGaugeUI();
+
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                targetPoint = hit.point;
+            }
+            else
+            {
+                targetPoint = ray.GetPoint(100f);
+            }
+
+            Vector3 shootDirection = (targetPoint - conversionShootPos.position).normalized;
+
+            GameObject newProjectile = Instantiate(conversionProjectilePrefab, conversionShootPos.position, Quaternion.identity);
+
+            newProjectile.transform.forward = shootDirection;
+
+            ConversionProjectile projectileScript = newProjectile.GetComponent<ConversionProjectile>();
+
+
+            if (projectileScript != null)
+            {
+                projectileScript.SetSpeed(conversionProjectileSpeed);
+                projectileScript.SetDestroyTime(5f);
+            }
+            else
+            {
+                Debug.LogWarning("ConversionProjectile script not found on the instantiated projectile.");
+            }
+        }
+        else
+        {
+            Debug.Log("Not enough conversion gauge to attempt conversion.");
+        }
+    }
 
     void hatTog()
     {

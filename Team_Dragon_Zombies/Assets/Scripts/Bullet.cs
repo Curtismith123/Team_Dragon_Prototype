@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody rb;
     private float destroyTime;
 
+    private GameObject attacker;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,6 +29,12 @@ public class Bullet : MonoBehaviour
         damage = bulletDamage;
     }
 
+    public void SetAttacker(GameObject attacker)
+    {
+        this.attacker = attacker;
+    }
+
+
     private void Start()
     {
         rb.linearVelocity = transform.forward * speed;
@@ -40,7 +48,7 @@ public class Bullet : MonoBehaviour
         IDamage damageable = other.GetComponent<IDamage>();
         if (damageable != null)
         {
-            damageable.takeDamage(damage);
+            damageable.takeDamage(damage, attacker);
         }
 
         Destroy(gameObject);

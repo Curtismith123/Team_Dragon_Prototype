@@ -2252,7 +2252,7 @@ GameObject:
   - component: {fileID: -8768390774569154293}
   m_Layer: 8
   m_Name: ZombieFastLowHPLowDMG
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2266,7 +2266,7 @@ Transform:
   m_GameObject: {fileID: 3510126856991399112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.05, y: -0.0000038146973, z: 0.62}
+  m_LocalPosition: {x: 5.158601, y: 0.00000023841858, z: 10.783306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2293,17 +2293,21 @@ MonoBehaviour:
   headPos: {fileID: 2439672669723028192}
   HP: 15
   faceTargetSpeed: 10
-  viewAngle: 90
+  viewAngle: 110
   roamDist: 5
   roamTimer: 3
   animSpeedTrans: 1
-  attackRate: 1.5
+  attackRate: 0.65
   meleeDamage: 10
   attackRange: 2
   walkSound: {fileID: 8300000, guid: 7347e93a1754960468be095dff3d4add, type: 3}
   attackSound: {fileID: 8300000, guid: c1e97379440980946b80ef57b56b059a, type: 3}
   walkSoundVolume: 0.25
   attackSoundVolume: 0.28
+  enemyTier: 0
+  conversionTime: 0
+  detectionRadius: 15
+  timeToSwitchTarget: 3
 --- !u!95 &8866374661110000780
 Animator:
   serializedVersion: 7
@@ -2335,7 +2339,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3510126856991399112}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 0.5
   m_Speed: 6
   m_Acceleration: 7
   avoidancePriority: 50

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Equip : MonoBehaviour
 {
-    enum pickupType { weapon, HP, stamina, ammo, key }
+    enum pickupType { weapon, HP, stamina, ammo, key, conversionCharge }
     [SerializeField] pickupType type;
     [SerializeField] Weapon weapon;
     [SerializeField] string keyID;
+    [SerializeField] float conversionChargeAmount = 20f;
 
     void Start()
     {
@@ -33,6 +34,9 @@ public class Equip : MonoBehaviour
                     gameManager.instance.AddKey(keyID);
                     break;
 
+                case pickupType.conversionCharge:
+                    gameManager.instance.playerScript.AddConversionGauge(conversionChargeAmount);
+                    break;
             }
 
             Destroy(gameObject);
