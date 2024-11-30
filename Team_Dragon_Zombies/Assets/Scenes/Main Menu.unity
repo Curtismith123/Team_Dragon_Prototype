@@ -469,6 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885f02c7d63e36644b3e8d43c1bd778f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameLevel: LastKingdomArea1
+  noSavedGame: {fileID: 1148423503}
 --- !u!4 &85368596
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,7 +1203,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 194380142}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 85368595}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: newGameYes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &194380142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,7 +1550,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 845966782}
+      - m_Target: {fileID: 1148423503}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -2239,7 +2253,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 529249351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 85368595}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: loadGameYes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 747777279}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &529249351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4186,7 +4224,7 @@ GameObject:
   - component: {fileID: 972189606}
   - component: {fileID: 972189605}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5130,7 +5168,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1136802512}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 85368595}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1136802512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5314,7 +5364,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1649261531}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
         m_MethodName: volumeApply
         m_Mode: 1
@@ -8002,86 +8052,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641616352}
   m_CullTransparentMesh: 1
---- !u!1 &1649261530
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1649261532}
-  - component: {fileID: 1649261531}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1649261531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649261530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb2f504187f4ecf4cb3b5e5c59081e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuActive: {fileID: 0}
-  menuPause: {fileID: 0}
-  menuWin: {fileID: 0}
-  menuLose: {fileID: 0}
-  menuSettings: {fileID: 0}
-  settingsActive: {fileID: 0}
-  inSetActive: {fileID: 0}
-  aud: {fileID: 0}
-  audWinMenu: {fileID: 0}
-  audWinVol: 0
-  audLoseMenu: {fileID: 0}
-  audLoseVol: 0
-  menuAudio: {fileID: 0}
-  volumeTextValue: {fileID: 0}
-  volumeSlider: {fileID: 0}
-  defaultVolume: 1
-  menuGameplay: {fileID: 0}
-  sensTextValue: {fileID: 0}
-  sensSlider: {fileID: 0}
-  defaultSen: 300
-  invertYToggle: {fileID: 0}
-  menuGraphics: {fileID: 0}
-  qltyDropdown: {fileID: 0}
-  fullScrToggle: {fileID: 0}
-  resDropDown: {fileID: 0}
-  enemyCountText: {fileID: 0}
-  ammoCountText: {fileID: 0}
-  player: {fileID: 0}
-  playerHPBar: {fileID: 0}
-  playerStaminaBar: {fileID: 0}
-  playerScript: {fileID: 0}
-  playerDamageScreen: {fileID: 0}
-  throwObjects: {fileID: 0}
-  Throwers: {fileID: 0}
-  enemyCount: 0
-  ammoCount: 0
---- !u!4 &1649261532
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649261530}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 855.1968, y: 590.4271, z: -0.5199486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1665888581
 GameObject:
   m_ObjectHideFlags: 0
@@ -9816,7 +9786,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1649261531}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
         m_MethodName: resetDefault
         m_Mode: 5
@@ -11607,7 +11577,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 775678913}
   - {fileID: 1865188547}
-  - {fileID: 1649261532}
   - {fileID: 85368596}
   - {fileID: 972189608}
   - {fileID: 1108778709}
