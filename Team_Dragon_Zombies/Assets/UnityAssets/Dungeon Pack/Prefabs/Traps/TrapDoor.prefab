@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4881404980133362}
-  - component: {fileID: 1333562007821610337}
   - component: {fileID: 95222640213664392}
+  - component: {fileID: 1769176637050646319}
   m_Layer: 0
   m_Name: TrapDoor
   m_TagString: Player
@@ -35,28 +35,6 @@ Transform:
   - {fileID: 4499834346897066}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1333562007821610337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637446126582564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66000e7d340e3e845870a33874abcb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TrapDoor: {fileID: 1637446126582564}
-  openAngle: 90
-  isOpen: 0
-  TrapDoorAnim: {fileID: 95222640213664392}
-  audioSource: {fileID: 0}
-  openSound: {fileID: 0}
-  closeSound: {fileID: 0}
-  delay: 1
-  initialAngle: 0
-  isTriggered: 0
 --- !u!95 &95222640213664392
 Animator:
   serializedVersion: 7
@@ -79,6 +57,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1769176637050646319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637446126582564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebaedce302d34d5449e8ba23de6564cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrapDoorAnim: {fileID: 95222640213664392}
 --- !u!1 &1701452428705890
 GameObject:
   m_ObjectHideFlags: 0
