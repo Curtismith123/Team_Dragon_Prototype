@@ -35,6 +35,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.settingsBack();
     }
+
     // Audio
     public void soundMenu()
     {
@@ -55,10 +56,16 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.inSetBack();
     }
+
     // Gameplay
     public void gmPlayApply()
     {
         gameManager.instance.gameplayApply();
+    }
+
+    public void resetGmPlay()
+    {
+        gameManager.instance.resetDefault("Gameplay");
     }
 
     // Graphics
@@ -70,6 +77,10 @@ public class buttonFunctions : MonoBehaviour
     public void graphAppply()
     {
         gameManager.instance.graphicsApply();
+    }
+    public void resetGraphics()
+    {
+        gameManager.instance.resetDefault("Graphics");
     }
 
 }
