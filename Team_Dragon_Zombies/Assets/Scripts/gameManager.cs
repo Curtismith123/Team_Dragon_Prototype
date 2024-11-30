@@ -119,18 +119,18 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
-        
+
 
         if (Input.GetButtonDown("Cancel") && !gameEnded)
         {
-            
+
 
             if (menuActive == null && settingsActive == null && inSetActive == null)
             {
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(IsPaused);
-                
+
 
 
                 ToggleSpinObjects(IsPaused);
@@ -139,14 +139,14 @@ public class gameManager : MonoBehaviour
             {
                 stateUnpause();
                 ToggleSpinObjects(true);
-                
+
             }
             else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
             {
                 settingsActive.SetActive(false);
                 settingsActive = null;
                 stateUnpause();
-                
+
             }
             else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
             {
@@ -155,7 +155,7 @@ public class gameManager : MonoBehaviour
                 settingsActive.SetActive(false);
                 settingsActive = null;
                 stateUnpause();
-                
+
             }
         }
     }
@@ -178,7 +178,7 @@ public class gameManager : MonoBehaviour
             Time.timeScale = 0;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
-            
+
         }
     }
 
@@ -193,12 +193,12 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(false);
             menuActive = null;
         }
-        
+
     }
 
     private void ToggleSpinObjects(bool enableSpin)
-    {
-        spin[] spinObjects = FindObjectsOfType<spin>();
+    {               // use findobjectsbytype as findobjectsoftype has depreciated in this version of unity 
+        spin[] spinObjects = FindObjectsByType<spin>(FindObjectsSortMode.None);
         foreach (var spinObject in spinObjects)
         {
             spinObject.enabled = enableSpin;

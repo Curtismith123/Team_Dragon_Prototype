@@ -28,4 +28,13 @@ public class Weapon : ScriptableObject
     public AudioClip[] outOfAmmo;
     public float outOfAmmoVol;
 
+
+    [Header("-----Shoot Point Offset-----")]
+    public Vector3 shootPointPosition; // Position relative to the weapon model
+                                       //^^^ to properly use this place the weapon model in the player models hand at t pose with the barrel pointed away from the player in line with the arm ...
+                                       // move the shoot pos to the end of the barrel and not the values in the transform 
+                                       // assign these values to the vector 3 offest of the scriptable object then zero the shoot pos transform position and delet weapon model
+
+
+
 }
