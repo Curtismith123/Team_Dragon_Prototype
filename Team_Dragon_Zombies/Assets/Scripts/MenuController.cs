@@ -28,8 +28,8 @@ public class MenuController : MonoBehaviour
     // Gameplay Objects
     [Header("-----Gameplay-----")]
     [SerializeField] GameObject menuGameplay;
-    [SerializeField] private TMP_Text sensTextValue;
-    [SerializeField] private Slider sensSlider;
+    [SerializeField] public TMP_Text mainSensTextValue;
+    [SerializeField] public Slider sensSlider;
     [SerializeField] private int defaultSen = 300;
     public int mainSens = 300;
     [SerializeField] private Toggle invertYToggle;
@@ -107,7 +107,7 @@ public class MenuController : MonoBehaviour
 
         if (menuType == "Gameplay")
         {
-            sensTextValue.text = defaultSen.ToString("F0");
+            mainSensTextValue.text = defaultSen.ToString("F0");
             sensSlider.value = defaultSen;
             invertYToggle.isOn = false;
             menuGameplayApply();
@@ -135,7 +135,7 @@ public class MenuController : MonoBehaviour
 
         //cameraController.camController.Sensitivity = (int)sensitivity;
         mainSens = Mathf.RoundToInt(sensitivity);
-        sensTextValue.text = sensitivity.ToString("F0");
+        mainSensTextValue.text = sensitivity.ToString("F0");
     }
 
     public void menuGameplayApply()
