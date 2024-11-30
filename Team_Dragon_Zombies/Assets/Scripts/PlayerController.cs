@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour, IDamage
         currentStamina = maxStamina;
         updatePlayerUI();
         hat.SetActive(false);
-        origShootPos = shootPos.transform.position;
+        origShootPos = shootPos.localPosition;
     }
 
     void Update()
@@ -270,7 +270,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         // Get the current weapon
         Weapon currentWeapon = weaponList[selectedWeapon];
-        shootPos.transform.position = origShootPos + currentWeapon.shootPointPosition;
+
 
         // Check if there's ammo
         if (currentWeapon.ammoCur <= 0)
@@ -384,6 +384,7 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
+        shootPos.transform.position = shootPos.transform.position + weaponList[selectedWeapon].shootPointPosition;
 
 
         foreach (Transform child in weaponModel.transform)

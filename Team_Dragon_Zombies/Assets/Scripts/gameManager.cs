@@ -110,11 +110,11 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         InitializeThrowers();
-        sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
-        sensSlider.value = MenuController.instance.mainSens;
-        cameraController.camController.Sensitivity = MenuController.instance.mainSens;
+        //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
+        //sensSlider.value = MenuController.instance.mainSens;
+        //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
 
-        sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");
+        //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");
     }
 
     void Update()
