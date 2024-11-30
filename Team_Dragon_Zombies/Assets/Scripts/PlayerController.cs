@@ -132,6 +132,11 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             TryConvertEnemy();
         }
+        // check bool flip bool listener
+        if (controller.isGrounded && anim.GetBool("isGrounded") == false)
+        {
+            anim.SetBool("isGrounded", true);
+        }
 
     }
 
@@ -144,6 +149,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void movement()
     {
+        if (!isPlayingSteps && moveDir.magnitude > 0.3f && controller.isGrounded) { StartCoroutine(playStep()); }
         if (controller.isGrounded)
         {
             jumpCount = 0;
@@ -162,14 +168,24 @@ public class PlayerController : MonoBehaviour, IDamage
 
         CheckLanding();
 
-        if (controller.isGrounded && moveDir.magnitude > 0.3f && !isPlayingSteps)
-            StartCoroutine(playStep());
+        anim.SetBool("isGrounded", (controller.isGrounded));
     }
 
     void jump()
     {
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
+            if (!hasJumped)
+            {
+                anim.SetTrigger("jumpTrig");
+                anim.SetBool("isGrounded", false);
+            }
+            else
+            {
+                anim.SetTrigger("dJumpTrig");
+            }
+
+            // trigger jump animation
             jumpCount++;
             playerVel.y = jumpSpeed;
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
