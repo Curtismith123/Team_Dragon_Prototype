@@ -2606,6 +2606,7 @@ GameObject:
   - component: {fileID: 5386529677981126147}
   - component: {fileID: 4057513685852795220}
   - component: {fileID: 668735724399709912}
+  - component: {fileID: 6953213374301874932}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2653,11 +2654,12 @@ MonoBehaviour:
   Speed: 4
   maxStamina: 100
   staminaRegenRate: 40
-  staminaDepletionRate: 45
+  staminaDepletionRate: 25
   sprintMod: 2
   jumpMax: 2
   jumpSpeed: 12
   gravity: 28
+  anim: {fileID: 6953213374301874932}
   weaponList: []
   weaponModel: {fileID: 1415473554340502203}
   muzzleFlash: {fileID: 8461507516146515604}
@@ -2722,6 +2724,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f0f794c67e9233d468a38d165590d253, type: 3}
   - {fileID: 8300000, guid: 1a7741daba5446e46a40f8074aae75dc, type: 3}
   - {fileID: 8300000, guid: 0bc66974c41ff8c4fa15f46d21ad3548, type: 3}
+  stepRate: 0.75
   audStepsVol: 0.15
   hat: {fileID: 5488442421080457794}
 --- !u!114 &5538549582337728177
@@ -2962,6 +2965,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &6953213374301874932
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691467654254822038}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3ba5df55de38cf04d86504dab0da7464, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2ad571c75179a214e9444c4ce04c2b52, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6833876409345384286
 GameObject:
   m_ObjectHideFlags: 0
