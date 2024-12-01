@@ -46,6 +46,7 @@ public class gameManager : MonoBehaviour
     private int qualityLevel;
     private bool isFullScreen;
     private float brightnesslevel;
+    private bool isInvertY;
 
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
@@ -110,12 +111,11 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         InitializeThrowers();
-        //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
+		//sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
         //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
 
-        //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");
-    }
+        //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
 
     void Update()
     {
@@ -403,6 +403,20 @@ public class gameManager : MonoBehaviour
         inSetActive.SetActive(false);
         inSetActive = null;
         settingsActive.SetActive(true);
+    }
+
+    public bool IsInvertY
+    {
+        get { return isInvertY; }
+        set
+        {
+            isInvertY = !isInvertY;
+        }
+    }
+
+    public void setInvertY(bool invertY)
+    {
+        isInvertY = invertY;
     }
 
     // Graphics
