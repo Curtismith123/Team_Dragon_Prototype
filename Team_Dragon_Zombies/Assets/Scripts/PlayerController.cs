@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage
     float bulletSpeed;
     int pelletsPerShot;
     float spreadAngle;
-    private Vector3 origShootPos;
+
 
     [Header("-----Conversion-----")]
     [SerializeField] float conversionRange = 5f;
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour, IDamage
         currentStamina = maxStamina;
         updatePlayerUI();
         hat.SetActive(false);
-        origShootPos = shootPos.localPosition;
+
     }
 
     void Update()
@@ -116,6 +116,9 @@ public class PlayerController : MonoBehaviour, IDamage
         //&& weaponList[selectedWeapon].ammoCur > 0
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire)
         {
+            //// Align the weapon model to face forward relative to the player's forward
+            //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
         }
@@ -384,7 +387,7 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
-        shootPos.transform.position = shootPos.transform.position + weaponList[selectedWeapon].shootPointPosition;
+
 
 
         foreach (Transform child in weaponModel.transform)
