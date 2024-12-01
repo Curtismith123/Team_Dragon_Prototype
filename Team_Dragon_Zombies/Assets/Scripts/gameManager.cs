@@ -111,54 +111,55 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         InitializeThrowers();
-		//sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
+        //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
         //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
 
         //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
-
-    void Update()
-    {
-
-
-        if (Input.GetButtonDown("Cancel") && !gameEnded)
+    }
+        void Update()
         {
 
 
-            if (menuActive == null && settingsActive == null && inSetActive == null)
+            if (Input.GetButtonDown("Cancel") && !gameEnded)
             {
-                statePause();
-                menuActive = menuPause;
-                menuActive.SetActive(IsPaused);
+
+
+                if (menuActive == null && settingsActive == null && inSetActive == null)
+                {
+                    statePause();
+                    menuActive = menuPause;
+                    menuActive.SetActive(IsPaused);
 
 
 
-                ToggleSpinObjects(IsPaused);
-            }
-            else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
-            {
-                stateUnpause();
-                ToggleSpinObjects(true);
+                    ToggleSpinObjects(IsPaused);
+                }
+                else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
+                {
+                    stateUnpause();
+                    ToggleSpinObjects(true);
 
-            }
-            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
-            {
-                settingsActive.SetActive(false);
-                settingsActive = null;
-                stateUnpause();
+                }
+                else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
+                {
+                    settingsActive.SetActive(false);
+                    settingsActive = null;
+                    stateUnpause();
 
-            }
-            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
-            {
-                inSetActive.SetActive(false);
-                inSetActive = null;
-                settingsActive.SetActive(false);
-                settingsActive = null;
-                stateUnpause();
+                }
+                else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
+                {
+                    inSetActive.SetActive(false);
+                    inSetActive = null;
+                    settingsActive.SetActive(false);
+                    settingsActive = null;
+                    stateUnpause();
 
+                }
             }
         }
-    }
+    
 
     public bool IsPaused
     {
