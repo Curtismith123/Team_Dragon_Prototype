@@ -37,7 +37,7 @@ public class ConversionProjectile : MonoBehaviour
     {
         if (other.isTrigger) return;
 
-        if (other.CompareTag("Player") || other.CompareTag("Friendly"))
+        if (other.CompareTag("Player") || other.CompareTag("Friendly") || other.CompareTag("FriendlySpewer"))
         {
             return;
         }
@@ -54,6 +54,20 @@ public class ConversionProjectile : MonoBehaviour
                 Debug.LogWarning($"{other.name} does not have an enemyMeleeAttack script attached.");
             }
         }
+
+        else if (other.CompareTag("EnemySpewer"))
+        {
+            var spewerScript = other.GetComponent<enemySpewerAttack>();
+            if (spewerScript != null)
+            {
+                spewerScript.StartConversion();
+            }
+            else
+            {
+                Debug.LogWarning($"{other.name} does not have an enemySpewerAttack script attached.");
+            }
+        }
+
         Destroy(gameObject);
     }
 }
