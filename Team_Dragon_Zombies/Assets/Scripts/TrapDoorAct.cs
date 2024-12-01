@@ -4,56 +4,74 @@ using UnityEngine;
 
 public class TrapDoorAct : MonoBehaviour
 {
-    public GameObject TrapDoor;
+    public GameObject[] TrapDoors;
     public Camera Camera;
     public float range = 3f;
-    public float open = 100f; // Angle to open the trapdoor to the floor
-    public bool isOpen = false;
+    public float openAngle = 90f; // Angle to open the trapdoor to the floor
+    public bool[] isOpen;
+    public float openingSpeed = 2f;
+
+    private Vector3[] closedRotaion;
+    private Vector3[] openRotaion;
    
 
     void Start()
     {
-        
+        isOpen = new bool[TrapDoors.Length];
+        closedRotaion = new Vector3[TrapDoors.Length];
+        openRotaion = new Vector3[TrapDoors.Length];
+
+        for (int i = 0; i < TrapDoors.Length; i++)
+        {
+            closedRotaion[i] = TrapDoors[i].transform.eulerAngles;
+            openRotaion[i] = new Vector3(closedRotaion[i].x - openAngle, closedRotaion[i].y, closedRotaion[i].z);
+        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown("f"))
         {
-            Aim();
-        }
-
-        if (Input.GetKeyDown("f") & isOpen == true) 
-        {
-            AimTwo();
-        }
-    }
-
-    void Aim()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
-        {
-            Debug.Log(hit.transform.name);
-            ActTrap trap = hit.transform.GetComponent<ActTrap>();
-            if (trap != null)
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
             {
-                TrapDoor.transform.eulerAngles = new Vector3(TrapDoor.transform.eulerAngles.x - 90, TrapDoor.transform.eulerAngles.y, TrapDoor.transform.eulerAngles.z);
+                Debug.Log(hit.transform.name);
+                ActTrap trap = hit.transform.GetComponent<ActTrap>();
+                if (trap != null)
+                {
+                    for (int i = 0; i < TrapDoors.Length; ++i)
+                    {
+                        if (TrapDoors[i] == trap.gameObject)
+                        {
+                            if (!isOpen[i])
+                            {
+                                StartCoroutine(RotateTrapDoor(i, TrapDoors[i].transform.eulerAngles, openRotaion[i]));
+                                isOpen[i] = true;
+                            }  
+                            else
+                            {
+                                StartCoroutine(RotateTrapDoor(i, TrapDoors[i].transform.eulerAngles, openRotaion[i]));
+                                isOpen[i] = false;
+                            }
+                        }
+                    }
+                }
             }
         }
+       
     }
 
-    void AimTwo()
+    
+
+    IEnumerator RotateTrapDoor (int index, Vector3 fromAngle, Vector3 toAngle)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, range))
+        float elapsedTime = 0f;
+        while (elapsedTime < openingSpeed)
         {
-            Debug.Log(hit.transform.name);
-            ActTrap trap = hit.transform.GetComponent<ActTrap>();
-            if (trap != null)
-            {
-                TrapDoor.transform.eulerAngles = new Vector3(TrapDoor.transform.eulerAngles.x + 90, TrapDoor.transform.eulerAngles.y, TrapDoor.transform.eulerAngles.z);
-            }
+            TrapDoors[index].transform.eulerAngles = Vector3.Lerp(fromAngle, toAngle, elapsedTime / openingSpeed);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+        TrapDoors[index].transform.eulerAngles = toAngle;
     }
-}
+ }
