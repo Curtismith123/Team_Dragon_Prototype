@@ -266,52 +266,64 @@ public class PlayerController : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-
         Weapon currentWeapon = weaponList[selectedWeapon];
 
         if (currentWeapon.ammoCur <= 0)
         {
-            aud.PlayOneShot(currentWeapon.outOfAmmo[Random.Range(0, currentWeapon.outOfAmmo.Length)], currentWeapon.outOfAmmoVol);
+            //sound here for click if out of ammo
+            if (Input.GetButton("Fire1"))
+            {
+                aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
+            }
+
             yield return new WaitForSeconds(0.5f);
             isShooting = false;
             yield break;
+
         }
 
-        currentWeapon.ammoCur--;
-        gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
+        //------------------------Ammo decrament logic (COMPLETE)
+        weaponList[selectedWeapon].ammoCur--;
+        //Audio for shooting
+        aud.PlayOneShot(weaponList[selectedWeapon].shootSound[Random.Range(0, weaponList[selectedWeapon].shootSound.Length)], weaponList[selectedWeapon].shootVol);
 
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        RaycastHit hit;
-        Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out hit, currentWeapon.shootDist))
+        if (weaponList[selectedWeapon].ammoCur <= 0)
         {
-
-            targetPoint = hit.point;
+            gameManager.instance.ammoUpdate(0);
         }
         else
         {
-            targetPoint = ray.GetPoint(currentWeapon.shootDist);
+            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
         }
+        //------------------------
 
-        Vector3 shootDirection = (targetPoint - shootPos.position).normalized;
+        StartCoroutine(flashMuzzle());
 
-        GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
+        int bulletsToFire = currentWeapon.pelletsPerShot > 1 ? currentWeapon.pelletsPerShot : 1;
 
-        newBullet.transform.forward = shootDirection;
-
-        Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        if (bulletScript != null)
+        for (int i = 0; i < bulletsToFire; i++)
         {
+            GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
+
+            Vector3 shootDirection = shootPos.forward;
+
+            if (bulletsToFire > 1)
+            {
+                float horizontalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+                float verticalAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+                float depthAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+
+                Quaternion rotation = Quaternion.Euler(verticalAngle, horizontalAngle, depthAngle);
+                shootDirection = rotation * shootDirection;
+            }
+
+            newBullet.transform.forward = shootDirection;
+
+            Bullet bulletScript = newBullet.GetComponent<Bullet>();
             bulletScript.SetSpeed(currentWeapon.bulletSpeed);
             bulletScript.SetDamage(currentWeapon.shootDamage);
             bulletScript.SetDestroyTime(currentWeapon.bulletDestroyTime);
-            bulletScript.SetAttacker(gameObject);
         }
-
-        anim.SetBool("isShooting", true);
-        StartCoroutine(flashMuzzle());
-        aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootVol);
 
         yield return new WaitForSeconds(currentWeapon.shootRate);
         isShooting = false;

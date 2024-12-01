@@ -13,7 +13,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
     [Header("-----Stats-----")]
     [SerializeField] private int HP;
     [SerializeField] private float faceTargetSpeed;
-    [SerializeField] private float viewAngle = 270f;
+    [SerializeField] private float viewAngle = 360f;
     [SerializeField] private float detectionRadius = 100f;
     [SerializeField] private float attackRate = 1.5f;
     [SerializeField] private float attackRange = 100f;
@@ -105,7 +105,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
             if ((hit.collider.CompareTag("Player") ||
                  hit.collider.CompareTag("Friendly") ||
                  hit.collider.CompareTag("FriendlySpewer")) &&
-                 angleToTarget <= viewAngle / 2)
+                 angleToTarget <= viewAngle)
             {
                 return true;
             }

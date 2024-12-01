@@ -27,7 +27,7 @@ public class Pickable : MonoBehaviour
         }
     }
 
-    private void TryPickup() 
+    private void TryPickup()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRange);
         foreach (Collider collider in colliders)

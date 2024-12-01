@@ -37,7 +37,7 @@ public class ThrowObjects : MonoBehaviour
 
     private void Throw()
     {
-        if (remainingThrows > 0) 
+        if (remainingThrows > 0)
         {
             readyToThrow = false;
 

@@ -15,7 +15,7 @@ public class FriendlySpewerAI : MonoBehaviour, IDamage, IFriendly
     public float detectionRadius = 100f;
     public float attackRate = 1.5f;
     public float attackRange = 100f;
-    [SerializeField] float viewAngle = 270f;
+    [SerializeField] float viewAngle = 360f;
     [Header("-----Projectile Settings-----")]
     [SerializeField] private int projectileDamage = 10;
     [SerializeField] public GameObject projectilePrefab;
@@ -108,7 +108,7 @@ public class FriendlySpewerAI : MonoBehaviour, IDamage, IFriendly
                 float distanceToEnemy = directionToEnemy.magnitude;
 
                 float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy.normalized);
-                if (angleToEnemy <= viewAngle / 2)
+                if (angleToEnemy <= viewAngle)
                 {
                     RaycastHit hit;
                     if (Physics.Raycast(headPos.position, directionToEnemy.normalized, out hit, detectionRadius))
