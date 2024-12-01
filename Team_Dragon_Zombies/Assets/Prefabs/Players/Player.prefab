@@ -2601,6 +2601,7 @@ GameObject:
   - component: {fileID: 2240209529603791878}
   - component: {fileID: 643869576382528718}
   - component: {fileID: 5538549582337728177}
+  - component: {fileID: 3863563882305092290}
   - component: {fileID: 6441036701684432751}
   - component: {fileID: 2764171865187801222}
   - component: {fileID: 5386529677981126147}
@@ -2748,6 +2749,23 @@ MonoBehaviour:
   throwForce: 15
   throwUpwardForce: 0
   remainingThrows: 0
+--- !u!114 &3863563882305092290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691467654254822038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66000e7d340e3e845870a33874abcb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrapDoor: {fileID: 0}
+  Camera: {fileID: 7162180268672449792}
+  range: 3
+  open: 100
+  isOpen: 0
 --- !u!143 &6441036701684432751
 CharacterController:
   m_ObjectHideFlags: 0
