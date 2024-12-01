@@ -43,10 +43,9 @@ public class PlayerController : MonoBehaviour, IDamage
     float bulletSpeed;
     int pelletsPerShot;
     float spreadAngle;
-    private Vector3 origShootPos;
+
 
     [Header("-----Conversion-----")]
-    [SerializeField] float conversionRange = 5f;
     [Header("-----Conversion Gauge-----")]
     [SerializeField] private float maxConversionGauge = 100f;
     [SerializeField] private float conversionGauge = 100f;
@@ -94,7 +93,7 @@ public class PlayerController : MonoBehaviour, IDamage
         currentStamina = maxStamina;
         updatePlayerUI();
         hat.SetActive(false);
-        origShootPos = shootPos.transform.position;
+
     }
 
     void Update()
@@ -116,6 +115,9 @@ public class PlayerController : MonoBehaviour, IDamage
         //&& weaponList[selectedWeapon].ammoCur > 0
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire)
         {
+            //// Align the weapon model to face forward relative to the player's forward
+            //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
         }
@@ -268,50 +270,39 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-        // Get the current weapon
         Weapon currentWeapon = weaponList[selectedWeapon];
-        shootPos.transform.position = origShootPos + currentWeapon.shootPointPosition;
 
-        // Check if there's ammo
         if (currentWeapon.ammoCur <= 0)
         {
-            // Play out of ammo sound
             aud.PlayOneShot(currentWeapon.outOfAmmo[Random.Range(0, currentWeapon.outOfAmmo.Length)], currentWeapon.outOfAmmoVol);
             yield return new WaitForSeconds(0.5f);
             isShooting = false;
             yield break;
         }
 
-        // Decrease ammo
         currentWeapon.ammoCur--;
         gameManager.instance.ammoUpdate(currentWeapon.ammoCur);
 
-        // Perform raycast from the camera
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
         Vector3 targetPoint;
 
         if (Physics.Raycast(ray, out hit, currentWeapon.shootDist))
         {
-            // If raycast hits, set target point to the hit position
+
             targetPoint = hit.point;
         }
         else
         {
-            // If no hit, set target point far in the camera's forward direction
             targetPoint = ray.GetPoint(currentWeapon.shootDist);
         }
 
-        // Calculate direction from shootPos to targetPoint
         Vector3 shootDirection = (targetPoint - shootPos.position).normalized;
 
-        // Create the bullet
         GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
 
-        // Set bullet's forward direction
         newBullet.transform.forward = shootDirection;
 
-        // Apply speed and other properties to the bullet
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
@@ -321,12 +312,10 @@ public class PlayerController : MonoBehaviour, IDamage
             bulletScript.SetAttacker(gameObject);
         }
 
-        // Play shooting animation and sound
         anim.SetBool("isShooting", true);
         StartCoroutine(flashMuzzle());
         aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootVol);
 
-        // Reset shooting state after delay
         yield return new WaitForSeconds(currentWeapon.shootRate);
         isShooting = false;
     }
@@ -384,6 +373,7 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
+
 
 
         foreach (Transform child in weaponModel.transform)

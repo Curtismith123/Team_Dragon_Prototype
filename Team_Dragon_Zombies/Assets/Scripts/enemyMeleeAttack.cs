@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyTier { Tier1, Tier2, Tier3 }
-
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
@@ -195,7 +193,10 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, targetDir, out hit, detectionRadius))
         {
-            if ((hit.collider.CompareTag("Player") || hit.collider.CompareTag("Friendly")) && angleToTarget <= viewAngle)
+            if ((hit.collider.CompareTag("Player") ||
+                 hit.collider.CompareTag("Friendly") ||
+                 hit.collider.CompareTag("FriendlySpewer")) &&
+                 angleToTarget <= viewAngle)
             {
                 return true;
             }
@@ -213,7 +214,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (var collider in hitColliders)
         {
-            if (collider.CompareTag("Player") || collider.CompareTag("Friendly"))
+            if (collider.CompareTag("Player") ||
+                collider.CompareTag("Friendly") ||
+                collider.CompareTag("FriendlySpewer"))
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 if (distance < shortestDistance)

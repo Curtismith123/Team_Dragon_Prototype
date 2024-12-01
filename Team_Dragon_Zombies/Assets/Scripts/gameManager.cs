@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
 
     [Header("-----Friendly Setting-----")]
     [SerializeField][Range(1, 6)] public int maxFriendlies = 3;
-    private List<FriendlyAI> friendlyUnits = new List<FriendlyAI>();
+    private List<IFriendly> friendlyUnits = new List<IFriendly>();
 
     private bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
@@ -111,7 +111,11 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         InitializeThrowers();
-    }
+		//sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
+        //sensSlider.value = MenuController.instance.mainSens;
+        //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
+
+        //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
 
     void Update()
     {
@@ -461,14 +465,13 @@ public class gameManager : MonoBehaviour
     }
 
 
-    public void RegisterFriendly(FriendlyAI friendly)
+    public void RegisterFriendly(IFriendly friendly)
     {
         if (!friendlyUnits.Contains(friendly))
         {
             if (friendlyUnits.Count >= maxFriendlies)
             {
-
-                FriendlyAI oldestFriendly = friendlyUnits[0];
+                IFriendly oldestFriendly = friendlyUnits[0];
                 oldestFriendly.Die();
             }
             friendlyUnits.Add(friendly);
@@ -476,7 +479,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void RemoveFriendly(FriendlyAI friendly)
+    public void RemoveFriendly(IFriendly friendly)
     {
         if (friendlyUnits.Contains(friendly))
         {
@@ -485,7 +488,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public int GetFriendlyIndex(FriendlyAI friendly)
+    public int GetFriendlyIndex(IFriendly friendly)
     {
         return friendlyUnits.IndexOf(friendly);
     }
@@ -500,8 +503,11 @@ public class gameManager : MonoBehaviour
         int totalFriendlies = GetFriendlyCount();
         for (int i = 0; i < totalFriendlies; i++)
         {
-            FriendlyAI friendly = friendlyUnits[i];
-            friendly.AssignFollowOffset(i, totalFriendlies);
+            IFriendly friendly = friendlyUnits[i];
+            if (friendly is FriendlyAI friendlyAI)
+            {
+                friendlyAI.AssignFollowOffset(i, totalFriendlies);
+            }
         }
     }
 }
