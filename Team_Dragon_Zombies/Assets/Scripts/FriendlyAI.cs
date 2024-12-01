@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class FriendlyAI : MonoBehaviour, IDamage
+public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
 {
     [Header("-----References-----")]
     public NavMeshAgent agent;
@@ -327,4 +327,5 @@ public class FriendlyAI : MonoBehaviour, IDamage
         gameManager.instance.RemoveFriendly(this);
         Destroy(gameObject);
     }
+
 }

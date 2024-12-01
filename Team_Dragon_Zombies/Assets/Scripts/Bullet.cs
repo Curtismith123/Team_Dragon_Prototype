@@ -37,8 +37,29 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        if (rb == null)
+        {
+            Debug.LogError($"{name}: Rigidbody component is missing.");
+            return;
+        }
+
+        if (speed == 0)
+        {
+            Debug.LogWarning($"{name}: Speed is not set. Defaulting to 10.");
+            speed = 10f;
+        }
+
         rb.linearVelocity = transform.forward * speed;
-        Destroy(gameObject, destroyTime);
+
+        if (destroyTime > 0)
+        {
+            Destroy(gameObject, destroyTime);
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: Destroy time is not set. Defaulting to 5 seconds.");
+            Destroy(gameObject, 5f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
