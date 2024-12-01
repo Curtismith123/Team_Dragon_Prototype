@@ -272,7 +272,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
 
     public void StartConversion()
     {
-        if (!isConverting)
+        if (!isConverting && enemyTier != EnemyTier.Tier4)
         {
             isConverting = true;
             AssignConversionTime();
@@ -284,6 +284,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
                 isConverting = false;
             }
         }
+        else if (enemyTier == EnemyTier.Tier4) ;
     }
 
     private void AssignConversionTime()
