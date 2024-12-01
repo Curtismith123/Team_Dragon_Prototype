@@ -117,6 +117,7 @@ public class gameManager : MonoBehaviour
 
         //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
     }
+
         void Update()
         {
 

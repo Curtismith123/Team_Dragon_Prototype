@@ -27,6 +27,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
     [SerializeField] EnemyTier enemyTier;
     [SerializeField] float conversionTime;
     private bool isConverting = false;
+    private float conversionTimer = 0f;
 
     [Header("-----Audio-----")]
     [SerializeField] private AudioClip attackSound;
@@ -271,27 +272,33 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
 
     public void StartConversion()
     {
-        if (gameObject.CompareTag("FriendlySpewer"))
-        {
-            return;
-        }
-
         if (!isConverting)
         {
-            switch (enemyTier)
+            isConverting = true;
+            AssignConversionTime();
+            conversionTimer = conversionTime;
+
+            if (enemyTier == EnemyTier.Tier1)
             {
-                case EnemyTier.Tier1:
-                    ConvertToFriendly();
-                    break;
-                case EnemyTier.Tier2:
-                    conversionTime = 5f;
-                    isConverting = true;
-                    break;
-                case EnemyTier.Tier3:
-                    conversionTime = 15f;
-                    isConverting = true;
-                    break;
+                ConvertToFriendly();
+                isConverting = false;
             }
+        }
+    }
+
+    private void AssignConversionTime()
+    {
+        switch (enemyTier)
+        {
+            case EnemyTier.Tier1:
+                conversionTime = 0f;
+                break;
+            case EnemyTier.Tier2:
+                conversionTime = Random.Range(5f, 10f);
+                break;
+            case EnemyTier.Tier3:
+                conversionTime = Random.Range(15f, 20f);
+                break;
         }
     }
 
