@@ -308,7 +308,7 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
 
-            Vector3 shootDirection = shootPos.forward;
+            Vector3 shootDirection = (Camera.main.transform.forward).normalized;
 
             if (bulletsToFire > 1)
             {
@@ -326,6 +326,7 @@ public class PlayerController : MonoBehaviour, IDamage
             bulletScript.SetSpeed(currentWeapon.bulletSpeed);
             bulletScript.SetDamage(currentWeapon.shootDamage);
             bulletScript.SetDestroyTime(currentWeapon.bulletDestroyTime);
+            bulletScript.SetAttacker(gameObject);
         }
 
         yield return new WaitForSeconds(currentWeapon.shootRate);

@@ -249,6 +249,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         timeSinceLastHit = 0f;
         target = attacker;
 
+        agent.SetDestination(attacker.transform.position);
+
         if (HP <= 0)
         {
             isDead = true;
