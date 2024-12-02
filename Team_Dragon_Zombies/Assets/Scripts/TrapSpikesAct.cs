@@ -13,6 +13,8 @@ public class TrapSpikesAct : MonoBehaviour
     public Vector3 initialPosition;
     public bool isActivated = false;
 
+    private TrapDamage trapDamage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -23,13 +25,24 @@ public class TrapSpikesAct : MonoBehaviour
         }
         // Record the initial position of the spikes 
        initialPosition = transform.position;
+
+        trapDamage = GetComponent<TrapDamage>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player enterd spike trigger: " + other.gameObject.name);
             StartCoroutine(ActivateSpikeWithDelay());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player exited spike trigger: " + other.gameObject.name);
         }
     }
 
@@ -47,6 +60,8 @@ public class TrapSpikesAct : MonoBehaviour
         // Activate the spikes
         isActivated = true;
         StartCoroutine(MoveSpikes(initialPosition + Vector3.up * spikeHeight));
+
+        DealDamageToPlayer();
     }
 
     IEnumerator MoveSpikes(Vector3 targetPosition)
@@ -61,5 +76,19 @@ public class TrapSpikesAct : MonoBehaviour
         yield return new WaitForSeconds(2f);
         StartCoroutine(MoveSpikes(initialPosition));
         isActivated = false;
+    }
+
+    private void DealDamageToPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null && trapDamage != null)
+        {
+            IDamage damageable = player.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(trapDamage.damageAmount, gameObject);
+                Debug.Log("Player damaged by spikes" + player.name);
+            }   
+        }
     }
 }
