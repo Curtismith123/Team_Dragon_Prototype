@@ -15,18 +15,12 @@ public class Explode : MonoBehaviour
     public Rigidbody rb;
     public bool isBroken;
     public LayerMask ignoreLayers;
-    public Material pieceMaterial; 
+    public Material pieceMaterial;
 
-    // Use this for initialization
     void Start()
     {
-        // calculate pivot distance
         cubesPivotDistance = cubeSize * cubesInRow / 2;
-
-        // use this value to create pivot vector
         cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
-
-        // Set Rigidbody to be Kinematic initially
         rb.isKinematic = true;
     }
 
@@ -45,11 +39,12 @@ public class Explode : MonoBehaviour
             return;
         }
 
-        //only break if breaker tag is on it
         if (other.CompareTag("Breaker"))
         {
             isBroken = true;
             ExplodeObjects();
+
+            CheckChildrenForExplosion();
         }
     }
 
@@ -85,6 +80,19 @@ public class Explode : MonoBehaviour
             }
         }
         Destroy(gameObject, 0.1f);
+    }
+
+    private void CheckChildrenForExplosion()
+    {
+        foreach (Transform child in transform)
+        {
+            Explode childExplode = child.GetComponent<Explode>();
+            if (childExplode != null && child.CompareTag("Breaker"))
+            {
+                childExplode.isBroken = true;
+                childExplode.ExplodeObjects();
+            }
+        }
     }
 
     void createPiece(int x, int y, int z)
