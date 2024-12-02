@@ -2760,11 +2760,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66000e7d340e3e845870a33874abcb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrapDoor: {fileID: 0}
+  TrapDoors: []
   Camera: {fileID: 7162180268672449792}
   range: 3
-  open: 100
-  isOpen: 0
+  openAngle: 90
+  isOpen: 
+  openingSpeed: 2
 --- !u!143 &6441036701684432751
 CharacterController:
   m_ObjectHideFlags: 0

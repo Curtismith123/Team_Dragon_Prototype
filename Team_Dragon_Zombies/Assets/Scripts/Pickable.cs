@@ -8,6 +8,19 @@ public class Pickable : MonoBehaviour
 
     private bool isPickedUp = false;
 
+
+    private void Start()
+    {
+        if (throwObjectsScript == null)
+        {
+            throwObjectsScript = FindObjectOfType<ThrowObjects>();
+            if (throwObjectsScript == null)
+            {
+                Debug.LogError("No throwobject script located in scene");
+            }
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && canPickUp && !isPickedUp) //backup pickup system if not auto picking up.
