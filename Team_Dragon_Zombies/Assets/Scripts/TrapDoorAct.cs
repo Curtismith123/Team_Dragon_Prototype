@@ -50,7 +50,7 @@ public class TrapDoorAct : MonoBehaviour
                             }  
                             else
                             {
-                                StartCoroutine(RotateTrapDoor(i, TrapDoors[i].transform.eulerAngles, openRotaion[i]));
+                                StartCoroutine(RotateTrapDoor(i, TrapDoors[i].transform.eulerAngles, closedRotaion[i]));
                                 isOpen[i] = false;
                             }
                         }
@@ -66,6 +66,13 @@ public class TrapDoorAct : MonoBehaviour
     IEnumerator RotateTrapDoor (int index, Vector3 fromAngle, Vector3 toAngle)
     {
         float elapsedTime = 0f;
+        Vector3 targetAngle = toAngle;
+
+        if (!isOpen[index])
+        {
+            targetAngle = new Vector3(fromAngle.x + openAngle, fromAngle.y, fromAngle.z);
+        }
+        
         while (elapsedTime < openingSpeed)
         {
             TrapDoors[index].transform.eulerAngles = Vector3.Lerp(fromAngle, toAngle, elapsedTime / openingSpeed);
