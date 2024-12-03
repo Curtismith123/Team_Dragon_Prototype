@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2951093185909594476}
   - component: {fileID: 7824364295940027290}
+  - component: {fileID: 6944130922800605118}
   - component: {fileID: 4585322018644640885}
   - component: {fileID: 4002926188823443617}
   - component: {fileID: 2833359134201139565}
@@ -50,10 +51,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &6944130922800605118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365782302461422428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &4585322018644640885
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -126,8 +140,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: -0.7, y: 3, z: 0.7}
 --- !u!1 &800021521339490654
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4843993412346223829}
   - component: {fileID: 6269268726324703327}
+  - component: {fileID: 8687101617667483169}
   - component: {fileID: 4876994687143731264}
   - component: {fileID: 5345311853558858653}
   - component: {fileID: 5949422064199287978}
@@ -178,10 +193,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &8687101617667483169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800021521339490654}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &4876994687143731264
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -254,7 +282,7 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
+  m_Radius: 1.2
   m_Center: {x: 0, y: 3, z: -0.000000052154064}
 --- !u!1 &1186806430126079366
 GameObject:
@@ -266,6 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7095077350896678527}
   - component: {fileID: 3578102478855249600}
+  - component: {fileID: 4705719058333454123}
   - component: {fileID: 7098802857262317559}
   - component: {fileID: 7153296744174712139}
   - component: {fileID: 8297838615111654293}
@@ -306,10 +335,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &4705719058333454123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186806430126079366}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &7098802857262317559
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -382,8 +424,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: 0.7, y: 3, z: 0.7}
 --- !u!1 &1512772363418713453
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6612761523232368978}
   - component: {fileID: 3398097722564466050}
+  - component: {fileID: 2407532634120994216}
   - component: {fileID: 238485810930308310}
   - component: {fileID: 3495591596672232798}
   - component: {fileID: 2190904186892394174}
@@ -434,10 +477,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &2407532634120994216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512772363418713453}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &238485810930308310
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -510,8 +566,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: -0.0000019073486, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: -0.7, y: 3, z: -0.7}
 --- !u!1 &2465635846576827512
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1140703224921992736}
   - component: {fileID: 874776623603365092}
+  - component: {fileID: 2902339466456577176}
   - component: {fileID: 8679019081816330207}
   - component: {fileID: 642675888741399869}
   - component: {fileID: 4519277354732917745}
@@ -562,10 +619,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &2902339466456577176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465635846576827512}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &8679019081816330207
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -638,8 +708,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 3, z: 0.7}
 --- !u!1 &3100933051014891449
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7240302168794135879}
   - component: {fileID: 6611820872633865155}
+  - component: {fileID: 3561865411253842553}
   - component: {fileID: 5679722228771204382}
   - component: {fileID: 1736459859193538817}
   - component: {fileID: 7787104344613600869}
@@ -690,10 +761,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &3561865411253842553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3100933051014891449}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &5679722228771204382
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -766,8 +850,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: -0.0000019073486, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 3, z: -0.7}
 --- !u!1 &3961839641685296807
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7222589775803830129}
   - component: {fileID: 3887027025815619035}
+  - component: {fileID: 324177870332218880}
   - component: {fileID: 7515934245587968095}
   - component: {fileID: 3587817849815158060}
   - component: {fileID: 5688271299592104194}
@@ -818,10 +903,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 1
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &324177870332218880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961839641685296807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &7515934245587968095
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -894,8 +992,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: -0.7, y: 3, z: -0.000000052154064}
 --- !u!1 &4527288877772898233
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1045777847496152495}
   - component: {fileID: 5114209555030653487}
+  - component: {fileID: 4672382590581740819}
   - component: {fileID: 7953053508663101966}
   - component: {fileID: 7200990972402176691}
   - component: {fileID: 1582023484635879664}
@@ -946,10 +1045,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &4672382590581740819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527288877772898233}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &7953053508663101966
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1022,8 +1134,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: -0.0000019073486, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: 0.7, y: 3, z: -0.7}
 --- !u!1 &8112606408284208512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7890097692067749701}
   - component: {fileID: 3222033491577697209}
+  - component: {fileID: 8584111041300667877}
   - component: {fileID: 2314331701168042714}
   - component: {fileID: 546354775372519990}
   - component: {fileID: 5973733810292445924}
@@ -1169,10 +1282,23 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateSound: {fileID: 0}
   activationDelay: 3
-  spikeHeight: 3
+  spikeHeight: 2
   spikeSpeed: 4
   initialPosition: {x: 0, y: 0, z: 0}
   isActivated: 1
+--- !u!114 &8584111041300667877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105740487399531415}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!33 &2314331701168042714
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1245,5 +1371,5 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
+  m_Radius: 1.2
+  m_Center: {x: 0.6, y: 3, z: -0.000000052154064}
