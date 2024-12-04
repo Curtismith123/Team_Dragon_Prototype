@@ -284,7 +284,7 @@ public class enemySpewerAttack : MonoBehaviour, IDamage
                 isConverting = false;
             }
         }
-        else if (enemyTier == EnemyTier.Tier4);
+        else if (enemyTier == EnemyTier.Tier4) { }
     }
 
     private void AssignConversionTime()
