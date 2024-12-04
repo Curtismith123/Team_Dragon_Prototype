@@ -10,7 +10,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
 
-    [SerializeField] int HP;
+    [SerializeField] public int HP;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int viewAngle;
     [SerializeField] int roamDist;
@@ -30,7 +30,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     bool isAttacking;
     bool isRoaming;
-    bool isDead = false;
+    public bool isDead = false;
 
     public delegate void OnDeathEvent();
     public event OnDeathEvent OnDeath;
@@ -43,12 +43,14 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     float angleToTarget;
     float stoppingDistOrig;
+    private float originalSpeed;
 
     [Header("-----Enemy Conversion-----")]
-    [SerializeField] EnemyTier enemyTier;
+    [SerializeField] public EnemyTier enemyTier;
     [SerializeField] float conversionTime;
     private float conversionTimer = 0f;
     private bool isConverting = false;
+    private bool isStunned = false;
 
     private GameObject target;
 
@@ -75,6 +77,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         gameManager.instance.updateGameGoal(1);
         stoppingDistOrig = agent.stoppingDistance;
         startingPos = transform.position;
+        originalSpeed = agent.speed;
     }
 
     void Update()
@@ -248,9 +251,10 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         timeSinceLastHit = 0f;
         target = attacker;
-
-        agent.SetDestination(attacker.transform.position);
-
+        if (attacker != null)
+        {
+            agent.SetDestination(attacker.transform.position);
+        }
         if (HP <= 0)
         {
             isDead = true;
@@ -317,7 +321,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
                 isConverting = false;
             }
         }
-        else if (enemyTier == EnemyTier.Tier4);
+        else if (enemyTier == EnemyTier.Tier4) { }
     }
 
     private void AssignConversionTime()
@@ -370,4 +374,41 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         Destroy(this);
     }
+
+    internal void ModifySpeed(float newSpeed)
+    {
+        if (agent != null)
+        {
+            agent.speed = newSpeed;
+        }
+    }
+
+    internal void ResetSpeed()
+    {
+        if (agent != null)
+        {
+            agent.speed = originalSpeed;
+        }
+    }
+
+    internal void SetStunned(bool stunned)
+    {
+        isStunned = stunned;
+        if (stunned)
+        {
+            ModifySpeed(0);
+        }
+        else
+        {
+            ResetSpeed();
+        }
+    }
+
+    public float GetAgentSpeed()
+    {
+        return agent != null ? agent.speed : 0f;
+    }
+
+
+    public enum EnemyTier { Tier1, Tier2, Tier3, Tier4 }
 }
