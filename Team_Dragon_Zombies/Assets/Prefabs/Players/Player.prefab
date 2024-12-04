@@ -441,13 +441,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415473554340502203}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47082496, y: 0.59902334, z: 0.57061195, w: -0.30642605}
-  m_LocalPosition: {x: -0.011, y: 0.085, z: -0.029}
+  m_LocalRotation: {x: 0.39775318, y: 0.6175286, z: 0.34447148, w: -0.58462834}
+  m_LocalPosition: {x: -0.03244698, y: 0.07671801, z: -0.025044423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8081520348345272463}
-  m_LocalEulerAnglesHint: {x: -76.45, y: 133.41, z: 113.8}
+  m_LocalEulerAnglesHint: {x: 297.062, y: -100.012, z: 11.214}
 --- !u!33 &5028975334694723948
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1971,7 +1971,7 @@ Transform:
   m_GameObject: {fileID: 5477856020720626858}
   serializedVersion: 2
   m_LocalRotation: {x: -0.48476458, y: -0.51101357, z: -0.5073076, w: -0.49649525}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.039, y: 0.317, z: -0.061}
   m_LocalScale: {x: 0.04999995, y: 0.049999975, z: 0.04999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2665,6 +2665,13 @@ MonoBehaviour:
   muzzleFlash: {fileID: 8461507516146515604}
   shootPos: {fileID: 5873235191227728696}
   bullet: {fileID: 511615523544547766, guid: 873281fe0354ebb4dbac4933f4df705b, type: 3}
+  currentEffectIcon: {fileID: 0}
+  fireIcon: {fileID: 21300000, guid: 862aacf393de7bf40bb1b5a0a14ac934, type: 3}
+  iceIcon: {fileID: 21300000, guid: c9bb44a1646910c4d96e5cd54db06b4a, type: 3}
+  lightningIcon: {fileID: 21300000, guid: b1deaf929446b3643850e88d5fd9ae12, type: 3}
+  fireEffect: {fileID: 11400000, guid: 733229d3a94b3794b9e80fc0d87eb7db, type: 2}
+  iceEffect: {fileID: 11400000, guid: 64e7a9b1b4827f24b831a5d0f0cab33e, type: 2}
+  lightningEffect: {fileID: 11400000, guid: 40b4f46fec8ab3d4b9c00a83fd3f47f0, type: 2}
   maxConversionGauge: 100
   conversionGauge: 20
   conversionGaugeRefillRate: 15

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Editor;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
@@ -43,6 +44,21 @@ public class PlayerController : MonoBehaviour, IDamage
     float bulletSpeed;
     int pelletsPerShot;
     float spreadAngle;
+
+    [Header("-----Effect Selection-----")]
+    [SerializeField] private Image currentEffectIcon;
+    [SerializeField] private Sprite fireIcon;
+    [SerializeField] private Sprite iceIcon;
+    [SerializeField] private Sprite lightningIcon;
+
+    private enum EffectType { Fire, Ice, Lightning }
+    private EffectType currentEffect = EffectType.Fire;
+
+    [Header("-----Effect Scritable Objects-----")]
+    public StatusEffectSO fireEffect;
+    public StatusEffectSO iceEffect;
+    public StatusEffectSO lightningEffect;
+
 
 
     [Header("-----Conversion-----")]
@@ -93,6 +109,8 @@ public class PlayerController : MonoBehaviour, IDamage
         currentStamina = maxStamina;
         updatePlayerUI();
         hat.SetActive(false);
+        currentEffect = EffectType.Fire;
+
 
     }
 
@@ -106,6 +124,7 @@ public class PlayerController : MonoBehaviour, IDamage
         // Update the animator's Speed parameter
         UpdateAnimator();
 
+        UpdateEffectUI();
         if (weaponList.Count > 0)
         {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weaponList[selectedWeapon].shootDist, Color.red);
@@ -142,7 +161,38 @@ public class PlayerController : MonoBehaviour, IDamage
             anim.SetBool("isGrounded", true);
         }
 
+        // Infusion Selection
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            RotateEffect();
+        }
+
     }
+
+    private void RotateEffect()
+    {
+        // Cycle to the next effect in the enum
+        currentEffect = (EffectType)(((int)currentEffect + 1) % System.Enum.GetValues(typeof(EffectType)).Length);
+
+        // Update the UI to display the current effect's icon
+        UpdateEffectUI();
+    }
+    private void UpdateEffectUI()
+    {
+        switch (currentEffect)
+        {
+            case EffectType.Fire:
+                currentEffectIcon.sprite = fireIcon;
+                break;
+            case EffectType.Ice:
+                currentEffectIcon.sprite = iceIcon;
+                break;
+            case EffectType.Lightning:
+                currentEffectIcon.sprite = lightningIcon;
+                break;
+        }
+    }
+
 
     private void UpdateAnimator()
     {
@@ -327,6 +377,22 @@ public class PlayerController : MonoBehaviour, IDamage
             bulletScript.SetDamage(currentWeapon.shootDamage);
             bulletScript.SetDestroyTime(currentWeapon.bulletDestroyTime);
             bulletScript.SetAttacker(gameObject);
+
+            switch (currentEffect)
+            {
+                case EffectType.Fire:
+
+                    bulletScript.statusEffect = fireEffect;
+                    break;
+                case EffectType.Ice:
+
+                    bulletScript.statusEffect = iceEffect;
+                    break;
+                case EffectType.Lightning:
+
+                    bulletScript.statusEffect = lightningEffect;
+                    break;
+            }
         }
 
         yield return new WaitForSeconds(currentWeapon.shootRate);

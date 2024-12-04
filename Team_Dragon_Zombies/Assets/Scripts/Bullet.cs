@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
 
     private GameObject attacker;
 
+    public StatusEffectSO statusEffect;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -70,6 +72,10 @@ public class Bullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.takeDamage(damage, attacker);
+        }
+        if (statusEffect != null)
+        {
+            statusEffect.ApplyEffect(other.gameObject);
         }
 
         Destroy(gameObject);
