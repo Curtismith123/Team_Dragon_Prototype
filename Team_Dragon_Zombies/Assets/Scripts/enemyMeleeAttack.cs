@@ -13,7 +13,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
 
     [SerializeField] public int HP;
-    [SerializeField] int faceTargetSpeed;
+    [SerializeField] public float faceTargetSpeed;
     [SerializeField] int viewAngle;
     [SerializeField] int roamDist;
     [SerializeField] int roamTimer;
@@ -409,7 +409,6 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         FriendlyAI friendlyAI = gameObject.AddComponent<FriendlyAI>();
 
-        //transfer stats
         friendlyAI.HP = this.HP;
         friendlyAI.faceTargetSpeed = this.faceTargetSpeed;
         friendlyAI.animSpeedTrans = this.animSpeedTrans;
@@ -417,7 +416,6 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         friendlyAI.meleeDamage = this.meleeDamage;
         friendlyAI.attackRange = this.attackRange;
 
-        //transfer references
         friendlyAI.agent = this.agent;
         friendlyAI.model = this.model;
         friendlyAI.headPos = this.headPos;
