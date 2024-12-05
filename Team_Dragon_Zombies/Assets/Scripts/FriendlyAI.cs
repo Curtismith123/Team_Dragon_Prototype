@@ -13,7 +13,7 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
 
     [Header("-----Stats-----")]
     public int HP;
-    public int faceTargetSpeed;
+    public float faceTargetSpeed;
     public float detectionRadius = 10f;
     public int animSpeedTrans;
     public float attackRate = 1.5f;

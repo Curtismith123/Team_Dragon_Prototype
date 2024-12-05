@@ -68,6 +68,19 @@ public class ConversionProjectile : MonoBehaviour
             }
         }
 
+        else if (other.CompareTag("EnemyExploder"))
+        {
+            var spewerScript = other.GetComponent<enemyExploderAttack>();
+            if (spewerScript != null)
+            {
+                spewerScript.StartConversion();
+            }
+            else
+            {
+                Debug.LogWarning($"{other.name} does not have an enemyExploderAttack script attached.");
+            }
+        }
+
         Destroy(gameObject);
     }
 }
