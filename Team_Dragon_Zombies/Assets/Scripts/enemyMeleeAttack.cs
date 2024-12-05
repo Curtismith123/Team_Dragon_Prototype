@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using static StatusEffectSO;
@@ -69,6 +70,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField] float detectionRadius = 15f;
     private float timeSinceLastHit = Mathf.Infinity;
     [SerializeField] float timeToSwitchTarget = 3f;
+
+    [SerializeField] GameObject popupDamagePrefab;
+    [SerializeField] TMP_Text popupDamage;
 
     void Start()
     {
@@ -140,6 +144,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         HandleAudio();
         HandleConversion();
+
     }
 
     public float CalculateDamage(float baseDamage, EffectType effectType)
@@ -297,6 +302,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
         HP -= amount;
+        popupDamage.text = amount.ToString();
+        Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
 
         timeSinceLastHit = 0f;
