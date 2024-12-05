@@ -21,6 +21,7 @@ public class TrapDoor : MonoBehaviour
        {
             transform.Rotate(direction * speed * Time.deltaTime);
        }
+
     }
 
     private void OnTriggerEnter(Collider other)

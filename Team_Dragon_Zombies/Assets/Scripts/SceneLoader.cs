@@ -11,16 +11,31 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Image progressBar;
     [SerializeField] TMP_Text progressText;
+    [SerializeField] private FadeInOut fadeController;
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(LoadLevel());
+            StartCoroutine(HandleLoadLevel());
         }
     }
 
+    //Code to fade in and out black before/after level loading complete
+    private IEnumerator HandleLoadLevel()
+    {
+        if (fadeController != null)
+        {
+            fadeController.FadeOut();
+            yield return new WaitForSeconds(fadeController.fadeDuration);
+        }
+
+        //start loading new scene
+        yield return StartCoroutine(LoadLevel());
+
+
+    }
 
 
     private IEnumerator LoadLevel()
@@ -46,20 +61,30 @@ public class SceneLoader : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            //progressBar.fillAmount = progress;
-            //progressText.text = Mathf.RoundToInt(progress * 100) + "%";
+            progressBar.fillAmount = progress;
+            progressText.text = Mathf.RoundToInt(progress * 100) + "%";
 
             if (operation.progress >= 0.9f)
             {
-                //final addition to the simulation control
-                progressBar.fillAmount = 1f;
-                progressText.text = "100%";
                 yield return new WaitForSeconds(1f);
                 operation.allowSceneActivation = true;
+
+                //turn off loading screen once complete
+                if (loadingScreen != null)
+                {
+                    loadingScreen.SetActive(false);
+                }
+                //After scene activation=true, fade in
+                if (fadeController != null)
+                {
+                    fadeController.FadeIn();
+                }
+
             }
 
             yield return null;
 
         }
+
     }
 }
