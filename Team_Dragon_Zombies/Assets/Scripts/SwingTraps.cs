@@ -43,6 +43,8 @@ public class SwingTraps : MonoBehaviour
         {
             audioSource.PlayOneShot(activateSound);
         }
+
+        DealDamageToPlayer();
     }
 
     private void DealDamageToPlayer()
