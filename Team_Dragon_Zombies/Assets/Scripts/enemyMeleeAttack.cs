@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static StatusEffectSO;
 
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
@@ -27,6 +28,16 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float attackSoundVolume = 1f;
 
     private AudioSource audioSource;
+
+    [Header("-------Elemental Weak/Res------- ")]
+    [Header("--0= Weak 1=Default 2=Resistant-")]
+
+    [Range(0, 2)] public int fireResistance;
+    [Range(0, 2)] public int iceResistance;
+    [Range(0, 2)] public int lightningResistance;
+
+    // Base multiplier for tier scaling (T4 takes less damage from weaknesses)
+    private float[] tierMultipliers = { 1f, 0.75f, 0.5f, 0.25f };
 
     bool isAttacking;
     bool isRoaming;
@@ -129,6 +140,36 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         HandleAudio();
         HandleConversion();
+    }
+
+    public float CalculateDamage(float baseDamage, EffectType effectType)
+    {
+        float multiplier = 1f; // Default 
+
+        // Determine resistance/weakness
+        switch (effectType)
+        {
+            case EffectType.Fire:
+                multiplier = fireResistance == 0 ? 1.5f : fireResistance == 2 ? 0.5f : 1f;
+                break;
+
+            case EffectType.Ice:
+                multiplier = iceResistance == 0 ? 1.5f : iceResistance == 2 ? 0.5f : 1f;
+                break;
+
+            case EffectType.Lightning:
+                multiplier = lightningResistance == 0 ? 1.5f : lightningResistance == 2 ? 0.5f : 1f;
+                break;
+        }
+
+        // Apply tier scaling
+        float tierMultiplier = tierMultipliers[(int)enemyTier];
+        multiplier *= tierMultiplier;
+
+        // Final damage calculation
+        float finalDamage = baseDamage * multiplier;
+        Debug.Log($"Effect: {effectType} | Base Damage: {baseDamage} | Multiplier: {multiplier} | Final Damage: {finalDamage}");
+        return finalDamage;
     }
 
     void HandleAudio()
@@ -242,9 +283,18 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         }
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
+
+        float finalDamage = amount;
+
+        //Adjusted Damage 
+        if (effectType != null)
+        {
+            finalDamage = CalculateDamage(amount, effectType.Value);
+        }
+
 
         HP -= amount;
         StartCoroutine(flashRed());

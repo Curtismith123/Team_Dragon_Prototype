@@ -1,6 +1,5 @@
 using UnityEngine;
 //using static UnityEditorInternal.ReorderableList;
-using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
@@ -79,7 +78,7 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // Audio
@@ -152,7 +151,7 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetInt("masterInvertY", 0);
         }
 
-        PlayerPrefs.SetFloat("masterSensitivity",mainSens);
+        PlayerPrefs.SetFloat("masterSensitivity", mainSens);
     }
 
     // Graphics

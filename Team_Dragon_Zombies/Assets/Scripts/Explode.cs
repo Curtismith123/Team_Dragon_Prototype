@@ -75,7 +75,9 @@ public class Explode : MonoBehaviour
 
     public void ExplodeObjects()
     {
-        DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
+        // Attempt to clear warning Revert if broken 
+        //DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
+        DestroyActivate destroyActivate = FindAnyObjectByType<DestroyActivate>();
         if (destroyActivate != null && destroyActivate.objectToDestroy == gameObject)
         {
             destroyActivate.OnObjectDestroyed();

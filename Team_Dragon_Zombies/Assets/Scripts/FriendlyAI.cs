@@ -286,7 +286,7 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
         }
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
 

@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private Sprite iceIcon;
     [SerializeField] private Sprite lightningIcon;
 
-    private enum EffectType { Fire, Ice, Lightning }
+
     private EffectType currentEffect = EffectType.Fire;
 
     [Header("-----Effect Scritable Objects-----")]
@@ -406,7 +406,7 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
