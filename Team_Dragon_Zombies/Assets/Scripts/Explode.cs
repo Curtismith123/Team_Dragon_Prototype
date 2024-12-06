@@ -12,6 +12,8 @@ public class Explode : MonoBehaviour
     public LayerMask ignoreLayers;
     public Material pieceMaterial;
 
+    public float pieceLifetime = 5f;
+
     private Vector3 objectSize;
     private Vector3 objectMinBounds;
 
@@ -158,5 +160,7 @@ public class Explode : MonoBehaviour
 
         Rigidbody rb = piece.AddComponent<Rigidbody>();
         rb.mass = cubeSize;
+
+        Destroy(piece, pieceLifetime);
     }
 }
