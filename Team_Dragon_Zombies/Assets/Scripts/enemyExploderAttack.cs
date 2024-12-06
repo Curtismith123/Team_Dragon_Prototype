@@ -15,15 +15,15 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
     public int HP;
     [SerializeField] private float faceTargetSpeed = 5f;
     [SerializeField] private float detectionRadius = 15f;
-    [SerializeField] public float explosionRange = 2f;         // Trigger range
-    [SerializeField] public float explosionDamageRadius = 5f; // Damage radius
+    [SerializeField] public float explosionRange = 2f;
+    [SerializeField] public float explosionDamageRadius = 5f;
     [SerializeField] public int explosionDamage = 50;
     [SerializeField] public int flashCount = 3;
     [SerializeField] public float flashDuration = 0.2f;
 
     [Header("-----Roaming-----")]
     [SerializeField] private float roamTimer = 3f;
-    [SerializeField] private float roamDist = 10f; // Radius around startingPos for roaming
+    [SerializeField] private float roamDist = 10f;
     private float lastRoamTime = 0f;
     private float spinSpeed = 100f;
     private bool isRoaming = false;
@@ -60,7 +60,7 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
 
-        agent.updateRotation = false; // We control rotation by code (spin), not agent.
+        agent.updateRotation = false; //we control rotation by code (spin), not agent.
         player = GameObject.FindWithTag("Player");
         startingPos = transform.position;
 
@@ -99,12 +99,11 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
 
         if (!isExploding && !isConverting)
         {
-            if (!canSeeTarget()) // Check line-of-sight: if can't see, no target
+            if (!canSeeTarget())
                 target = null;
 
             if (target != null)
             {
-                // We have a visible target within detection radius
                 float dist = Vector3.Distance(transform.position, target.transform.position);
                 if (dist <= explosionRange)
                 {
@@ -112,7 +111,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
                 }
                 else
                 {
-                    // Move towards target
                     agent.isStopped = false;
                     agent.SetDestination(target.transform.position);
                     FaceTarget(target.transform.position);
@@ -120,7 +118,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
             }
             else
             {
-                // No target visible: Roam and spin
                 RoamSpinLogic();
             }
 
@@ -132,10 +129,8 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
 
     void RoamSpinLogic()
     {
-        // Always spin
         transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
 
-        // If not currently moving anywhere or time to pick new roam point
         if (!isRoaming && Time.time - lastRoamTime > roamTimer)
         {
             StartCoroutine(Roam());
@@ -147,7 +142,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
         isRoaming = true;
         lastRoamTime = Time.time;
 
-        // Pick a random point around startingPos
         Vector2 randomCircle = Random.insideUnitCircle * roamDist;
         Vector3 roamPos = startingPos + new Vector3(randomCircle.x, 0, randomCircle.y);
 
@@ -158,11 +152,10 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
             agent.SetDestination(hit.position);
         }
 
-        // Wait until we reach the roam point or a short time passes
         float startWait = Time.time;
         while (!agent.pathPending && agent.remainingDistance > agent.stoppingDistance)
         {
-            if (Time.time - startWait > roamTimer) // Fail-safe if stuck
+            if (Time.time - startWait > roamTimer)
                 break;
             yield return null;
         }
@@ -232,8 +225,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
 
     bool canSeeTarget()
     {
-        // Attempt to find a target (player/friendlies) within detection radius
-        // Since 360 vision, no angle check. Just check line-of-sight.
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius);
         GameObject bestTarget = null;
         float shortestDist = detectionRadius;
@@ -245,7 +236,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
                 float dist = Vector3.Distance(transform.position, h.transform.position);
                 if (dist < shortestDist)
                 {
-                    // Check line-of-sight
                     Vector3 dir = h.transform.position - headPos.position;
                     if (Physics.Raycast(headPos.position, dir, out RaycastHit hit, detectionRadius))
                     {
@@ -290,7 +280,6 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
         agent.velocity = Vector3.zero;
         agent.enabled = false;
 
-        // Explode after flashes
         for (int i = 0; i < flashCount; i++)
         {
             if (i == flashCount - 1)
@@ -386,7 +375,7 @@ public class enemyExploderAttack : MonoBehaviour, IDamage
         Destroy(gameObject);
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
 

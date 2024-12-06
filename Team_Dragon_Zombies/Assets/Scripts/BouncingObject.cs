@@ -39,7 +39,7 @@ public class BouncingObject : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         Vector3 direction = (initialDirection.position - transform.position).normalized;
-        rb.velocity = direction * speed;
+        rb.linearVelocity = direction * speed;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -52,9 +52,9 @@ public class BouncingObject : MonoBehaviour
         ContactPoint contact = collision.contacts[0];
         Vector3 normal = contact.normal;
 
-        Vector3 reflectedVelocity = Vector3.Reflect(rb.velocity, normal).normalized * speed;
+        Vector3 reflectedVelocity = Vector3.Reflect(rb.linearVelocity, normal).normalized * speed;
 
-        rb.velocity = reflectedVelocity;
+        rb.linearVelocity = reflectedVelocity;
 
         Invoke(nameof(ResetReflection), reflectionCooldown);
     }
@@ -72,10 +72,10 @@ public class BouncingObject : MonoBehaviour
             Gizmos.DrawLine(transform.position, initialDirection.position);
         }
 
-        if (rb != null && rb.velocity != Vector3.zero)
+        if (rb != null && rb.linearVelocity != Vector3.zero)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, rb.velocity.normalized * 2);
+            Gizmos.DrawRay(transform.position, rb.linearVelocity.normalized * 2);
         }
     }
 }

@@ -15,8 +15,8 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     public int HP;
     public float faceTargetSpeed = 5f;
     public float detectionRadius = 15f;
-    public float explosionRange = 2f;         // Trigger explosion range
-    public float explosionDamageRadius = 5f; // Damage radius at explosion
+    public float explosionRange = 2f;
+    public float explosionDamageRadius = 5f;
     public int explosionDamage = 50;
     public int flashCount = 3;
     public float flashDuration = 0.2f;
@@ -34,7 +34,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     private bool isRoaming = false;
 
     // Spinning logic
-    [SerializeField] private float roamTimer = 3f; // Interval to pick a new spin speed
+    [SerializeField] private float roamTimer = 3f;
     private float lastRoamTime = 0f;
     private float spinSpeed = 100f;
 
@@ -136,23 +136,20 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         if (player == null)
             return;
 
-        // Check if player moved significantly
         if (Vector3.Distance(player.transform.position, lastPlayerPosition) > playerMoveThreshold)
         {
-            // Player moved, stop roaming and follow again
             isRoaming = false;
             StopAllCoroutines();
             FollowPlayer();
         }
         lastPlayerPosition = player.transform.position;
 
-        // Check line-of-sight for enemy
         if (!canSeeTarget())
             currentEnemy = null;
 
         if (currentEnemy != null)
         {
-            // Enemy visible
+
             agent.isStopped = false;
             agent.SetDestination(currentEnemy.transform.position);
 
@@ -166,7 +163,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         }
         else
         {
-            // No enemy visible, follow player or roam
+
             if (!isRoaming)
             {
                 FollowPlayer();
@@ -174,7 +171,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-                // Reached follow position
+
                 if (!isRoaming && Time.time - lastIdleRoamTime > idleRoamInterval)
                 {
                     StartCoroutine(IdleRoam());
@@ -231,7 +228,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
         while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
         {
-            // If player moved, break roaming
             if (Vector3.Distance(player.transform.position, lastPlayerPosition) > playerMoveThreshold)
             {
                 isRoaming = false;
@@ -310,7 +306,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
         walkingAudioSource.Stop();
 
-        // Flash sequence before explosion
         for (int i = 0; i < flashCount; i++)
         {
             if (i == flashCount - 1)
@@ -344,7 +339,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
                 }
                 yield return new WaitForSeconds(flashDuration);
 
-                // Revert to original colors
                 for (int r = 0; r < renderers.Count; r++)
                 {
                     Renderer renderer = renderers[r];
@@ -388,7 +382,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         foreach (var c in currentHits)
         {
             GameObject obj = c.transform.root.gameObject;
-            // Double-check distance to ensure it's inside the radius
+
             float dist = Vector3.Distance(transform.position, obj.transform.position);
             if (dist <= explosionDamageRadius && ValidExplosionTarget(obj))
             {
@@ -409,7 +403,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         Destroy(gameObject);
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
 

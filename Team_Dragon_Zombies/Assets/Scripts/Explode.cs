@@ -74,7 +74,7 @@ public class Explode : MonoBehaviour
     }
 
     public void ExplodeObjects()
-    {
+    { //.
         // Attempt to clear warning Revert if broken 
         //DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
         DestroyActivate destroyActivate = FindAnyObjectByType<DestroyActivate>();
