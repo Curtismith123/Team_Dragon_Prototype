@@ -592,24 +592,6 @@ public class PlayerController : MonoBehaviour, IDamage
         MeshFilter newMeshFilter = weaponList[selectedWeapon].weaponModel.GetComponent<MeshFilter>();
         MeshRenderer newMeshRenderer = weaponList[selectedWeapon].weaponModel.GetComponent<MeshRenderer>();
 
-        if (newMeshFilter != null)
-        {
-            weaponModel.GetComponent<MeshFilter>().sharedMesh = newMeshFilter.sharedMesh;
-        }
-        else
-        {
-            Debug.LogWarning($"Weapon {weaponList[selectedWeapon].name} is missing a MeshFilter component.");
-        }
-
-        if (newMeshRenderer != null)
-        {
-            weaponModel.GetComponent<MeshRenderer>().sharedMaterial = newMeshRenderer.sharedMaterial;
-        }
-        else
-        {
-            Debug.LogWarning($"Weapon {weaponList[selectedWeapon].name} is missing a MeshRenderer component.");
-        }
-
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
