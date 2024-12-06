@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private Sprite iceIcon;
     [SerializeField] private Sprite lightningIcon;
 
-    private enum EffectType { Fire, Ice, Lightning }
+
     private EffectType currentEffect = EffectType.Fire;
 
     [Header("-----Effect Scritable Objects-----")]
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour, IDamage
             reload();
         }
         //&& weaponList[selectedWeapon].ammoCur > 0
-        if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire)
+        if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire && isAiming)
         {
             //// Align the weapon model to face forward relative to the player's forward
             //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
@@ -175,6 +175,17 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             RotateEffect();
         }
+        // Aim to shoot 
+        if (Input.GetButtonDown("Aim"))
+        {
+            isAiming = true;
+
+        }
+        if (Input.GetButtonUp("Aim") && isAiming)
+        {
+            isAiming = false;
+
+        }
 
     }
 
@@ -206,6 +217,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private void UpdateAnimator()
     {
         anim.SetBool("isShooting", isShooting);
+        anim.SetBool("isAiming", isAiming);
         // Set the Speed parameter in the Animator based on movement magnitude
         float movementSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
         anim.SetFloat("Speed", movementSpeed * SpeedAlt);
@@ -327,6 +339,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
+
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
 
@@ -335,6 +348,7 @@ public class PlayerController : MonoBehaviour, IDamage
             //sound here for click if out of ammo
             if (Input.GetButton("Fire1"))
             {
+
                 aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
             }
 
@@ -415,7 +429,7 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);

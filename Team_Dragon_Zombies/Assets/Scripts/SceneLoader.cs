@@ -4,87 +4,64 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading.Tasks;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] int sceneIndex;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Image progressBar;
-    [SerializeField] TMP_Text progressText;
+    //[SerializeField] TMP_Text progressText;
     [SerializeField] private FadeInOut fadeController;
+
+    private float target;
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(HandleLoadLevel());
+            LoadLevel();
         }
     }
 
-    //Code to fade in and out black before/after level loading complete
-    private IEnumerator HandleLoadLevel()
+    public async void LoadLevel()
     {
-        if (fadeController != null)
+        //fade out
+        fadeController.FadeOut();
+        //wait for method to finish
+        await Task.Delay((int)(fadeController.fadeDuration * 1000));
+
+        loadingScreen.SetActive(true);
+
+        //restart progress
+        target = 0;
+        progressBar.fillAmount = 0;
+
+        var scene = SceneManager.LoadSceneAsync(sceneIndex);
+        scene.allowSceneActivation = false;
+
+        do
         {
-            fadeController.FadeOut();
-            yield return new WaitForSeconds(fadeController.fadeDuration);
-        }
+            await Task.Delay(100);
 
-        //start loading new scene
-        yield return StartCoroutine(LoadLevel());
+            target = scene.progress;
+        } while (scene.progress < 0.9f);
 
+        await Task.Delay(2000);
+
+        scene.allowSceneActivation = true;
+        loadingScreen.SetActive(false);
+
+        //fade in after done loading
+        fadeController.FadeIn();
+        await Task.Delay((int)(fadeController.fadeDuration * 1000));
 
     }
 
-
-    private IEnumerator LoadLevel()
+    //polish the progress bar to load smoothly
+    private void Update()
     {
-        if (loadingScreen != null)
-        {
-            loadingScreen.SetActive(true);
-        }
-
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        operation.allowSceneActivation = false;
-
-        //simulating progress control
-        progressBar.fillAmount = 0.5f;
-        progressText.text = "50%";
-        yield return new WaitForSeconds(1f);
-
-        progressBar.fillAmount = 0.85f;
-        progressText.text = "85%";
-        yield return new WaitForSeconds(1f);
-
-        while (!operation.isDone)
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
-            progressBar.fillAmount = progress;
-            progressText.text = Mathf.RoundToInt(progress * 100) + "%";
-
-            if (operation.progress >= 0.9f)
-            {
-                yield return new WaitForSeconds(1f);
-                operation.allowSceneActivation = true;
-
-                //turn off loading screen once complete
-                if (loadingScreen != null)
-                {
-                    loadingScreen.SetActive(false);
-                }
-                //After scene activation=true, fade in
-                if (fadeController != null)
-                {
-                    fadeController.FadeIn();
-                }
-
-            }
-
-            yield return null;
-
-        }
-
+        progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 0.5f * Time.deltaTime);
     }
 }

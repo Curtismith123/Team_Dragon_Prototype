@@ -258,7 +258,7 @@ public class FriendlySpewerAI : MonoBehaviour, IDamage, IFriendly
         isAttacking = false;
     }
 
-    public void takeDamage(int amount, GameObject attacker)
+    public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
 

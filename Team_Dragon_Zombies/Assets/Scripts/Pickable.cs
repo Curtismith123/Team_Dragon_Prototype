@@ -13,7 +13,10 @@ public class Pickable : MonoBehaviour
     {
         if (throwObjectsScript == null)
         {
-            throwObjectsScript = FindObjectOfType<ThrowObjects>();
+            // attempt to clear warning revert if broken
+            //throwObjectsScript = FindObjectOfType<ThrowObjects>();
+            throwObjectsScript = FindAnyObjectByType<ThrowObjects>();
+
             if (throwObjectsScript == null)
             {
                 Debug.LogError("No throwobject script located in scene");

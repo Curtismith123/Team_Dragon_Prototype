@@ -5,8 +5,6 @@ using System;
 [CreateAssetMenu(fileName = "StatusEffectSO", menuName = "Scriptable Objects/StatusEffectSO")]
 public class StatusEffectSO : ScriptableObject
 {
-    public enum EffectType { Fire, Ice, Lightning }
-
     [Header("Effect Properties")]
     public EffectType effectType;
     public AudioClip soundEffect;
@@ -59,25 +57,43 @@ public class StatusEffectSO : ScriptableObject
 
     private IEnumerator ApplyLightingEffect(enemyMeleeAttack enemy, float adjDur)
     {
+        if (enemy == null || enemy.isDead)
+        {
+            yield break;
+        }
 
         enemy.SetStunned(true);
-        yield return new WaitForSeconds(adjDur);
-        enemy.SetStunned(false);
 
+        // Apply bonus damage for Lightning
+        float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Lightning);
+        enemy.takeDamage((int)adjustedDamage, null, EffectType.Lightning);
+
+        yield return new WaitForSeconds(adjDur);
+
+        enemy.SetStunned(false);
     }
 
 
     private IEnumerator ApplyIceEffect(enemyMeleeAttack enemy, float adjDur)
     {
+        if (enemy == null || enemy.isDead)
+        {
+            yield break;
+        }
 
         float originalSpeed = enemy.GetAgentSpeed();
         float slowSpeed = originalSpeed * (1 - slowPercentage);
 
-
+        // Apply the slow effect
         enemy.ModifySpeed(slowSpeed);
-        yield return new WaitForSeconds(adjDur);
-        enemy.ResetSpeed();
 
+        // Apply bonus damage for Ice
+        float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Ice);
+        enemy.takeDamage((int)adjustedDamage, null, EffectType.Ice);
+
+        yield return new WaitForSeconds(adjDur);
+
+        enemy.ResetSpeed();
     }
 
 
@@ -87,16 +103,19 @@ public class StatusEffectSO : ScriptableObject
         {
             yield break;
         }
-        float elapsedtime = 0f;
-        while (elapsedtime < adjDur)
+
+        float elapsedTime = 0f;
+        while (elapsedTime < adjDur)
         {
-            enemy.takeDamage(damagePerSecond, null);
+            // Apply bonus damage for Fire
+            float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Fire);
+            enemy.takeDamage((int)adjustedDamage, null, EffectType.Fire);
+
             yield return new WaitForSeconds(1f);
-            elapsedtime += 1f;
-
+            elapsedTime += 1f;
         }
-
     }
+
 
     private float TierAdjustment(float duration, EnemyTier enemyTier)
     {
