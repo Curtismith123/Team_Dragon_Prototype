@@ -28,6 +28,9 @@ public class StatusEffectSO : ScriptableObject
         if (particleEffect != null)
         {
             GameObject visEffect = Instantiate(particleEffect, target.transform.position, Quaternion.identity);
+            // make the vis effect a child of the target
+            visEffect.transform.parent = target.transform;
+
             Destroy(visEffect, duration);
         }
         if (target.TryGetComponent(out enemyMeleeAttack enemy))
