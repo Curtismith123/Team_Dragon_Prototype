@@ -93,9 +93,13 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("-----Damage Screen-----")]
     public float intensity;
-    public Volume volume;
-    PostProcessVolume mVolume;
-    Vignette mVignette;
+    public Volume dmgEffect;
+    public Volume lowHPEffect;
+    PostProcessVolume mDmgEffectVol;
+    Vignette mDmgVignette;
+    //PostProcessVolume mLowHPEffect;
+    //Vignette mLowHPVignette;
+    private float intensityOG;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -117,9 +121,13 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
-        mVolume = volume.GetComponent<PostProcessVolume>();
-        mVolume.profile.TryGetSettings<Vignette>(out mVignette);
-        mVignette.enabled.Override(false);
+        intensityOG = intensity;
+        mDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
+        mDmgEffectVol.profile.TryGetSettings<Vignette>(out mDmgVignette);
+        mDmgVignette.enabled.Override(false);
+        //mLowHPEffect = lowHPEffect.GetComponent<PostProcessVolume>();
+        //mLowHPEffect.profile.TryGetSettings<Vignette>(out mLowHPVignette);
+        //mLowHPVignette.enabled.Override(false);
 
     }
 
@@ -187,6 +195,18 @@ public class PlayerController : MonoBehaviour, IDamage
 
         }
 
+        // Low Health Effect
+        if (HP < 20)
+        {
+            mDmgVignette.intensity.Override(intensityOG);
+            mDmgVignette.enabled.Override(true);
+            mDmgVignette.intensity.Override(intensityOG + 0.2f);
+        }
+        if (HP < 10)
+        {
+            mDmgVignette.enabled.Override(true);
+            mDmgVignette.intensity.Override(intensityOG + 0.3f);
+        }
     }
 
     private void RotateEffect()
@@ -436,7 +456,7 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         //StartCoroutine(flashDmage());
 
-        StartCoroutine(damageEffect());
+        StartCoroutine(damageEffect()); 
 
         if (HP <= 0)
         {
@@ -446,25 +466,29 @@ public class PlayerController : MonoBehaviour, IDamage
 
     private IEnumerator damageEffect()
     {
-        //intensity = 0.5f;
-        mVignette.enabled.Override(true);
-        mVignette.intensity.Override(intensity);
+        mDmgVignette.enabled.Override(true);
+        mDmgVignette.intensity.Override(intensityOG);
 
         yield return new WaitForSeconds(0.5f);
 
         while (intensity > 0)
         {
-            intensity -= .01f;
+            intensity -= .1f;
             if (intensity < 0)
             {
                 intensity = 0;
             }
-            mVignette.intensity.Override(intensity);
+            mDmgVignette.intensity.Override(intensity);
             yield return new WaitForSeconds(0.1f);
         }
-
-        mVignette.enabled.Override(false);
-        yield break;
+        if (HP <= 20)
+        {
+            //mDmgVignette.enabled.Override(true);
+        }
+        else
+        {
+            mDmgVignette.enabled.Override(false);
+        }
     }
 
     public void updatePlayerUI()
