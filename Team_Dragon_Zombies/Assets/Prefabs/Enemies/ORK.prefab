@@ -16222,7 +16222,7 @@ GameObject:
   - component: {fileID: 2824402487224651456}
   m_Layer: 8
   m_Name: ORK
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16276,6 +16276,9 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: d27ce8a95dd949846ba81b2f75c88bbd, type: 3}
   walkSoundVolume: 0.5
   attackSoundVolume: 0.5
+  fireResistance: 0
+  iceResistance: 0
+  lightningResistance: 0
   isDead: 0
   enemyTier: 3
   conversionTime: 15

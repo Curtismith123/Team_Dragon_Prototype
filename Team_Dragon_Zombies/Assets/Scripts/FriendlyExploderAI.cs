@@ -33,7 +33,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     private Vector3 lastPlayerPosition;
     private bool isRoaming = false;
 
-    // Spinning logic
     [SerializeField] private float roamTimer = 3f;
     private float lastRoamTime = 0f;
     private float spinSpeed = 100f;

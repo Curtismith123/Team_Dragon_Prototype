@@ -100,17 +100,17 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        throwObjects = player.GetComponent<ThrowObjects>();
+        //throwObjects = player.GetComponent<ThrowObjects>();
 
         resDropDown.AddOptions(resOptions);
         resDropDown.value = currRes;
         resDropDown.RefreshShownValue();
 
+        InitializeThrowers();
     }
 
     void Start()
     {
-        InitializeThrowers();
         //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
         //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
