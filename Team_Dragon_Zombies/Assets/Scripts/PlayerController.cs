@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Editor;
+//using UnityEngine.InputSystem.Editor;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
@@ -89,6 +91,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Misc-----")]
     public GameObject hat;
 
+    [Header("-----Damage Screen-----")]
+    public float intensity;
+    public Volume volume;
+    PostProcessVolume mVolume;
+    Vignette mVignette;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -110,7 +117,9 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
-
+        mVolume = volume.GetComponent<PostProcessVolume>();
+        mVolume.profile.TryGetSettings<Vignette>(out mVignette);
+        mVignette.enabled.Override(false);
 
     }
 
@@ -179,18 +188,18 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void UpdateEffectUI()
     {
-        switch (currentEffect)
-        {
-            case EffectType.Fire:
-                currentEffectIcon.sprite = fireIcon;
-                break;
-            case EffectType.Ice:
-                currentEffectIcon.sprite = iceIcon;
-                break;
-            case EffectType.Lightning:
-                currentEffectIcon.sprite = lightningIcon;
-                break;
-        }
+        //switch (currentEffect)
+        //{
+        //    case EffectType.Fire:
+        //        currentEffectIcon.sprite = fireIcon;
+        //        break;
+        //    case EffectType.Ice:
+        //        currentEffectIcon.sprite = iceIcon;
+        //        break;
+        //    case EffectType.Lightning:
+        //        currentEffectIcon.sprite = lightningIcon;
+        //        break;
+        //}
     }
 
 
@@ -411,12 +420,37 @@ public class PlayerController : MonoBehaviour, IDamage
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         updatePlayerUI();
-        StartCoroutine(flashDmage());
+        //StartCoroutine(flashDmage());
+
+        StartCoroutine(damageEffect());
 
         if (HP <= 0)
         {
             gameManager.instance.youLose();
         }
+    }
+
+    private IEnumerator damageEffect()
+    {
+        //intensity = 0.5f;
+        mVignette.enabled.Override(true);
+        mVignette.intensity.Override(intensity);
+
+        yield return new WaitForSeconds(0.5f);
+
+        while (intensity > 0)
+        {
+            intensity -= .01f;
+            if (intensity < 0)
+            {
+                intensity = 0;
+            }
+            mVignette.intensity.Override(intensity);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        mVignette.enabled.Override(false);
+        yield break;
     }
 
     public void updatePlayerUI()
