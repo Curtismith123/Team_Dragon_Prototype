@@ -180,39 +180,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
---- !u!1 &435817605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-  m_PrefabInstance: {fileID: 709971929683263974}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &435817611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435817605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 10
---- !u!114 &435817617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435817605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c9c8aff26e68c40ad7d77588ffaf64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activateDelay: 0
 --- !u!43 &577034608
 Mesh:
   m_ObjectHideFlags: 0
@@ -3845,39 +3812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea55ea8548cdaba41afd24a7fb07011b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1708024971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-  m_PrefabInstance: {fileID: 7865405270957012046}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1708024977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708024971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c9c8aff26e68c40ad7d77588ffaf64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activateDelay: 0
---- !u!114 &1708024978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708024971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 10
 --- !u!1001 &1871708296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5480,22 +5414,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform
       objectReference: {fileID: 0}
-    - target: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7173241443389955480, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7173241443389955480, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5509,14 +5427,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 426775434781240824, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 426775434781240824, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_ProvidesContacts
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2623113088695026735, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.019184
@@ -5557,45 +5467,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -60.217
       objectReference: {fileID: 0}
-    - target: {fileID: 7189757690082940779, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7189757690082940779, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
       propertyPath: m_Name
       value: Pendulum LogSpike
       objectReference: {fileID: 0}
-    - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2308085957231945800, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 435817617}
-    - targetCorrespondingSourceObject: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 435817611}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
 --- !u!1001 &7182851593228692321
 PrefabInstance:
@@ -5645,25 +5524,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 5356946083071047584, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5356946083071047584, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
     - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
       propertyPath: m_Name
       value: Hinge
-      objectReference: {fileID: 0}
-    - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5678,94 +5541,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 324177870332218880, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: damageAmount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 365782302461422428, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 365782302461422428, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 800021521339490654, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 800021521339490654, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 1186806430126079366, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1186806430126079366, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512772363418713453, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512772363418713453, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 2407532634120994216, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465635846576827512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465635846576827512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902339466456577176, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3100933051014891449, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3100933051014891449, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 3561865411253842553, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3961839641685296807, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3961839641685296807, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 4527288877772898233, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4527288877772898233, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 4672382590581740819, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4705719058333454123, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6207858655579450673, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -29.11
@@ -5810,30 +5585,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeTrapD
       objectReference: {fileID: 0}
-    - target: {fileID: 8112606408284208512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8112606408284208512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 8584111041300667877, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687101617667483169, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9105740487399531415, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9105740487399531415, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5847,14 +5598,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 486162026857369400, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 486162026857369400, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_ProvidesContacts
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6362674937397665446, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.806
@@ -5899,33 +5642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendulum Axe
       objectReference: {fileID: 0}
-    - target: {fileID: 7727334913060988593, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7727334913060988593, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3465122923111249278, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1708024977}
-    - targetCorrespondingSourceObject: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1708024978}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
 --- !u!1001 &8226774323111538829
 PrefabInstance:
