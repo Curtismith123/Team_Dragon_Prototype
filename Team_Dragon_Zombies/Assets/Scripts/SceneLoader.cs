@@ -53,9 +53,9 @@ public class SceneLoader : MonoBehaviour
         scene.allowSceneActivation = true;
         loadingScreen.SetActive(false);
 
-        //fade in after done loading
-        fadeController.FadeIn();
-        await Task.Delay((int)(fadeController.fadeDuration * 1000));
+        ////fade in after done loading
+        //fadeController.FadeIn();
+        //await Task.Delay((int)(fadeController.fadeDuration * 1000));
 
     }
 

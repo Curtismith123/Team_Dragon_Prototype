@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Editor;
+//using UnityEngine.InputSystem.Editor;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
@@ -89,6 +91,15 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Misc-----")]
     public GameObject hat;
 
+    [Header("-----Damage Screen-----")]
+    public float intensity;
+    public Volume dmgEffect;
+    public Volume lowHPEffect;
+    PostProcessVolume mDmgEffectVol;
+    Vignette mDmgVignette;
+    //PostProcessVolume mLowHPEffect;
+    //Vignette mLowHPVignette;
+    private float intensityOG;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -110,7 +121,13 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
-
+        intensityOG = intensity;
+        mDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
+        mDmgEffectVol.profile.TryGetSettings<Vignette>(out mDmgVignette);
+        mDmgVignette.enabled.Override(false);
+        //mLowHPEffect = lowHPEffect.GetComponent<PostProcessVolume>();
+        //mLowHPEffect.profile.TryGetSettings<Vignette>(out mLowHPVignette);
+        //mLowHPVignette.enabled.Override(false);
 
     }
 
@@ -132,7 +149,7 @@ public class PlayerController : MonoBehaviour, IDamage
             reload();
         }
         //&& weaponList[selectedWeapon].ammoCur > 0
-        if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire)
+        if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire && isAiming)
         {
             //// Align the weapon model to face forward relative to the player's forward
             //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
@@ -166,7 +183,30 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             RotateEffect();
         }
+        // Aim to shoot 
+        if (Input.GetButtonDown("Aim"))
+        {
+            isAiming = true;
 
+        }
+        if (Input.GetButtonUp("Aim") && isAiming)
+        {
+            isAiming = false;
+
+        }
+
+        // Low Health Effect
+        if (HP < 20)
+        {
+            mDmgVignette.intensity.Override(intensityOG);
+            mDmgVignette.enabled.Override(true);
+            mDmgVignette.intensity.Override(intensityOG + 0.2f);
+        }
+        if (HP < 10)
+        {
+            mDmgVignette.enabled.Override(true);
+            mDmgVignette.intensity.Override(intensityOG + 0.3f);
+        }
     }
 
     private void RotateEffect()
@@ -179,24 +219,25 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void UpdateEffectUI()
     {
-        switch (currentEffect)
-        {
-            case EffectType.Fire:
-                currentEffectIcon.sprite = fireIcon;
-                break;
-            case EffectType.Ice:
-                currentEffectIcon.sprite = iceIcon;
-                break;
-            case EffectType.Lightning:
-                currentEffectIcon.sprite = lightningIcon;
-                break;
-        }
+        //switch (currentEffect)
+        //{
+        //    case EffectType.Fire:
+        //        currentEffectIcon.sprite = fireIcon;
+        //        break;
+        //    case EffectType.Ice:
+        //        currentEffectIcon.sprite = iceIcon;
+        //        break;
+        //    case EffectType.Lightning:
+        //        currentEffectIcon.sprite = lightningIcon;
+        //        break;
+        //}
     }
 
 
     private void UpdateAnimator()
     {
         anim.SetBool("isShooting", isShooting);
+        anim.SetBool("isAiming", isAiming);
         // Set the Speed parameter in the Animator based on movement magnitude
         float movementSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
         anim.SetFloat("Speed", movementSpeed * SpeedAlt);
@@ -318,6 +359,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
+
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
 
@@ -326,6 +368,7 @@ public class PlayerController : MonoBehaviour, IDamage
             //sound here for click if out of ammo
             if (Input.GetButton("Fire1"))
             {
+
                 aud.PlayOneShot(weaponList[selectedWeapon].outOfAmmo[Random.Range(0, weaponList[selectedWeapon].outOfAmmo.Length)], weaponList[selectedWeapon].outOfAmmoVol);
             }
 
@@ -411,11 +454,40 @@ public class PlayerController : MonoBehaviour, IDamage
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         updatePlayerUI();
-        StartCoroutine(flashDmage());
+        //StartCoroutine(flashDmage());
+
+        StartCoroutine(damageEffect()); 
 
         if (HP <= 0)
         {
             gameManager.instance.youLose();
+        }
+    }
+
+    private IEnumerator damageEffect()
+    {
+        mDmgVignette.enabled.Override(true);
+        mDmgVignette.intensity.Override(intensityOG);
+
+        yield return new WaitForSeconds(0.5f);
+
+        while (intensity > 0)
+        {
+            intensity -= .1f;
+            if (intensity < 0)
+            {
+                intensity = 0;
+            }
+            mDmgVignette.intensity.Override(intensity);
+            yield return new WaitForSeconds(0.1f);
+        }
+        if (HP <= 20)
+        {
+            //mDmgVignette.enabled.Override(true);
+        }
+        else
+        {
+            mDmgVignette.enabled.Override(false);
         }
     }
 

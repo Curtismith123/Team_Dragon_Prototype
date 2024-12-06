@@ -14,8 +14,11 @@ public class FadeInOut : MonoBehaviour
 
     private void Start()
     {
+        
+        canvasGroup.alpha = 1;
         if (!hasFadedIn)
         {
+            
             FadeIn();
             hasFadedIn = true;
         }
