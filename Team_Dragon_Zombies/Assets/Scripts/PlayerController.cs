@@ -122,9 +122,15 @@ public class PlayerController : MonoBehaviour, IDamage
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
         intensityOG = intensity;
+
+
+
+
         mDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
         mDmgEffectVol.profile.TryGetSettings<Vignette>(out mDmgVignette);
         mDmgVignette.enabled.Override(false);
+
+
         //mLowHPEffect = lowHPEffect.GetComponent<PostProcessVolume>();
         //mLowHPEffect.profile.TryGetSettings<Vignette>(out mLowHPVignette);
         //mLowHPVignette.enabled.Override(false);
@@ -152,7 +158,7 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire && isAiming)
         {
             //// Align the weapon model to face forward relative to the player's forward
-            //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+            weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
@@ -219,18 +225,18 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void UpdateEffectUI()
     {
-        //switch (currentEffect)
-        //{
-        //    case EffectType.Fire:
-        //        currentEffectIcon.sprite = fireIcon;
-        //        break;
-        //    case EffectType.Ice:
-        //        currentEffectIcon.sprite = iceIcon;
-        //        break;
-        //    case EffectType.Lightning:
-        //        currentEffectIcon.sprite = lightningIcon;
-        //        break;
-        //}
+        switch (currentEffect)
+        {
+            case EffectType.Fire:
+                currentEffectIcon.sprite = fireIcon;
+                break;
+            case EffectType.Ice:
+                currentEffectIcon.sprite = iceIcon;
+                break;
+            case EffectType.Lightning:
+                currentEffectIcon.sprite = lightningIcon;
+                break;
+        }
     }
 
 
@@ -456,7 +462,7 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         //StartCoroutine(flashDmage());
 
-        StartCoroutine(damageEffect()); 
+        StartCoroutine(damageEffect());
 
         if (HP <= 0)
         {
