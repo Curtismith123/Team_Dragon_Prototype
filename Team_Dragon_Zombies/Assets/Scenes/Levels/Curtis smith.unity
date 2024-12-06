@@ -854,9 +854,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1134059507}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ThePit
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,9 +992,9 @@ GameObject:
   - component: {fileID: 1379214242}
   - component: {fileID: 1379214241}
   - component: {fileID: 1379214244}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PitTunnel
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4117,9 +4117,9 @@ GameObject:
   - component: {fileID: 2117575069}
   - component: {fileID: 2117575068}
   - component: {fileID: 2117575071}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PitBox
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5480,6 +5480,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7173241443389955480, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7173241443389955480, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5541,13 +5557,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -60.217
       objectReference: {fileID: 0}
+    - target: {fileID: 7189757690082940779, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7189757690082940779, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
       propertyPath: m_Name
       value: Pendulum LogSpike
       objectReference: {fileID: 0}
+    - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087638136006875333, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9214222345293870223, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Trap
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2308085957231945800, guid: a2b58dc2f6bc2434aac4d38d107ec211, type: 3}
@@ -5609,9 +5645,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 5356946083071047584, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356946083071047584, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
       propertyPath: m_Name
       value: Hinge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580999174043441035, guid: 7684c8c38f305e14e89c10b4bfd875fc, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5630,17 +5682,81 @@ PrefabInstance:
       propertyPath: damageAmount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 365782302461422428, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 365782302461422428, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 800021521339490654, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 800021521339490654, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186806430126079366, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186806430126079366, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512772363418713453, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512772363418713453, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     - target: {fileID: 2407532634120994216, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465635846576827512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465635846576827512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 2902339466456577176, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3100933051014891449, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100933051014891449, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     - target: {fileID: 3561865411253842553, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961839641685296807, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961839641685296807, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527288877772898233, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527288877772898233, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 4672382590581740819, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
@@ -5694,6 +5810,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeTrapD
       objectReference: {fileID: 0}
+    - target: {fileID: 8112606408284208512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112606408284208512, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     - target: {fileID: 8584111041300667877, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -5701,6 +5825,14 @@ PrefabInstance:
     - target: {fileID: 8687101617667483169, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9105740487399531415, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9105740487399531415, guid: c454b6a3d0362b64f9ec130415bcffeb, type: 3}
+      propertyPath: m_TagString
+      value: Trap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5767,9 +5899,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendulum Axe
       objectReference: {fileID: 0}
+    - target: {fileID: 7727334913060988593, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727334913060988593, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8580532728431474212, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Trap
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3465122923111249278, guid: 851002ab2a5b7324fad8d26425aa2729, type: 3}
