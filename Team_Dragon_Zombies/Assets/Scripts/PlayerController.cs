@@ -233,18 +233,18 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void UpdateEffectUI()
     {
-        //switch (currentEffect)
-        //{
-        //    case EffectType.Fire:
-        //        currentEffectIcon.sprite = fireIcon;
-        //        break;
-        //    case EffectType.Ice:
-        //        currentEffectIcon.sprite = iceIcon;
-        //        break;
-        //    case EffectType.Lightning:
-        //        currentEffectIcon.sprite = lightningIcon;
-        //        break;
-        //}
+        switch (currentEffect)
+        {
+            case EffectType.Fire:
+                currentEffectIcon.sprite = fireIcon;
+                break;
+            case EffectType.Ice:
+                currentEffectIcon.sprite = iceIcon;
+                break;
+            case EffectType.Lightning:
+                currentEffectIcon.sprite = lightningIcon;
+                break;
+        }
     }
 
 

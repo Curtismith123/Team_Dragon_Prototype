@@ -8,7 +8,7 @@ public class RebindingContols : MonoBehaviour
     public int m_BindingIndex; // Index into m_Action.bindings for binding to rebind.
     public TMP_Text m_DisplayText; // Text in UI that receives the binding display string.
 
-    //[SerializeField] private InputActionReference inputAction;
+    [SerializeField] private InputActionReference inputAction;
     //[SerializeField] private PlayerController playerController;
     //[SerializeField] private TMP_Text bindDisplayTxt;
     [SerializeField] private GameObject rebindStart;
