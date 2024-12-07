@@ -302,9 +302,11 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
         HP -= amount;
-        popupDamage.text = amount.ToString();
-        Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
+        //popupDamage.text = amount.ToString();
+        //Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
+
+        dmgPoints(amount, popupDamagePrefab);
 
         timeSinceLastHit = 0f;
         target = attacker;
@@ -320,6 +322,12 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
+    void dmgPoints(int amt, GameObject popupPrefab)
+    {
+        GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity);
+        popup.GetComponent<PopUpDmgTxt>().Intialize(amt);
+    }
+
 
     IEnumerator flashRed()
     {

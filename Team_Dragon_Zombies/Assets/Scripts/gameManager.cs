@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 
 public class gameManager : MonoBehaviour
 {
@@ -67,6 +69,11 @@ public class gameManager : MonoBehaviour
     [SerializeField][Range(1, 6)] public int maxFriendlies = 3;
     private List<IFriendly> friendlyUnits = new List<IFriendly>();
 
+    [Header("-----Damage Effects-----")]
+    public Volume dmgEffect;
+    PostProcessVolume gmDmgEffectVol;
+    Vignette gmDmgVignette;
+
     private bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
     private bool individualSet;
@@ -75,6 +82,13 @@ public class gameManager : MonoBehaviour
     public int enemyCount;
     public int ammoCount;
 
+    public void ResetDmgScreen()
+    {
+         if (gmDmgVignette.enabled)
+        {
+            gmDmgVignette.enabled.Override(false);
+        }
+    }
 
     void Awake()
     {
@@ -107,6 +121,10 @@ public class gameManager : MonoBehaviour
         resDropDown.RefreshShownValue();
 
         InitializeThrowers();
+
+        gmDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
+        gmDmgEffectVol.profile.TryGetSettings<Vignette>(out gmDmgVignette);
+        gmDmgVignette.enabled.Override(false);
     }
 
     void Start()
