@@ -102,20 +102,18 @@ public class StatusEffectSO : ScriptableObject
 
     private IEnumerator ApplyFireEffect(enemyMeleeAttack enemy, float adjDur)
     {
-        if (enemy == null || enemy.isDead)
+        if (enemy != null && !enemy.isDead)
         {
-            yield break;
-        }
+            float elapsedTime = 0f;
+            while (elapsedTime < adjDur)
+            {
+                // Apply bonus damage for Fire
+                float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Fire);
+                enemy.takeDamage((int)adjustedDamage, null, EffectType.Fire);
 
-        float elapsedTime = 0f;
-        while (elapsedTime < adjDur)
-        {
-            // Apply bonus damage for Fire
-            float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Fire);
-            enemy.takeDamage((int)adjustedDamage, null, EffectType.Fire);
-
-            yield return new WaitForSeconds(1f);
-            elapsedTime += 1f;
+                yield return new WaitForSeconds(1f);
+                elapsedTime += 1f;
+            }
         }
     }
 

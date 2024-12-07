@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 450feb8103692b24e9abe798043d4ccb
+guid: 42e6c9f7751ab984fa1fca4b057b47a1
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -539,7 +539,7 @@ ModelImporter:
     second: upperarm_twist_01_r
   - first:
       74: 7400000
-    second: Gunslinger_Crouch_Idle
+    second: Gunslinger_Rifle_Fire
   - first:
       95: 9500000
     second: //RootNode
@@ -559,13 +559,28 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'thigh_l'
-      : position error = 4.064935 mm\n\t'calf_l' : position error = 2.725888 mm\n\t'thigh_r'
-      : position error = 2.639559 mm\n\t'calf_r' : position error = 2.897132 mm\n\t'ball_r'
-      : position error = 1.008143 mm\n\t'hand_l' : position error = 2.478340 mm\n\t'hand_r'
-      : position error = 2.300472 mm\n\t'middle_02_r' : position error = 1.204115
-      mm\n\t'ring_02_r' : position error = 1.314721 mm\n"
+      : position error = 1.917037 mm\n\t'calf_l' : position error = 1.033292 mm\n\t'thigh_r'
+      : position error = 2.680600 mm\n\t'upperarm_l' : position error = 1.017774
+      mm\n\t'hand_l' : position error = 11.072593 mm\n\t'upperarm_r' : position error
+      = 1.223110 mm\n\t'lowerarm_r' : position error = 1.565772 mm\n\t'hand_r' :
+      position error = 9.274614 mm\n\t'middle_02_r' : position error = 1.204111 mm\n\t'ring_02_r'
+      : position error = 1.314687 mm\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'thigh_l' has translation animation that
+      will be discarded.\n\t'calf_l' has translation animation that will be discarded.\n\t'foot_l'
+      has translation animation that will be discarded.\n\t'thigh_r' has translation
+      animation that will be discarded.\n\t'calf_r' has translation animation that
+      will be discarded.\n\t'foot_r' has translation animation that will be discarded.\n\t'spine_02'
+      has translation animation that will be discarded.\n\t'spine_03' has translation
+      animation that will be discarded.\n\t'upperarm_l' has translation animation
+      that will be discarded.\n\t'lowerarm_l' has translation animation that will
+      be discarded.\n\t'hand_l' has translation animation that will be discarded.\n\t'upperarm_r'
+      has translation animation that will be discarded.\n\t'lowerarm_r' has translation
+      animation that will be discarded.\n\t'hand_r' has translation animation that
+      will be discarded.\n\t'neck_01' has translation animation that will be discarded.\n\t'head'
+      has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -579,11 +594,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gunslinger_Crouch_Idle
+      name: Gunslinger_Rifle_Fire
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1775,5 +1790,5 @@ AssetOrigin:
   productId: 145087
   packageName: Frank RPG Gunslinger
   packageVersion: 1.0
-  assetPath: Assets/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Crouch_Idle.FBX
+  assetPath: Assets/Unity Store DL/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Rifle_Fire.FBX
   uploadId: 501695

@@ -17,7 +17,7 @@ public class cameraController : MonoBehaviour
     [SerializeField] LayerMask collisionLayerMask; // Define what layers the camera can collide with
     [SerializeField] float cameraRadius = 0.5f; // Radius for spherecast collision
     [SerializeField] float smoothSpeed = 10f; // Speed for smoothing collision adjustments
-    [SerializeField] float viewChangeDistance=1.5f; // Distance at which to change the culling mask 
+    [SerializeField] float viewChangeDistance = 1.5f; // Distance at which to change the culling mask 
 
     [Header("Culling Masks")]
     [SerializeField] private LayerMask defaultMask; // Default culling mask for the camera
@@ -32,6 +32,9 @@ public class cameraController : MonoBehaviour
     private Vector3 desiredPosition; // Desired position for collision avoidance
     private Vector3 smoothPosition; // Smoothed position for collision adjustments
     private Camera cam; // Reference to the Camera component
+
+    private bool isPanning = false;
+    private Vector3 origPos;
 
     public int Sensitivity
     {
@@ -52,6 +55,7 @@ public class cameraController : MonoBehaviour
         camController = this;
         cam = GetComponent<Camera>(); // Get the Camera component on this GameObject
         player = this.GetComponentInParent<PlayerController>();
+        origPos = cam.transform.position;
     }
 
     void Update()
@@ -127,5 +131,37 @@ public class cameraController : MonoBehaviour
 
         // Smoothly move the camera to the desired position
         transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+    }
+
+    public void PanToPos(Vector3 targetPos, float speed)
+    {
+        // Only process one pan operation at a time 
+        if (isPanning) { return; }
+        // Move the camera to the desired transform postion 
+        StartCoroutine(PanToPosCo(targetPos, speed));
+    }
+    private IEnumerator PanToPosCo(Vector3 targetPos, float speed)
+    {
+
+        isPanning = true;
+
+        isFPV = false;
+        // While the camera is not at the target position
+        while (Vector3.Distance(cam.transform.position, targetPos) > 0.5f)
+        {
+            // Ensure no clipping during pan
+            HandleCollision();
+
+            // Use Lerp for smooth Tranistion can be tuned with the panSpeed Variable in player controller 
+            cam.transform.position = Vector3.Lerp(cam.transform.position, targetPos, Time.deltaTime * speed);
+            yield return null;
+        }
+        isPanning = false;
+    }
+    public void ResetCamPos()
+    { // only one pan operation at a time 
+        if (isPanning) { return; }
+        // Move the camera back to origPOs
+        StartCoroutine(PanToPosCo(origPos, smoothSpeed));
     }
 }

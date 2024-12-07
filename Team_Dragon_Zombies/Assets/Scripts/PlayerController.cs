@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("-----Player Stats-----")]
     [SerializeField] int HP;
+    private bool isDead;
 
     [Header("-----Sprint Modifiers-----")]
     [SerializeField][Range(1, 10)] int Speed = 5;
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Animation-----")]
     [SerializeField] Animator anim;
     private bool isAiming;
+
+    [Header("-----Death Settings------")]
+    [SerializeField] float panSpeed = 2f;
+    [SerializeField] Vector3 camOffset = new Vector3(0, 5, -5);
+    [SerializeField] float deathAnimDelay = 2f;
 
 
     [Header("-----Weapon Info-----")]
@@ -127,7 +133,7 @@ public class PlayerController : MonoBehaviour, IDamage
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
         intensityOG = intensity;
-
+        isDead = false;
 
 
 
@@ -146,8 +152,11 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (!gameManager.instance.IsPaused)
         {
-            movement();
-            sprint();
+            if (this.controller != null)
+            {
+                movement();
+                sprint();
+            }
         }
         // Update the animator's Speed parameter
         UpdateAnimator();
@@ -260,28 +269,30 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void movement()
     {
-        if (!isPlayingSteps && moveDir.magnitude > 0.3f && controller.isGrounded) { StartCoroutine(playStep()); }
-        if (controller.isGrounded)
+        if (controller.enabled == true)
         {
-            jumpCount = 0;
-            playerVel = Vector3.zero;
+            if (!isPlayingSteps && moveDir.magnitude > 0.3f && controller.isGrounded) { StartCoroutine(playStep()); }
+            if (controller.isGrounded)
+            {
+                jumpCount = 0;
+                playerVel = Vector3.zero;
+            }
+            moveDir = (transform.forward * Input.GetAxis("Vertical")) +
+              (transform.right * Input.GetAxis("Horizontal"));
+            controller.Move(moveDir * SpeedAlt * Time.deltaTime);
+
+
+            jump();
+
+            controller.Move(playerVel * Time.deltaTime);
+
+            playerVel.y -= gravity * Time.deltaTime;
+
+            CheckLanding();
+
+            anim.SetBool("isGrounded", (controller.isGrounded));
         }
-        moveDir = (transform.forward * Input.GetAxis("Vertical")) +
-          (transform.right * Input.GetAxis("Horizontal"));
-
-        controller.Move(moveDir * SpeedAlt * Time.deltaTime);
-
-        jump();
-
-        controller.Move(playerVel * Time.deltaTime);
-
-        playerVel.y -= gravity * Time.deltaTime;
-
-        CheckLanding();
-
-        anim.SetBool("isGrounded", (controller.isGrounded));
     }
-
     void jump()
     {
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
@@ -374,6 +385,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
+        Vector3 targetpoint;
 
         isShooting = true;
         Weapon currentWeapon = weaponList[selectedWeapon];
@@ -416,7 +428,24 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
 
-            Vector3 shootDirection = (Camera.main.transform.forward).normalized;
+            // attempt at fizing aim point 
+
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, currentWeapon.shootDist))
+            {
+                targetpoint = hit.point;
+            }
+            else
+            {
+                targetpoint = ray.GetPoint(currentWeapon.shootDist);
+            }
+
+
+
+
+            Vector3 shootDirection = (targetpoint - shootPos.transform.position).normalized;
 
             if (bulletsToFire > 1)
             {
@@ -466,6 +495,10 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
+        if (isDead) return;
+
+
+        anim.SetTrigger("TakeDamage");
         HP -= amount;
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         updatePlayerUI();
@@ -475,7 +508,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            gameManager.instance.youLose();
+            StartCoroutine(DeathToll());
+
         }
     }
 
@@ -752,8 +786,25 @@ public class PlayerController : MonoBehaviour, IDamage
             yield return null;
         }
 
-
-
-
     }
+
+    private IEnumerator DeathToll()
+    {
+        // Trip Death Flag 
+        isDead = true;
+        // Turn off the player controller 
+        controller.enabled = false;
+        // move the camera to the offst position
+        Vector3 dCamPos = transform.position + camOffset;
+        cameraController.camController.PanToPos(dCamPos, panSpeed);
+
+        anim.SetTrigger("Dead");
+
+        // Wait for delay and trigger death Menu
+        yield return new WaitForSeconds(deathAnimDelay);
+
+        // GameManager trigger 
+        gameManager.instance.youLose();
+    }
+
 }

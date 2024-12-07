@@ -413,6 +413,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3567759788052490950}
+  - {fileID: 4037166150074655811}
   m_Father: {fileID: 464597288020068763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415473554340502203
@@ -1551,13 +1552,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4141938110689796054}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000014454126, y: 0.000000059604645, z: -0.47738707, w: 0.87869316}
-  m_LocalPosition: {x: -0.143, y: 0.371, z: -0.216}
+  m_LocalRotation: {x: 0.6213289, y: 0.33756375, z: -0.33756357, w: 0.6213309}
+  m_LocalPosition: {x: -0.1429998, y: 0.21599984, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5344633204141253010}
-  m_Father: {fileID: 2240209529603791878}
+  m_Father: {fileID: 5422874906465459293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.03}
 --- !u!1 &4210517767153620462
 GameObject:
@@ -1746,7 +1747,6 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1.0000008, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8778455116075226118}
   - {fileID: 1016913774817764258}
   - {fileID: 6836094172494951362}
   - {fileID: 2342252479728530485}
@@ -1935,13 +1935,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4945407791842959151}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48050535, y: -0.51514757, z: -0.51134354, w: 0.4922046}
-  m_LocalPosition: {x: -0.07, y: 0.108, z: 0.016}
+  m_LocalRotation: {x: 0.08540953, y: 0.000000059604645, z: -0.00000029057264, w: 0.996346}
+  m_LocalPosition: {x: 0.00000013608951, y: 0.00000011920929, z: 0.000000044703484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7698222750281279729}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 4460428050440362324}
+  m_LocalEulerAnglesHint: {x: 9.799, y: 0, z: 0}
 --- !u!108 &4523720709699230228
 Light:
   m_ObjectHideFlags: 0
@@ -1954,7 +1954,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 50
+  m_Range: 18.76866
   m_SpotAngle: 46
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1990,7 +1990,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 56582015
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2338,6 +2338,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8778455116075226118}
   - {fileID: 6871480090794655944}
   - {fileID: 8538685441782959041}
   m_Father: {fileID: 2240209529603791878}
@@ -2792,7 +2793,6 @@ Transform:
   - {fileID: 2577846674795712439}
   - {fileID: 4741515600994667864}
   - {fileID: 6614662609693125836}
-  - {fileID: 4037166150074655811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &643869576382528718
@@ -2821,6 +2821,9 @@ MonoBehaviour:
   jumpSpeed: 12
   gravity: 28
   anim: {fileID: 6953213374301874932}
+  panSpeed: 1
+  camOffset: {x: 35, y: 35, z: -35}
+  deathAnimDelay: 4
   weaponList: []
   weaponModel: {fileID: 1415473554340502203}
   muzzleFlash: {fileID: 8461507516146515604}

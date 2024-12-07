@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 834de31676ffec1488838e1d5f94c14e
+guid: 6cb78edd106654846855fa3c70fcc622
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -539,7 +539,7 @@ ModelImporter:
     second: upperarm_twist_01_r
   - first:
       74: 7400000
-    second: Gunslinger_Crouch_Start
+    second: Gunslinger_Crouch_end
   - first:
       95: 9500000
     second: //RootNode
@@ -559,9 +559,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'thigh_l'
-      : position error = 1.536273 mm\n\t'thigh_r' : position error = 1.878685 mm\n\t'hand_l'
-      : position error = 2.394925 mm\n\t'hand_r' : position error = 2.300566 mm\n\t'middle_02_r'
-      : position error = 1.204020 mm\n\t'ring_02_r' : position error = 1.314715 mm\n"
+      : position error = 4.064935 mm\n\t'calf_l' : position error = 2.725845 mm\n\t'thigh_r'
+      : position error = 2.639557 mm\n\t'calf_r' : position error = 2.897147 mm\n\t'ball_r'
+      : position error = 1.008142 mm\n\t'hand_l' : position error = 2.478379 mm\n\t'hand_r'
+      : position error = 2.300457 mm\n\t'middle_02_r' : position error = 1.204115
+      mm\n\t'ring_02_r' : position error = 1.314759 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -587,11 +589,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gunslinger_Crouch_Start
+      name: Gunslinger_Crouch_end
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1783,5 +1785,5 @@ AssetOrigin:
   productId: 145087
   packageName: Frank RPG Gunslinger
   packageVersion: 1.0
-  assetPath: Assets/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Crouch_Start.FBX
+  assetPath: Assets/Unity Store DL/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Crouch_end.FBX
   uploadId: 501695

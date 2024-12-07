@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3dcb186b33b86984c842e1b23d27053f
+guid: e0312ebcb5e18df409fd4d62cf7db073
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -539,7 +539,7 @@ ModelImporter:
     second: upperarm_twist_01_r
   - first:
       74: 7400000
-    second: Gunslinger_Attack01
+    second: Gunslinger_Hit01
   - first:
       95: 9500000
     second: //RootNode
@@ -559,31 +559,33 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'thigh_l'
-      : position error = 1.578549 mm\n\t'thigh_r' : position error = 1.936447 mm\n\t'hand_l'
-      : position error = 2.394925 mm\n\t'hand_r' : position error = 2.300566 mm\n\t'middle_02_r'
+      : position error = 1.536266 mm\n\t'thigh_r' : position error = 1.878685 mm\n\t'hand_l'
+      : position error = 2.394940 mm\n\t'hand_r' : position error = 2.300566 mm\n\t'middle_02_r'
       : position error = 1.204020 mm\n\t'ring_02_r' : position error = 1.314715 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'thigh_l' has translation animation that
-      will be discarded.\n\t'calf_l' has translation animation that will be discarded.\n\t'thigh_r'
-      has translation animation that will be discarded.\n\t'calf_r' has translation
-      animation that will be discarded.\n\t'foot_r' has translation animation that
-      will be discarded.\n\t'spine_01' has translation animation that will be discarded.\n\t'upperarm_l'
-      has translation animation that will be discarded.\n\t'lowerarm_l' has translation
-      animation that will be discarded.\n\t'hand_l' has translation animation that
-      will be discarded.\n\t'index_02_l' has translation animation that will be discarded.\n\t'index_03_l'
-      has translation animation that will be discarded.\n\t'middle_01_l' has translation
-      animation that will be discarded.\n\t'middle_02_l' has translation animation
-      that will be discarded.\n\t'middle_03_l' has translation animation that will
-      be discarded.\n\t'ring_01_l' has translation animation that will be discarded.\n\t'ring_02_l'
-      has translation animation that will be discarded.\n\t'ring_03_l' has translation
-      animation that will be discarded.\n\t'pinky_01_l' has translation animation
-      that will be discarded.\n\t'pinky_02_l' has translation animation that will
-      be discarded.\n\t'upperarm_r' has translation animation that will be discarded.\n\t'lowerarm_r'
-      has translation animation that will be discarded.\n\t'hand_r' has translation
-      animation that will be discarded.\n\t'head' has translation animation that
-      will be discarded.\n"
+      will be discarded.\n\t'calf_l' has translation animation that will be discarded.\n\t'foot_l'
+      has translation animation that will be discarded.\n\t'thigh_r' has translation
+      animation that will be discarded.\n\t'calf_r' has translation animation that
+      will be discarded.\n\t'foot_r' has translation animation that will be discarded.\n\t'spine_01'
+      has translation animation that will be discarded.\n\t'spine_02' has translation
+      animation that will be discarded.\n\t'spine_03' has translation animation that
+      will be discarded.\n\t'upperarm_l' has translation animation that will be discarded.\n\t'lowerarm_l'
+      has translation animation that will be discarded.\n\t'hand_l' has translation
+      animation that will be discarded.\n\t'thumb_03_l' has translation animation
+      that will be discarded.\n\t'index_01_l' has translation animation that will
+      be discarded.\n\t'index_02_l' has translation animation that will be discarded.\n\t'index_03_l'
+      has translation animation that will be discarded.\n\t'middle_02_l' has translation
+      animation that will be discarded.\n\t'middle_03_l' has translation animation
+      that will be discarded.\n\t'ring_01_l' has translation animation that will
+      be discarded.\n\t'ring_03_l' has translation animation that will be discarded.\n\t'pinky_02_l'
+      has translation animation that will be discarded.\n\t'pinky_03_l' has translation
+      animation that will be discarded.\n\t'upperarm_r' has translation animation
+      that will be discarded.\n\t'lowerarm_r' has translation animation that will
+      be discarded.\n\t'hand_r' has translation animation that will be discarded.\n\t'head'
+      has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -597,11 +599,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gunslinger_Attack01
+      name: Gunslinger_Hit01
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 70
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1793,5 +1795,5 @@ AssetOrigin:
   productId: 145087
   packageName: Frank RPG Gunslinger
   packageVersion: 1.0
-  assetPath: Assets/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Attack01.FBX
+  assetPath: Assets/Unity Store DL/Frank_RPG_Gunslinger/Assets/Animations/FBX/Frank_RPG_Gunslinger_Hit01.FBX
   uploadId: 501695
