@@ -696,6 +696,13 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    public void HealToFull()
+    {
+        HP = HPOrig;
+        updatePlayerUI();
+    }
+
+
     private IEnumerator HandleWeaponMovement()
     {
         while (true)
