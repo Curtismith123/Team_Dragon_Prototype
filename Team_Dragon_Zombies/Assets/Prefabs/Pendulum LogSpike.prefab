@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8478230549739144594}
   - component: {fileID: 6061881631194035919}
   - component: {fileID: 4728761555797893024}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,9 +120,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2623113088695026735}
   - component: {fileID: 4746882650583520727}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pendulum LogSpike
-  m_TagString: Player
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9087638136006875333}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.5016378, w: 0.86507773}
+  m_LocalRotation: {x: 0, y: 0, z: -0.50163895, w: 0.86507714}
   m_LocalPosition: {x: -34.019184, y: 2.5511665, z: 11.103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -170,12 +170,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3428080611323430255}
   - component: {fileID: 4611167205607498264}
+  - component: {fileID: 620847912257953449}
+  - component: {fileID: 6989471799100439795}
   - component: {fileID: 4821617694629268400}
   - component: {fileID: 426775434781240824}
-  - component: {fileID: 2308085957231945800}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trunk_Trap
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,6 +204,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9214222345293870223}
   m_Mesh: {fileID: -117109647321052690, guid: 761f086b8ea3d3b498c848051eb930a8, type: 3}
+--- !u!114 &620847912257953449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214222345293870223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c9c8aff26e68c40ad7d77588ffaf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  activateSound: {fileID: 0}
+  activateDelay: 0
+--- !u!114 &6989471799100439795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214222345293870223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
 --- !u!23 &4821617694629268400
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -263,38 +292,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.35
   m_Height: 2.43
   m_Direction: 2
   m_Center: {x: 0.14, y: -0.21, z: 0}
---- !u!54 &2308085957231945800
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9214222345293870223}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

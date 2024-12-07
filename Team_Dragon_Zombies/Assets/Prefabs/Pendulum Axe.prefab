@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6362674937397665446}
   - component: {fileID: 860532630691486463}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pendulum Axe
-  m_TagString: Player
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,13 +58,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1114783342762777337}
+  - component: {fileID: 6569836658876916286}
+  - component: {fileID: 240220036021195791}
   - component: {fileID: 7840763611019334429}
   - component: {fileID: 117787502768838595}
   - component: {fileID: 486162026857369400}
-  - component: {fileID: 3465122923111249278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Blade01D
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6362674937397665446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6569836658876916286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580532728431474212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c9c8aff26e68c40ad7d77588ffaf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  activateSound: {fileID: 0}
+  activateDelay: 0
+--- !u!114 &240220036021195791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580532728431474212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
 --- !u!33 &7840763611019334429
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -152,36 +181,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.4
   m_Center: {x: 0, y: -2.8, z: 0}
---- !u!54 &3465122923111249278
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580532728431474212}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

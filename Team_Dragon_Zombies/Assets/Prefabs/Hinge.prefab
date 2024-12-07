@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3184591073344861169}
   - component: {fileID: 2313100752456899750}
   - component: {fileID: 4388863634007086466}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hinge
-  m_TagString: Player
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +81,14 @@ PrefabInstance:
     - target: {fileID: 4190930520380371978, guid: 3e8ca6c1a88770d459535657386d0281, type: 3}
       propertyPath: m_Name
       value: TrapDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190930520380371978, guid: 3e8ca6c1a88770d459535657386d0281, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190930520380371978, guid: 3e8ca6c1a88770d459535657386d0281, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 5110818709430887818, guid: 3e8ca6c1a88770d459535657386d0281, type: 3}
       propertyPath: m_LocalPosition.x
