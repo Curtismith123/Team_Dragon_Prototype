@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
@@ -46,6 +47,11 @@ public class PlayerController : MonoBehaviour, IDamage
     float bulletSpeed;
     int pelletsPerShot;
     float spreadAngle;
+    bool isTwoHanded;
+    [SerializeField] GameObject ohPos;
+    [SerializeField] GameObject thIdlePos;
+    [SerializeField] GameObject thAimPos;
+    [SerializeField] float switchTime;
 
     [Header("-----Effect Selection-----")]
     [SerializeField] private Image currentEffectIcon;
@@ -157,8 +163,8 @@ public class PlayerController : MonoBehaviour, IDamage
         //&& weaponList[selectedWeapon].ammoCur > 0
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire && isAiming)
         {
-            //// Align the weapon model to face forward relative to the player's forward
-            weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+            ////// Align the weapon model to face forward relative to the player's forward
+            //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
@@ -173,7 +179,10 @@ public class PlayerController : MonoBehaviour, IDamage
             }
             UpdateConversionGaugeUI();
         }
-
+        if (weaponModel != null)
+        {
+            StartCoroutine(HandleWeaponMovement());
+        }
         if (Input.GetKeyDown(KeyCode.G))
         {
             TryConvertEnemy();
@@ -244,6 +253,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         anim.SetBool("isShooting", isShooting);
         anim.SetBool("isAiming", isAiming);
+        anim.SetBool("Hands", isTwoHanded);
         // Set the Speed parameter in the Animator based on movement magnitude
         float movementSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
         anim.SetFloat("Speed", movementSpeed * SpeedAlt);
@@ -530,6 +540,7 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
+        isTwoHanded = weaponList[selectedWeapon].isTwoHanded;
 
 
 
@@ -598,7 +609,7 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletSpeed = weaponList[selectedWeapon].bulletSpeed;
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
-
+        isTwoHanded = weaponList[selectedWeapon].isTwoHanded;
 
 
         gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
@@ -685,5 +696,58 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    private IEnumerator HandleWeaponMovement()
+    {
+        while (true)
+        {
+            if (weaponModel != null)
+            {
+                if (isTwoHanded)
+                {
+                    // Check the player's current state and adjust the weapon's position
+                    if (isAiming)
+                    {
+                        // Move to aiming position
+                        weaponModel.transform.position = Vector3.Lerp(
+                            weaponModel.transform.position,
+                            thAimPos.transform.position,
+                            Time.deltaTime * switchTime
+                        );
+                        weaponModel.transform.rotation = Quaternion.Lerp(
+                            weaponModel.transform.rotation,
+                            thAimPos.transform.rotation,
+                            Time.deltaTime * switchTime
+                        );
+                    }
+                    else
+                    {
+                        // Move to idle position
+                        weaponModel.transform.position = Vector3.Lerp(
+                            weaponModel.transform.position,
+                            thIdlePos.transform.position,
+                            Time.deltaTime * switchTime
+                        );
+                        weaponModel.transform.rotation = Quaternion.Lerp(
+                            weaponModel.transform.rotation,
+                            thIdlePos.transform.rotation,
+                            Time.deltaTime * switchTime
+                        );
+                    }
+                }
+                else
+                {
+                    // For one-handed weapons, no movement is needed; maintain default position
+                    weaponModel.transform.position = ohPos.transform.position;
+                    weaponModel.transform.rotation = ohPos.transform.rotation;
+                }
+            }
 
+            // Wait for the next frame
+            yield return null;
+        }
+
+
+
+
+    }
 }
