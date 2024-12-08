@@ -15,21 +15,22 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private FadeInOut fadeController;
 
     private float target;
-    PlayerController player;
+    public PlayerController player;
 
     private void OnTriggerEnter(Collider other)
     {
         
         if (other.CompareTag("Player"))
         {
-            player.SavePlayerData();
+            
             LoadLevel();
-            //player.LoadPlayerData();
+            
         }
     }
 
     public async void LoadLevel()
     {
+        
         //fade out
         fadeController.FadeOut();
         //wait for method to finish
@@ -54,6 +55,7 @@ public class SceneLoader : MonoBehaviour
         await Task.Delay(2000);
 
         scene.allowSceneActivation = true;
+        
         loadingScreen.SetActive(false);
 
         ////fade in after done loading
