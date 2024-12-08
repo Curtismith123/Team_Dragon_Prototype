@@ -65,6 +65,7 @@ public class gameManager : MonoBehaviour
     public Image playerStaminaBar;
     public Image playerConversionBar;
     public PlayerController playerScript;
+    public GameObject playerSpawnPos;
     public GameObject playerDamageScreen;
 
     public ThrowObjects throwObjects;
@@ -101,6 +102,7 @@ public class gameManager : MonoBehaviour
         timeScaleOriG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
 
         resolutions = Screen.resolutions;
         resDropDown.ClearOptions();

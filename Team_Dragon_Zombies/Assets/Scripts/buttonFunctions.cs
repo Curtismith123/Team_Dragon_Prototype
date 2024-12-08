@@ -12,8 +12,24 @@ public class buttonFunctions : MonoBehaviour
 
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        gameManager.instance.stateUnpause();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //gameManager.instance.stateUnpause();
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            SceneManager.LoadScene(1);
+            gameManager.instance.playerScript.resetPlayer();
+            gameManager.instance.playerScript.spawnPlayer();
+            gameManager.instance.stateUnpause();
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+            gameManager.instance.playerScript.resetPlayer();
+            gameManager.instance.playerScript.spawnPlayer();
+            gameManager.instance.stateUnpause();
+
+        }
     }
 
     public void quit()
