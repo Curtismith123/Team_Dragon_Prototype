@@ -33,17 +33,22 @@ public class gameManager : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private float defaultVolume = 1.0f;
     // Gameplay Objects
+    [Header("-----Gameplay-----")]
     [SerializeField] GameObject menuGameplay;
     [SerializeField] private TMP_Text sensTextValue;
     [SerializeField] private Slider sensSlider;
     [SerializeField] private int defaultSen = 300;
     [SerializeField] private Toggle invertYToggle;
     // Graphics Objects
+    [Header("-----Graphics-----")]
     [SerializeField] GameObject menuGraphics;
     [SerializeField] private TMP_Dropdown qltyDropdown;
     [SerializeField] private Toggle fullScrToggle;
     public TMP_Dropdown resDropDown;
     private Resolution[] resolutions;
+    // Controls
+    [Header("-----Controls-----")]
+    [SerializeField] GameObject menuControl;
 
     private int qualityLevel;
     private bool isFullScreen;
@@ -476,6 +481,14 @@ public class gameManager : MonoBehaviour
         Screen.fullScreen = IsFullScreen;
         setResolution(resDropDown.value);
         inSetBack();
+    }
+
+    // Controls
+    public void cntrlMenu()
+    {
+        settingsActive.SetActive(false);
+        inSetActive = menuControl;
+        inSetActive.SetActive(true);
     }
 
     public void setResolution(int resIndex)

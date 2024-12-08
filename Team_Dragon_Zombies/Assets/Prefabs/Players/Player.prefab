@@ -1747,6 +1747,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1.0000008, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5873235191227728696}
   - {fileID: 1016913774817764258}
   - {fileID: 6836094172494951362}
   - {fileID: 2342252479728530485}
@@ -2065,12 +2066,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5477856020720626858}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.48476458, y: -0.51101357, z: -0.5073076, w: -0.49649525}
-  m_LocalPosition: {x: -0.039, y: 0.317, z: -0.061}
-  m_LocalScale: {x: 0.04999995, y: 0.049999975, z: 0.04999997}
+  m_LocalRotation: {x: 0.47621238, y: -0.5192457, z: -0.51534367, w: 0.48787978}
+  m_LocalPosition: {x: 0.04, y: 0.334, z: -0.061}
+  m_LocalScale: {x: 0.04999994, y: 0.049999975, z: 0.04999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8081520348345272463}
+  m_Father: {fileID: 7698222750281279729}
   m_LocalEulerAnglesHint: {x: 0, y: -0.958, z: 0}
 --- !u!33 &79001735445408733
 MeshFilter:
@@ -2627,7 +2628,6 @@ Transform:
   - {fileID: 3955908996706484357}
   - {fileID: 5420885433582978689}
   - {fileID: 3821469006375810174}
-  - {fileID: 5873235191227728696}
   m_Father: {fileID: 6755811893579228940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6172947560305452347
@@ -2821,9 +2821,9 @@ MonoBehaviour:
   jumpSpeed: 12
   gravity: 28
   anim: {fileID: 6953213374301874932}
-  panSpeed: 1
+  panSpeed: 0.35
   camOffset: {x: 35, y: 35, z: -35}
-  deathAnimDelay: 4
+  deathAnimDelay: 3
   weaponList: []
   weaponModel: {fileID: 1415473554340502203}
   muzzleFlash: {fileID: 8461507516146515604}

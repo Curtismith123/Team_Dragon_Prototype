@@ -83,4 +83,10 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.resetDefault("Graphics");
     }
 
+    // Controls
+    public void controlMenu()
+    {
+        gameManager.instance.cntrlMenu();
+    }
+
 }
