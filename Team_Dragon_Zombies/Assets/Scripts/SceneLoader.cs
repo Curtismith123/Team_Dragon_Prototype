@@ -15,13 +15,16 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private FadeInOut fadeController;
 
     private float target;
-
+    PlayerController player;
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Player"))
         {
+            player.SavePlayerData();
             LoadLevel();
+            //player.LoadPlayerData();
         }
     }
 

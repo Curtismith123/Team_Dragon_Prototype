@@ -231,6 +231,21 @@ public class PlayerController : MonoBehaviour, IDamage
             mDmgVignette.intensity.Override(intensityOG + 0.3f);
         }
     }
+    public ThrowObjects throwObjects;
+    public void SavePlayerData()
+    {
+        //ThrowObjects throwObjects = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
+        PlayerPrefs.SetInt("PlayerHealth", HP);
+        PlayerPrefs.SetFloat("PlayerStealth", currentStamina);
+        PlayerPrefs.SetInt("PlayerThrowObjectsRemaining", throwObjects.remainingThrows);
+    }
+
+    public void LoadPlayerData()
+    {
+        HP = PlayerPrefs.GetInt("PlayerHealth", HP);
+    }
+
+
 
     private void RotateEffect()
     {
