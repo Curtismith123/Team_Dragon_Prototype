@@ -306,7 +306,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         //Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
 
-        dmgPoints(amount, popupDamagePrefab);
+        dmgPoints(finalDamage, popupDamagePrefab);
 
         timeSinceLastHit = 0f;
         target = attacker;
@@ -322,7 +322,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
-    void dmgPoints(int amt, GameObject popupPrefab)
+    void dmgPoints(float amt, GameObject popupPrefab)
     {
         GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity);
         popup.GetComponent<PopUpDmgTxt>().Intialize(amt);

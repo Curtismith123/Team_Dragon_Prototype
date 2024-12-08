@@ -7,7 +7,8 @@ public class PopUpDmgTxt : MonoBehaviour
 
     public void Intialize(float amount)
     {
-        popUpTxt.text = amount.ToString("F1");
+        Destroy(this.gameObject, 2.5f);
+        popUpTxt.text = amount.ToString("F0");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

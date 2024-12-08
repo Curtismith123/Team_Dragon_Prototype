@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
@@ -231,6 +232,28 @@ public class PlayerController : MonoBehaviour, IDamage
             mDmgVignette.intensity.Override(intensityOG + 0.3f);
         }
     }
+
+    //Commenting this out for now
+    //public ThrowObjects throwObjects;
+    //public void SavePlayerData()
+    //{
+    //    //ThrowObjects throwObjects = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
+    //    PlayerPrefs.SetInt("PlayerHealth", HP);
+    //    PlayerPrefs.SetFloat("PlayerStealth", currentStamina);
+    //    PlayerPrefs.SetInt("PlayerThrowObjectsRemaining", throwObjects.remainingThrows);
+    //    PlayerPrefs.Save();
+    //}
+
+    //public void LoadPlayerData()
+    //{
+    //    if (PlayerPrefs.HasKey("PlayerHealth"))
+    //    {
+    //        HP = PlayerPrefs.GetInt("PlayerHealth", HP);
+    //    }
+        
+    //}
+
+
 
     private void RotateEffect()
     {
