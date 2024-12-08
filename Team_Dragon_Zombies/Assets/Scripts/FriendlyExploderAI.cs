@@ -16,7 +16,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     public float faceTargetSpeed = 5f;
     public float detectionRadius = 15f;
     public float explosionRange = 2f;
-    public float explosionDamageRadius = 5f;
+    public float explosionDamageRadius = 8f;
     public int explosionDamage = 50;
     public int flashCount = 3;
     public float flashDuration = 0.2f;
@@ -380,7 +380,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         Collider[] currentHits = Physics.OverlapSphere(transform.position, explosionDamageRadius);
         foreach (var c in currentHits)
         {
-            GameObject obj = c.transform.root.gameObject;
+            GameObject obj = c.gameObject; // Changed from c.transform.root.gameObject to c.gameObject
 
             float dist = Vector3.Distance(transform.position, obj.transform.position);
             if (dist <= explosionDamageRadius && ValidExplosionTarget(obj))
