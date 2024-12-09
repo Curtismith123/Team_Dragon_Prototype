@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int sceneIndex;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Image progressBar;
-    [SerializeField] private FadeInOut fadeController;
+    [SerializeField] public FadeInOut fadeController;
 
     private float target;
     public PlayerController player;
@@ -29,12 +29,12 @@ public class SceneLoader : MonoBehaviour
         if (!hasTriggered && other.CompareTag("Player"))
         {
             hasTriggered = true;
-            LoadLevel();
+            LoadLevel(sceneIndex);
             
         }
     }
 
-    public async void LoadLevel()
+    public async void LoadLevel(int sceneIndex)
     {
         
         //fade out
