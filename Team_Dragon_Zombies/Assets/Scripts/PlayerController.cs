@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour, IDamage
         currentEffect = EffectType.Fire;
         intensityOG = intensity;
         isDead = false;
-
+        currentEffectIcon = GetComponentInChildren<Image>();
 
 
         mDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
@@ -540,7 +540,7 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
-        public bool IsGrounded
+    public bool IsGrounded
     {
         get { return controller.isGrounded; }
     }

@@ -6,6 +6,7 @@ public class Explode : MonoBehaviour
     public float explosionForce = 50f;
     public float explosionRadius = 4f;
     public float explosionUpward = 0.4f;
+    public GameObject DropItem;
 
     public Rigidbody rb;
     public bool isBroken;
@@ -137,6 +138,11 @@ public class Explode : MonoBehaviour
 
     void createPiece(int x, int y, int z, int cubesInRowX, int cubesInRowY, int cubesInRowZ)
     {
+
+        if (DropItem != null)
+        {
+            Instantiate(DropItem, this.transform.position, Quaternion.identity);
+        }
         float offsetX = (x + 0.5f) / cubesInRowX;
         float offsetY = (y + 0.5f) / cubesInRowY;
         float offsetZ = (z + 0.5f) / cubesInRowZ;
@@ -162,5 +168,6 @@ public class Explode : MonoBehaviour
         rb.mass = cubeSize;
 
         Destroy(piece, pieceLifetime);
+
     }
 }
