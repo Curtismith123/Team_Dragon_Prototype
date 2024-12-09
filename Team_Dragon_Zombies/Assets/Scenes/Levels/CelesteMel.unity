@@ -138,10 +138,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 529592286845484824, guid: a80750067ff317349b07ce64eb9fa6e1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1789953756476126472, guid: a80750067ff317349b07ce64eb9fa6e1, type: 3}
       propertyPath: dmgEffect
       value: 
@@ -585,14 +581,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 6691467654254822038, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
-      propertyPath: currentEffectIcon
-      value: 
-      objectReference: {fileID: 1547038577}
     - target: {fileID: 2240209529603791878, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.128068
@@ -1016,17 +1004,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 9e21eda5a7ed921449b2fd0363c3994c, type: 2}
   m_BuildHeightMesh: 0
---- !u!114 &1547038577 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4264752498896500523, guid: a80750067ff317349b07ce64eb9fa6e1, type: 3}
-  m_PrefabInstance: {fileID: 295222201}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1560967765
 PrefabInstance:
   m_ObjectHideFlags: 0
