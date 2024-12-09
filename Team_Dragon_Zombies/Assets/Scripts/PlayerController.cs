@@ -124,10 +124,28 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool hasJumped;
 
 
+    [Header("-----Player Prefab-----")]
+    private static PlayerController instance;
+    [SerializeField] private GameObject playerPrefab;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     void Start()
     {
         HPOrig = HP;
+        spawnPlayer();
         SpeedAlt = Speed;
         currentStamina = maxStamina;
         updatePlayerUI();
@@ -233,25 +251,31 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    //Commenting this out for now
-    //public ThrowObjects throwObjects;
-    //public void SavePlayerData()
-    //{
-    //    //ThrowObjects throwObjects = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
-    //    PlayerPrefs.SetInt("PlayerHealth", HP);
-    //    PlayerPrefs.SetFloat("PlayerStealth", currentStamina);
-    //    PlayerPrefs.SetInt("PlayerThrowObjectsRemaining", throwObjects.remainingThrows);
-    //    PlayerPrefs.Save();
-    //}
+    public void spawnPlayer()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+        HP = HPOrig;
+        updatePlayerUI();
+    }
 
-    //public void LoadPlayerData()
-    //{
-    //    if (PlayerPrefs.HasKey("PlayerHealth"))
-    //    {
-    //        HP = PlayerPrefs.GetInt("PlayerHealth", HP);
-    //    }
-        
-    //}
+    public void spawnCurrentPlayer()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+        updatePlayerUI();
+    }
+
+    public void resetPlayer()
+    {
+        Destroy(this.gameObject);
+        Instantiate(playerPrefab);
+    }
+
+
+
 
 
 
@@ -514,6 +538,11 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(true);
         yield return new WaitForSeconds(0.05f);
         muzzleFlash.SetActive(false);
+    }
+
+        public bool IsGrounded
+    {
+        get { return controller.isGrounded; }
     }
 
     public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)

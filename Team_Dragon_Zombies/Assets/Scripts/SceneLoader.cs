@@ -11,24 +11,30 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int sceneIndex;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Image progressBar;
-    //[SerializeField] TMP_Text progressText;
-    [SerializeField] private FadeInOut fadeController;
+    [SerializeField] public FadeInOut fadeController;
 
     private float target;
     public PlayerController player;
 
+    private bool hasTriggered = false;
+
+    private void Start()
+    {
+        player = FindFirstObjectByType<PlayerController>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.CompareTag("Player"))
+        if (!hasTriggered && other.CompareTag("Player"))
         {
-            
-            LoadLevel();
+            hasTriggered = true;
+            LoadLevel(sceneIndex);
             
         }
     }
 
-    public async void LoadLevel()
+    public async void LoadLevel(int sceneIndex)
     {
         
         //fade out
@@ -45,6 +51,8 @@ public class SceneLoader : MonoBehaviour
         var scene = SceneManager.LoadSceneAsync(sceneIndex);
         scene.allowSceneActivation = false;
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         do
         {
             await Task.Delay(100);
@@ -58,10 +66,15 @@ public class SceneLoader : MonoBehaviour
         
         loadingScreen.SetActive(false);
 
-        ////fade in after done loading
-        //fadeController.FadeIn();
-        //await Task.Delay((int)(fadeController.fadeDuration * 1000));
+    }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (player != null)
+        {
+            player.spawnCurrentPlayer();
+        }
     }
 
     //polish the progress bar to load smoothly

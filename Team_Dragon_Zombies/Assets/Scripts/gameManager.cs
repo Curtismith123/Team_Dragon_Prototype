@@ -70,6 +70,7 @@ public class gameManager : MonoBehaviour
     public Image playerStaminaBar;
     public Image playerConversionBar;
     public PlayerController playerScript;
+    public GameObject playerSpawnPos;
     public GameObject playerDamageScreen;
 
     public ThrowObjects throwObjects;
@@ -106,6 +107,7 @@ public class gameManager : MonoBehaviour
         timeScaleOriG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
 
         resolutions = Screen.resolutions;
         resDropDown.ClearOptions();
@@ -306,6 +308,16 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
         menuActive.SetActive(true);
+    }
+
+    public void respawnManager()
+    {
+        gameEnded = false;
+        Time.timeScale = timeScaleOriG;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        menuActive = menuLose;
+        menuActive.SetActive(false);
     }
 
     // Settings methods
