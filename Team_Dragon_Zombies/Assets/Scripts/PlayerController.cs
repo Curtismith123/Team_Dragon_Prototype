@@ -540,6 +540,11 @@ public class PlayerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
+        public bool IsGrounded
+    {
+        get { return controller.isGrounded; }
+    }
+
     public void takeDamage(int amount, GameObject attacker, EffectType? effectType = null)
     {
         if (isDead) return;
