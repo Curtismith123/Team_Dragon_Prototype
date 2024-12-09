@@ -305,6 +305,16 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    public void respawnManager()
+    {
+        gameEnded = false;
+        Time.timeScale = timeScaleOriG;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        menuActive = menuLose;
+        menuActive.SetActive(false);
+    }
+
     // Settings methods
     public void setMenu()
     {
