@@ -89,4 +89,15 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.cntrlMenu();
     }
 
+    // Main Menu
+    public void mainMenu()
+    {
+        gameManager.instance.mainMenuRtn();
+    }
+
+    public void loadMain()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
 }
