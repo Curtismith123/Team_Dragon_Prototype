@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
+    public SceneLoader sceneLoaderScript;
+
     public void resume()
     {
         gameManager.instance.stateUnpause();
@@ -14,9 +16,9 @@ public class buttonFunctions : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //gameManager.instance.stateUnpause();
-
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
+            //sceneLoaderScript.LoadLevel(1);
             SceneManager.LoadScene(1);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
@@ -24,6 +26,7 @@ public class buttonFunctions : MonoBehaviour
         }
         else
         {
+            //sceneLoaderScript.LoadLevel(1);
             SceneManager.LoadScene(1);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
@@ -35,7 +38,8 @@ public class buttonFunctions : MonoBehaviour
     public void respawn()
     {
         gameManager.instance.playerScript.spawnPlayer();
-        gameManager.instance.stateUnpause();
+        gameManager.instance.respawnManager();
+        //gameManager.instance.stateUnpause();
     }
 
     public void quit()
@@ -109,6 +113,17 @@ public class buttonFunctions : MonoBehaviour
     public void controlMenu()
     {
         gameManager.instance.cntrlMenu();
+    }
+
+    // Main Menu
+    public void mainMenu()
+    {
+        gameManager.instance.mainMenuRtn();
+    }
+
+    public void loadMain()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
 }

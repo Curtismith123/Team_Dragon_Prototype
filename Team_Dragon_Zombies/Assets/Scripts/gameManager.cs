@@ -49,17 +49,22 @@ public class gameManager : MonoBehaviour
     // Controls
     [Header("-----Controls-----")]
     [SerializeField] GameObject menuControl;
+    // Main Menu
+    [Header("-----Main Menu-----")]
+    [SerializeField] GameObject mainConfrim;
 
     private int qualityLevel;
     private bool isFullScreen;
     private float brightnesslevel;
     private bool isInvertY;
 
+    [Header("-----Count Text-----")]
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
     private HashSet<string> keyInventory = new HashSet<string>();
 
+    [Header("-----Player-----")]
     public GameObject player;
     public Image playerHPBar;
     public Image playerStaminaBar;
@@ -305,6 +310,16 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    public void respawnManager()
+    {
+        gameEnded = false;
+        Time.timeScale = timeScaleOriG;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        menuActive = menuLose;
+        menuActive.SetActive(false);
+    }
+
     // Settings methods
     public void setMenu()
     {
@@ -497,6 +512,14 @@ public class gameManager : MonoBehaviour
     {
         Resolution resolution = resolutions[resIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    // Main Menu
+    public void mainMenuRtn()
+    {
+        menuActive.SetActive(false);
+        settingsActive = mainConfrim;
+        settingsActive.SetActive(true);
     }
 
 
