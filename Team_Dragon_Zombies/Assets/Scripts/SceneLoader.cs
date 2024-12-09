@@ -16,6 +16,8 @@ public class SceneLoader : MonoBehaviour
     private float target;
     public PlayerController player;
 
+    private bool hasTriggered = false;
+
     private void Start()
     {
         player = FindFirstObjectByType<PlayerController>();
@@ -24,9 +26,9 @@ public class SceneLoader : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.CompareTag("Player"))
+        if (!hasTriggered && other.CompareTag("Player"))
         {
-            
+            hasTriggered = true;
             LoadLevel();
             
         }
