@@ -41,7 +41,6 @@ public class CrushingCeiling : MonoBehaviour
     private int crushingCeilingLayer;
     private int crushingCeilingAfterCrushLayer;
 
-    // Cached colliders for efficient collision ignoring
     private List<Collider> floorColliders = new List<Collider>();
     private Collider playerCollider;
 
@@ -133,7 +132,6 @@ public class CrushingCeiling : MonoBehaviour
             Debug.Log($"CrushingCeiling: Set layer to '{crushingCeilingLayerName}'.");
         }
 
-        // Cache floor colliders
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
             if (((1 << obj.layer) & floorLayer) != 0)
@@ -147,7 +145,6 @@ public class CrushingCeiling : MonoBehaviour
             }
         }
 
-        // Cache player collider
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -179,14 +176,14 @@ public class CrushingCeiling : MonoBehaviour
         {
             if (hasCrushedPlayer)
             {
-                // Continue moving downward beyond the initial target
+
                 Vector3 newPosition = rb.position + Vector3.down * crushSpeed * Time.fixedDeltaTime;
                 rb.MovePosition(newPosition);
                 Debug.Log($"CrushingCeiling: Continuing to move downward to {newPosition}");
             }
             else
             {
-                // Move towards the initial target position
+
                 Vector3 newPosition = Vector3.MoveTowards(rb.position, targetPosition, crushSpeed * Time.fixedDeltaTime);
                 rb.MovePosition(newPosition);
                 Debug.Log($"CrushingCeiling: Moving to {targetPosition}, Current Position: {rb.position}");
@@ -204,33 +201,31 @@ public class CrushingCeiling : MonoBehaviour
     {
         Debug.Log($"CrushingCeiling: Collided with '{collision.gameObject.name}' on layer {collision.gameObject.layer} ({LayerMask.LayerToName(collision.gameObject.layer)})");
 
-        // Check if the collision is with the floor
         if (((1 << collision.gameObject.layer) & floorLayer) != 0)
         {
             if (hasCrushedPlayer)
             {
-                // Ignore collision with the floor collider
+
                 Physics.IgnoreCollision(ceilingCollider, collision.collider);
                 Debug.Log($"CrushingCeiling: Ignored collision with floor '{collision.gameObject.name}'. Continuing movement.");
             }
             else
             {
-                // Stop crushing if the player wasn't crushed
+
                 StopCrushing();
                 Debug.Log($"CrushingCeiling: Collided with floor object '{collision.gameObject.name}'. Stopping crushing.");
             }
             return;
         }
 
-        // Check if the collided object implements IDamage
         IDamage damageable = collision.gameObject.GetComponent<IDamage>();
         if (isCrushing && damageable != null)
         {
-            // Attempt to retrieve the PlayerController to check if grounded
+
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             if (player != null && player.IsGrounded)
             {
-                // Apply damage
+
                 damageable.takeDamage(crushDamage, gameObject);
                 Debug.Log($"CrushingCeiling: Applied {crushDamage} damage to grounded player '{collision.gameObject.name}'.");
             }
@@ -243,38 +238,33 @@ public class CrushingCeiling : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Handle damage when overlapping with the player via trigger
+
         PlayerController player = other.GetComponent<PlayerController>();
         if (player != null && player.IsGrounded && !hasCrushedPlayer)
         {
-            // Apply damage
+
             player.takeDamage(crushDamage, gameObject);
             Debug.Log($"CrushingCeiling: Applied {crushDamage} damage to grounded player '{other.gameObject.name}' via trigger.");
 
-            // Set flag to indicate player was crushed
             hasCrushedPlayer = true;
 
-            // Disable all colliders to allow passing through
             DisableAllColliders();
 
-            // Change layer to ignore floor and player collisions
             ChangeLayerAfterCrush();
 
-            // Ignore collisions with floor and player
             IgnoreFloorAndPlayerCollisions();
         }
     }
 
     void DisableAllColliders()
     {
-        // Disable main collider
+
         if (ceilingCollider != null && ceilingCollider.enabled)
         {
             ceilingCollider.enabled = false;
             Debug.Log("CrushingCeiling: Disabled main collider to allow passing through the floor.");
         }
 
-        // Disable all child colliders except DamageTrigger
         foreach (Collider childCollider in GetComponentsInChildren<Collider>())
         {
             if (childCollider != damageTriggerCollider && childCollider.enabled)
@@ -284,7 +274,6 @@ public class CrushingCeiling : MonoBehaviour
             }
         }
 
-        // Optionally, disable DamageTrigger collider as well
         if (damageTriggerCollider != null && damageTriggerCollider.enabled)
         {
             damageTriggerCollider.enabled = false;
@@ -300,7 +289,6 @@ public class CrushingCeiling : MonoBehaviour
             Debug.Log($"CrushingCeiling: Changed layer to '{LayerMask.LayerToName(gameObject.layer)}' to ignore floor collisions.");
         }
 
-        // Optionally, change the layer of DamageTrigger to prevent any unintended interactions
         if (damageTriggerCollider != null)
         {
             damageTriggerCollider.gameObject.layer = crushingCeilingAfterCrushLayer;
