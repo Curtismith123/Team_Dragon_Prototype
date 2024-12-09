@@ -35,7 +35,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
     [SerializeField] private float roamTimer = 3f;
     private float lastRoamTime = 0f;
-    private float spinSpeed = 100f;
 
     [Header("-----Audio-----")]
     public AudioClip walkSound;
