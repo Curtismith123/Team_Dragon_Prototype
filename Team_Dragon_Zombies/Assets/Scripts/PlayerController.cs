@@ -160,7 +160,6 @@ public class PlayerController : MonoBehaviour, IDamage
         mDmgEffectVol.profile.TryGetSettings<Vignette>(out mDmgVignette);
         mDmgVignette.enabled.Override(false);
 
-
         //mLowHPEffect = lowHPEffect.GetComponent<PostProcessVolume>();
         //mLowHPEffect.profile.TryGetSettings<Vignette>(out mLowHPVignette);
         //mLowHPVignette.enabled.Override(false);
@@ -309,6 +308,7 @@ public class PlayerController : MonoBehaviour, IDamage
         anim.SetBool("isShooting", isShooting);
         anim.SetBool("isAiming", isAiming);
         anim.SetBool("Hands", isTwoHanded);
+        anim.SetBool("isDead", isDead);
         // Set the Speed parameter in the Animator based on movement magnitude
         float movementSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
         anim.SetFloat("Speed", movementSpeed * SpeedAlt);
@@ -850,17 +850,20 @@ public class PlayerController : MonoBehaviour, IDamage
         isDead = true;
         // Turn off the player controller 
         controller.enabled = false;
-        // move the camera to the offst position
-        Vector3 dCamPos = transform.position + camOffset;
-        cameraController.camController.PanToPos(dCamPos, panSpeed);
 
-        anim.SetTrigger("Dead");
+
+        cameraController.camController.DeathView();
 
         // Wait for delay and trigger death Menu
         yield return new WaitForSeconds(deathAnimDelay);
 
         // GameManager trigger 
         gameManager.instance.youLose();
+
+    }
+    public void Revive()
+    {
+        isDead = false;
     }
 
 }
