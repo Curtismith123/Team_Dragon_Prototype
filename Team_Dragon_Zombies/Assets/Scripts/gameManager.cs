@@ -191,6 +191,11 @@ public class gameManager : MonoBehaviour
             }
         }
     
+    public void resetMenu()
+    {
+        menuActive = null;
+        gmDmgVignette.enabled.Override(false);
+    }
 
     public bool IsPaused
     {
@@ -308,6 +313,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
         menuActive.SetActive(true);
+        gmDmgVignette.enabled.Override(false);
     }
 
     public void respawnManager()

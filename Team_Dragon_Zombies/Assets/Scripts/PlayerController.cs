@@ -582,9 +582,13 @@ public class PlayerController : MonoBehaviour, IDamage
             mDmgVignette.intensity.Override(intensity);
             yield return new WaitForSeconds(0.1f);
         }
-        if (HP <= 20)
+        if (HP <= 0)
         {
-            //mDmgVignette.enabled.Override(true);
+            mDmgVignette.enabled.Override(false);
+        }
+        else if (HP <= 20)
+        {
+            mDmgVignette.enabled.Override(true);
         }
         else
         {

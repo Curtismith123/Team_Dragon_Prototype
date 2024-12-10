@@ -20,6 +20,7 @@ public class buttonFunctions : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == sceneIndex)
         {
             //sceneLoaderScript.LoadLevel(1);
+            gameManager.instance.resetMenu();
             SceneManager.LoadScene(sceneIndex);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
@@ -28,6 +29,7 @@ public class buttonFunctions : MonoBehaviour
         else
         {
             //sceneLoaderScript.LoadLevel(1);
+            gameManager.instance.resetMenu();
             SceneManager.LoadScene(sceneIndex);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
@@ -40,6 +42,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.playerScript.spawnPlayer();
         gameManager.instance.respawnManager();
+        gameManager.instance.resetMenu();
         //gameManager.instance.stateUnpause();
     }
 
