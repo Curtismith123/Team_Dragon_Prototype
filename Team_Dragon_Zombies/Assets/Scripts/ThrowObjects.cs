@@ -31,6 +31,7 @@ public class ThrowObjects : MonoBehaviour
     {
         if (Input.GetKeyDown(throwKey) && readyToThrow && remainingThrows > 0)
         {
+            Debug.Log("Throw Key Pressed:" + throwKey);
             Throw();
         }
     }

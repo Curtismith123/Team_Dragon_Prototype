@@ -50,12 +50,15 @@ public class cameraController : MonoBehaviour
 
     void Start()
     {
+        player = GetComponentInParent<PlayerController>();
+        firstPersonView = player.transform.Find("FpsPov");
+        overShoulderView = player.transform.Find("OtsPov");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         camController = this;
         cam = GetComponent<Camera>(); // Get the Camera component on this GameObject
         player = this.GetComponentInParent<PlayerController>();
-        origPos = cam.transform.position;
+        origPos = player.transform.Find("FpsPov").position;
     }
 
     void Update()
@@ -147,10 +150,9 @@ public class cameraController : MonoBehaviour
 
         isFPV = false;
         // While the camera is not at the target position
-        while (Vector3.Distance(cam.transform.position, targetPos) > 0.5f)
+        while (Vector3.Distance(cam.transform.position, targetPos) > 0.1f)
         {
-            // Ensure no clipping during pan
-            HandleCollision();
+
 
             // Use Lerp for smooth Tranistion can be tuned with the panSpeed Variable in player controller 
             cam.transform.position = Vector3.Lerp(cam.transform.position, targetPos, Time.deltaTime * speed);
@@ -164,4 +166,6 @@ public class cameraController : MonoBehaviour
         // Move the camera back to origPOs
         StartCoroutine(PanToPosCo(origPos, smoothSpeed));
     }
+    public void DeathView()
+    { isFPV = false; }
 }

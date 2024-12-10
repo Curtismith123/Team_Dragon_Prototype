@@ -5906,9 +5906,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2722786387705544704}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.38234264, z: -0, w: 0.92402065}
+  m_LocalRotation: {x: 0, y: -0.38234472, z: 0, w: 0.9240198}
   m_LocalPosition: {x: 41, y: 0.0000038146973, z: -9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4319529636311144219}
@@ -5948,10 +5948,13 @@ MonoBehaviour:
   walkSound: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 443e4eda0eb452641b76dcc8346a0da4, type: 3}
   walkSoundVolume: 0
-  attackSoundVolume: 0.5
+  attackSoundVolume: 0.814
+  fireResistance: 0
+  iceResistance: 0
+  lightningResistance: 0
   isDead: 0
   enemyTier: 3
-  conversionTime: 5
+  conversionTime: 999
   detectionRadius: 15
   timeToSwitchTarget: 3
   popupDamagePrefab: {fileID: 28915120728155088, guid: 5e5ec5169c25dfc4eb012c94d61153d1, type: 3}
@@ -6079,7 +6082,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -6114,7 +6117,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

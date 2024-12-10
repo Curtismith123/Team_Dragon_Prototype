@@ -95,7 +95,7 @@ public class gameManager : MonoBehaviour
 
     public void ResetDmgScreen()
     {
-         if (gmDmgVignette.enabled)
+        if (gmDmgVignette.enabled)
         {
             gmDmgVignette.enabled.Override(false);
         }
@@ -148,49 +148,54 @@ public class gameManager : MonoBehaviour
         //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
     }
 
-        void Update()
+    void Update()
+    {
+
+
+        if (Input.GetButtonDown("Cancel") && !gameEnded)
         {
 
 
-            if (Input.GetButtonDown("Cancel") && !gameEnded)
+            if (menuActive == null && settingsActive == null && inSetActive == null)
             {
-
-
-                if (menuActive == null && settingsActive == null && inSetActive == null)
-                {
-                    statePause();
-                    menuActive = menuPause;
-                    menuActive.SetActive(IsPaused);
+                statePause();
+                menuActive = menuPause;
+                menuActive.SetActive(IsPaused);
 
 
 
-                    ToggleSpinObjects(IsPaused);
-                }
-                else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
-                {
-                    stateUnpause();
-                    ToggleSpinObjects(true);
+                ToggleSpinObjects(IsPaused);
+            }
+            else if (menuActive == menuPause && settingsActive == null && inSetActive == null)
+            {
+                stateUnpause();
+                ToggleSpinObjects(true);
 
-                }
-                else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
-                {
-                    settingsActive.SetActive(false);
-                    settingsActive = null;
-                    stateUnpause();
+            }
+            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive == null)
+            {
+                settingsActive.SetActive(false);
+                settingsActive = null;
+                stateUnpause();
 
-                }
-                else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
-                {
-                    inSetActive.SetActive(false);
-                    inSetActive = null;
-                    settingsActive.SetActive(false);
-                    settingsActive = null;
-                    stateUnpause();
+            }
+            else if (menuActive == menuPause && settingsActive == menuSettings && inSetActive != null)
+            {
+                inSetActive.SetActive(false);
+                inSetActive = null;
+                settingsActive.SetActive(false);
+                settingsActive = null;
+                stateUnpause();
 
-                }
             }
         }
-    
+    }
+
+    public void resetMenu()
+    {
+        menuActive = null;
+        gmDmgVignette.enabled.Override(false);
+    }
 
     public bool IsPaused
     {
@@ -308,6 +313,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
         menuActive.SetActive(true);
+        gmDmgVignette.enabled.Override(false);
     }
 
     public void respawnManager()
@@ -318,6 +324,9 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive = menuLose;
         menuActive.SetActive(false);
+
+        playerScript.Revive();
+
     }
 
     // Settings methods
