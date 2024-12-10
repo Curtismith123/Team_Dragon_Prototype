@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class buttonFunctions : MonoBehaviour
 {
     public SceneLoader sceneLoaderScript;
+    public int sceneIndex = 1;
 
     public void resume()
     {
@@ -16,10 +17,10 @@ public class buttonFunctions : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //gameManager.instance.stateUnpause();
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == sceneIndex)
         {
             //sceneLoaderScript.LoadLevel(1);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(sceneIndex);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
             gameManager.instance.stateUnpause();
@@ -27,7 +28,7 @@ public class buttonFunctions : MonoBehaviour
         else
         {
             //sceneLoaderScript.LoadLevel(1);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(sceneIndex);
             gameManager.instance.playerScript.resetPlayer();
             gameManager.instance.playerScript.spawnPlayer();
             gameManager.instance.stateUnpause();

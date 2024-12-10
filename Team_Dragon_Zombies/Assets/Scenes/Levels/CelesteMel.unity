@@ -1396,6 +1396,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1819772881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
+  m_PrefabInstance: {fileID: 1247683059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93804462a112b64db3f492dc3883f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1411692581523470878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1445,8 +1456,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333024209544692021, guid: e71cbaf88904f784db642a9bf0b35d26, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1819772881}
+    - target: {fileID: 3333024209544692021, guid: e71cbaf88904f784db642a9bf0b35d26, type: 3}
       propertyPath: sceneIndex
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333024209544692021, guid: e71cbaf88904f784db642a9bf0b35d26, type: 3}
       propertyPath: progressBar
