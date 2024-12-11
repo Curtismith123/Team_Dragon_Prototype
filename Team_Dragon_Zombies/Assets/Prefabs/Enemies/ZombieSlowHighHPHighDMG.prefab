@@ -2355,6 +2355,9 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: e615f57edd07df54a9d71fd4fd4a8359, type: 3}
   walkSoundVolume: 0.5
   attackSoundVolume: 1
+  fireResistance: 0
+  iceResistance: 0
+  lightningResistance: 0
   isDead: 0
   enemyTier: 0
   conversionTime: 0
@@ -2459,7 +2462,7 @@ AudioSource:
   m_GameObject: {fileID: 6054089759676829921}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6077777081457391126, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
