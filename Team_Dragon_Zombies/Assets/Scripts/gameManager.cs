@@ -141,6 +141,10 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
+
+        // patch code in an attempt to clear unknown origin bug . 
+        ThrowObjects throwtalker = player.GetComponent<ThrowObjects>();
+        throwtalker.ResetThrow();
         //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
         //cameraController.camController.Sensitivity = MenuController.instance.mainSens;

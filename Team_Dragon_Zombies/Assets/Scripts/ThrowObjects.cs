@@ -89,7 +89,7 @@ public class ThrowObjects : MonoBehaviour
         }
     }
 
-    private void ResetThrow()
+    public void ResetThrow()
     {
         readyToThrow = true;
     }
