@@ -7,6 +7,7 @@ using TMPro;
 using System;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering;
+using UnityEngine.Audio;
 
 public class gameManager : MonoBehaviour
 {
@@ -30,8 +31,9 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] GameObject menuAudio;
     [SerializeField] private TMP_Text volumeTextValue;
-    [SerializeField] private Slider volumeSlider;
-    [SerializeField] private float defaultVolume = 1.0f;
+    [SerializeField] public Slider volumeSlider;
+    [SerializeField] public float defaultVolume = 0.6f;
+    [SerializeField] AudioMixer musicMixer;
     // Gameplay Objects
     [Header("-----Gameplay-----")]
     [SerializeField] GameObject menuGameplay;
@@ -141,6 +143,11 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
+
+        // patch code in an attempt to clear unknown origin bug . 
+        ThrowObjects throwtalker = player.GetComponent<ThrowObjects>();
+        throwtalker.ResetThrow();
+        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", volumeSlider.value);
         //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
         //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
@@ -370,7 +377,7 @@ public class gameManager : MonoBehaviour
 
     public void volumeApply()
     {
-        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        PlayerPrefs.SetFloat("musicVolume", AudioListener.volume);
         if (inSetActive != null)
         {
             inSetActive.SetActive(false);
@@ -390,9 +397,10 @@ public class gameManager : MonoBehaviour
     {
         if (menuType == "Audio")
         {
-            AudioListener.volume = defaultVolume;
-            volumeSlider.value = defaultVolume;
-            volumeTextValue.text = defaultVolume.ToString("F1");
+            
+            musicMixer.SetFloat("MasterVolume", MathF.Log10(volumeSlider.value) * 30f);
+            volumeSlider.value = 0.6f;
+            volumeTextValue.text = volumeSlider.value.ToString("F1");
             volumeApply();
             if (inSetActive != null)
             {

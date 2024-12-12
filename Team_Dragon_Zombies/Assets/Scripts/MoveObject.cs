@@ -3,35 +3,56 @@ using UnityEngine;
 
 public class MoveObject : MonoBehaviour
 {
-    [SerializeField] GameObject ponitA;
-    [SerializeField] GameObject pointB;
-    [SerializeField] float speed = 10f;
-    [SerializeField] float delay = 1f;
-    [SerializeField] GameObject Object;
+    public bool canMove;
 
-    private Vector3 targetPosition;
+    [SerializeField] float speed;
+    [SerializeField] int startPoint;
+    [SerializeField] Transform[] points;
+
+    int i;
+    bool reverse;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Object.transform.position = ponitA.transform.position;
-        targetPosition = pointB.transform.position;
-        StartCoroutine(Move());
+        transform.position = points[startPoint].position;
+        i = startPoint;
     }
 
-    IEnumerator Move() 
+    void Update()
     {
-        while (true)
-        {
-            while ((targetPosition - Object.transform.position).sqrMagnitude > 0.01f)
-            {
-                Object.transform.position = Vector3.MoveTowards(Object.transform.position, targetPosition, speed * Time.deltaTime);
-                yield return null;
-            }
-            targetPosition = targetPosition == ponitA.transform.position ? pointB.transform.position : ponitA.transform.position;
 
-            yield return new WaitForSeconds(delay);
+        if (Vector3.Distance(transform.position, points[i].position) < 0.01f)
+        {
+            canMove = false;
+
+            if (i == points.Length - 1)
+            {
+                reverse = true;
+                i--;
+                return;
+            }
+            else if (i == 0) 
+            {
+                reverse = false;
+                i++;
+                return;
+            }
+
+            if (reverse)
+            {
+                i--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+
+        if (canMove) 
+        {
+            transform.position = Vector3.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
         }
     }
-
 }
