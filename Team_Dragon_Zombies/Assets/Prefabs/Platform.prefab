@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4707402041271614274}
-  - component: {fileID: 585744408119938662}
+  - component: {fileID: 4339442958680093619}
   - component: {fileID: 5386278184312765503}
   - component: {fileID: 7834404154019489967}
   - component: {fileID: 7393944758524710269}
+  - component: {fileID: 4271369932081095403}
   m_Layer: 10
   m_Name: Platform
   m_TagString: Obstacle
@@ -36,7 +37,7 @@ Transform:
   - {fileID: 6578772930275655918}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &585744408119938662
+--- !u!114 &4339442958680093619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,14 +46,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6657545716310861711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe5e96e2ddada74da3a258e147155d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b633f1eec86b9943b689f4a6478be19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ponitA: {fileID: 0}
-  pointB: {fileID: 0}
-  speed: 10
-  delay: 1
-  Object: {fileID: 6657545716310861711}
+  platform: {fileID: 0}
 --- !u!33 &5386278184312765503
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -127,6 +124,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &4271369932081095403
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6657545716310861711}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &7173241443389955480
 GameObject:
   m_ObjectHideFlags: 0
