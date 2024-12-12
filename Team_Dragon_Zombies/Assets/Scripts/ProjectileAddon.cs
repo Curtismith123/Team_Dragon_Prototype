@@ -4,9 +4,9 @@ public class ProjectileAddon : MonoBehaviour
 {
     public float life = 5f;
 
-    private void Awake()
+   void Awake()
     {
-        Destroy(gameObject, life);
+        Destroy(gameObject,life);
     }
 
 }
