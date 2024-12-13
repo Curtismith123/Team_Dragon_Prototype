@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool isAiming;
 
     [Header("-----Death Settings------")]
-    [SerializeField] float panSpeed = 2f;
+
     [SerializeField] Vector3 camOffset = new Vector3(0, 5, -5);
     [SerializeField] float deathAnimDelay = 2f;
 
