@@ -128,7 +128,7 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        //throwObjects = player.GetComponent<ThrowObjects>();
+        throwObjects = player.GetComponent<ThrowObjects>();
 
         resDropDown.AddOptions(resOptions);
         resDropDown.value = currRes;
@@ -397,7 +397,7 @@ public class gameManager : MonoBehaviour
     {
         if (menuType == "Audio")
         {
-            
+
             musicMixer.SetFloat("MasterVolume", MathF.Log10(volumeSlider.value) * 30f);
             volumeSlider.value = 0.6f;
             volumeTextValue.text = volumeSlider.value.ToString("F1");
