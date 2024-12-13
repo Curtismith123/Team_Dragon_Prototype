@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject ohPos;
     [SerializeField] GameObject thIdlePos;
     [SerializeField] GameObject thAimPos;
+    [SerializeField] GameObject ohShootpoint;
+    [SerializeField] GameObject thShootpoint;
     [SerializeField] float switchTime;
 
     [Header("-----Effect Selection-----")]
@@ -169,6 +171,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void Update()
     {
+        shootPos = isTwoHanded ? thShootpoint.transform : ohShootpoint.transform;
         if (!gameManager.instance.IsPaused)
         {
             if (this.controller != null)
@@ -183,16 +186,13 @@ public class PlayerController : MonoBehaviour, IDamage
         UpdateEffectUI();
         if (weaponList.Count > 0)
         {
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weaponList[selectedWeapon].shootDist, Color.red);
+
             selectWeapon();
             reload();
         }
         //&& weaponList[selectedWeapon].ammoCur > 0
         if (Input.GetButton("Fire1") && weaponList.Count > 0 && canFire && isAiming)
         {
-            ////// Align the weapon model to face forward relative to the player's forward
-            //weaponModel.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-
             StartCoroutine(shoot());
             StartCoroutine(FireCooldown());
         }
@@ -477,7 +477,7 @@ public class PlayerController : MonoBehaviour, IDamage
             GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
 
             // attempt at fizing aim point 
-            int layerMask = LayerMask.GetMask("Enemy");
+            int layerMask = ~LayerMask.GetMask("Player");
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
@@ -631,7 +631,7 @@ public class PlayerController : MonoBehaviour, IDamage
         pelletsPerShot = weaponList[selectedWeapon].pelletsPerShot;
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
         isTwoHanded = weaponList[selectedWeapon].isTwoHanded;
-        shootPos.position = origShootPos.position + weaponList[selectedWeapon].shootPosOffset;
+
 
 
         foreach (Transform child in weaponModel.transform)

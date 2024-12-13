@@ -22,10 +22,13 @@ public class cameraController : MonoBehaviour
     [Header("Culling Masks")]
     [SerializeField] private LayerMask defaultMask; // Default culling mask for the camera
     [SerializeField] private LayerMask collisionMask; // Culling mask to exclude player layer during collision
+    [SerializeField] private LayerMask FpvMask;       // Culling mask to use in first person perspective 
 
     [Header("Camera View Toggle")]
-    [SerializeField] Transform firstPersonView; // Position for first-person view
-    [SerializeField] Transform overShoulderView; // Position for over-the-shoulder view
+    public GameObject FpsPos;
+    public GameObject OtsPos;
+    private Transform firstPersonView; // Position for first-person view
+    private Transform overShoulderView; // Position for over-the-shoulder view
     [SerializeField] bool isFPV = false; // Current camera mode (true = first-person)
 
     private float rotX; // Tracks vertical rotation
@@ -51,14 +54,15 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         player = GetComponentInParent<PlayerController>();
-        firstPersonView = player.transform.Find("FpsPov");
-        overShoulderView = player.transform.Find("OtsPov");
+        firstPersonView = FpsPos.transform;
+        overShoulderView = OtsPos.transform;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         camController = this;
         cam = GetComponent<Camera>(); // Get the Camera component on this GameObject
         player = this.GetComponentInParent<PlayerController>();
-        origPos = player.transform.Find("FpsPov").position;
+        origPos = firstPersonView.position;
     }
 
     void Update()
@@ -66,6 +70,7 @@ public class cameraController : MonoBehaviour
         HandleRotation();
         HandleViewToggle();
         HandleCollision();
+
     }
 
     private void HandleRotation()
@@ -97,9 +102,16 @@ public class cameraController : MonoBehaviour
         if (Input.GetButtonDown("camTog")) // Press key/button to toggle view
         {
             isFPV = !isFPV; // Toggle between first-person and over-the-shoulder views
+            if (isFPV)
+            {
+                cam.cullingMask = FpvMask;
+            }
+            else
+            {
+                cam.cullingMask = defaultMask;
+            }
 
-            if (isFPV) { player.hat.SetActive(false); } // Disable hat if firstpersonView
-            else { player.hat.SetActive(true); }        // enable hat in  over the shoulder view 
+
         }
 
         // Set desired camera position based on the current view
