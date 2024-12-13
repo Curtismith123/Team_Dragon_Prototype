@@ -1320,29 +1320,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416672433}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1465048693 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-  m_PrefabInstance: {fileID: 414761844853909233}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1465048700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465048693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe5e96e2ddada74da3a258e147155d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canMove: 0
-  speed: 3
-  startPoint: 0
-  points:
-  - {fileID: 62302776}
-  - {fileID: 943643714}
 --- !u!114 &1667988485 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5538549582337728177, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
@@ -1614,18 +1591,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 585744408119938662, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: 'points.Array.data[0]'
-      value: 
-      objectReference: {fileID: 62302776}
-    - target: {fileID: 585744408119938662, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: 'points.Array.data[1]'
-      value: 
-      objectReference: {fileID: 943643714}
-    - target: {fileID: 4339442958680093619, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      propertyPath: platform
-      value: 
-      objectReference: {fileID: 1465048700}
     - target: {fileID: 4707402041271614274, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8
@@ -1670,13 +1635,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 7937434458082400730, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: 'points.Array.data[0]'
+      value: 
+      objectReference: {fileID: 62302776}
+    - target: {fileID: 7937434458082400730, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
+      propertyPath: 'points.Array.data[1]'
+      value: 
+      objectReference: {fileID: 943643714}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6657545716310861711, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1465048700}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d717f312baa88c4f84c2ce729f170dd, type: 3}
 --- !u!1001 &709971929683263974
 PrefabInstance:
@@ -1822,7 +1792,7 @@ PrefabInstance:
       objectReference: {fileID: 1933497787}
     - target: {fileID: 2167697189985308734, guid: 4c9324dee0898f94a86138e96e268ca1, type: 3}
       propertyPath: m_VersionIndex
-      value: 29
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 4877714837931080439, guid: 4c9324dee0898f94a86138e96e268ca1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1874,7 +1844,7 @@ PrefabInstance:
       objectReference: {fileID: 577034608}
     - target: {fileID: 6464108190228052372, guid: 4c9324dee0898f94a86138e96e268ca1, type: 3}
       propertyPath: m_VersionIndex
-      value: 29
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 6893297943375521927, guid: 4c9324dee0898f94a86138e96e268ca1, type: 3}
       propertyPath: m_Mesh
@@ -2194,14 +2164,6 @@ PrefabInstance:
     - target: {fileID: 5147140690577440910, guid: 27d1bbca603e9d246994e01f4f4f2cf4, type: 3}
       propertyPath: m_Name
       value: Geyser
-      objectReference: {fileID: 0}
-    - target: {fileID: 5147140690577440910, guid: 27d1bbca603e9d246994e01f4f4f2cf4, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5147140690577440910, guid: 27d1bbca603e9d246994e01f4f4f2cf4, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 8504092376863691776, guid: 27d1bbca603e9d246994e01f4f4f2cf4, type: 3}
       propertyPath: m_LocalPosition.x
