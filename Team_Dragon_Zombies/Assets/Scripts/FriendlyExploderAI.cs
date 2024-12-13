@@ -33,6 +33,11 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     private Vector3 lastPlayerPosition;
     private bool isRoaming = false;
 
+    [Header("-----Teleport Settings-----")]
+    public float maxTeleportDistance = 20f;
+    public float noEnemyDuration = 5f;
+    private float noEnemyTimer = 0f;
+
     [SerializeField] private float roamTimer = 3f;
     private float lastRoamTime = 0f;
 
@@ -134,6 +139,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         if (player == null)
             return;
 
+        // Check if player moved to reset roaming if needed
         if (Vector3.Distance(player.transform.position, lastPlayerPosition) > playerMoveThreshold)
         {
             isRoaming = false;
@@ -142,15 +148,19 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         }
         lastPlayerPosition = player.transform.position;
 
-        if (!canSeeTarget())
-            currentEnemy = null;
-
-        if (currentEnemy != null)
+        bool hasEnemy = canSeeTarget();
+        if (!hasEnemy)
         {
+            currentEnemy = null;
+        }
 
+        if (hasEnemy && currentEnemy != null)
+        {
+            noEnemyTimer = 0f;
             agent.isStopped = false;
             agent.SetDestination(currentEnemy.transform.position);
 
+            // Only face target when there's an enemy
             FaceTarget(currentEnemy.transform.position);
 
             float dist = Vector3.Distance(transform.position, currentEnemy.transform.position);
@@ -161,6 +171,8 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         }
         else
         {
+            // No enemy found
+            noEnemyTimer += Time.deltaTime;
 
             if (!isRoaming)
             {
@@ -169,7 +181,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-
                 if (!isRoaming && Time.time - lastIdleRoamTime > idleRoamInterval)
                 {
                     StartCoroutine(IdleRoam());
@@ -177,10 +188,16 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
             }
             else
             {
-                if (agent.velocity.sqrMagnitude > 0.1f)
-                {
-                    FaceDirection(agent.velocity.normalized);
-                }
+                // Here we do NOT call FaceDirection to avoid forced rotation towards direction
+                // The Exploder keeps spinning from spin.cs without being forced to rotate towards movement
+            }
+
+            // Check distance for teleport
+            float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distToPlayer > maxTeleportDistance && noEnemyTimer >= noEnemyDuration && !isExploding && !isRoaming)
+            {
+                TeleportToPlayerSide();
+                noEnemyTimer = 0f;
             }
         }
 
@@ -195,7 +212,6 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
         }
 
         float angle = index * Mathf.PI * 2 / totalFriendlies;
-
         float x = Mathf.Cos(angle) * followRadius;
         float z = Mathf.Sin(angle) * followRadius;
         followOffset = new Vector3(x, 0, z);
@@ -203,9 +219,31 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
     void FollowPlayer()
     {
+        agent.isStopped = false;
         agent.stoppingDistance = 0.5f;
         Vector3 followPosition = player.transform.position + followOffset;
         agent.SetDestination(followPosition);
+    }
+
+    // Same IdleRoam logic as before
+
+    void TeleportToPlayerSide()
+    {
+        Vector3 teleportPosition = player.transform.position + followOffset;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(teleportPosition, out hit, 2f, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            // Re-enable agent after teleport
+            agent.enabled = true;
+            agent.Warp(hit.position);
+        }
+        else
+        {
+            transform.position = player.transform.position;
+            agent.enabled = true;
+            agent.Warp(player.transform.position);
+        }
     }
 
     IEnumerator IdleRoam()
@@ -275,6 +313,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
 
     void FaceTarget(Vector3 targetPosition)
     {
+        // Only rotate towards enemy if we have one
         Vector3 direction = (targetPosition - transform.position).normalized;
         if (direction != Vector3.zero)
         {
