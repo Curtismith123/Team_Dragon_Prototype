@@ -128,7 +128,7 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        //throwObjects = player.GetComponent<ThrowObjects>();
+        throwObjects = player.GetComponent<ThrowObjects>();
 
         resDropDown.AddOptions(resOptions);
         resDropDown.value = currRes;
