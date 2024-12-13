@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour, IDamage
     bool isShooting;
     int jumpCount;
     int HPOrig;
-    int SpeedAlt;
+    float SpeedAlt;
     int selectedWeapon;
     private bool canFire = true;
     private bool hasJumped;
@@ -380,14 +380,16 @@ public class PlayerController : MonoBehaviour, IDamage
     //-------------------------------------------Stamina Logic (COMPLETE)
     void sprint()
     {
+        float targetSpeed = Speed; // Default walking speed
+
         if (Input.GetButton("Sprint") && currentStamina > 0)
         {
             if (!isSprinting)
             {
-                SpeedAlt *= sprintMod;
                 isSprinting = true;
             }
 
+            targetSpeed = Speed * sprintMod; // Sprinting speed
             currentStamina -= staminaDepletionRate * Time.deltaTime;
             currentStamina = Mathf.Max(currentStamina, 0);
         }
@@ -395,7 +397,6 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (isSprinting)
             {
-                SpeedAlt = Speed;
                 isSprinting = false;
             }
 
@@ -406,14 +407,18 @@ public class PlayerController : MonoBehaviour, IDamage
             }
         }
 
+        // Handle when stamina runs out
         if (currentStamina <= 0 && isSprinting)
         {
-            SpeedAlt = Speed;
             isSprinting = false;
         }
 
+        // Smoothly adjust SpeedAlt toward the targetSpeed
+        SpeedAlt = Mathf.Lerp(SpeedAlt, targetSpeed, Time.deltaTime * 5f);
+
         updateStaminaUI();
     }
+
     //-------------------------------------------
 
     IEnumerator playStep()
