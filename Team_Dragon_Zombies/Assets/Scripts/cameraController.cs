@@ -104,10 +104,12 @@ public class cameraController : MonoBehaviour
             isFPV = !isFPV; // Toggle between first-person and over-the-shoulder views
             if (isFPV)
             {
+                player.hat.SetActive(false);
                 cam.cullingMask = FpvMask;
             }
             else
             {
+                player.hat.SetActive(true);
                 cam.cullingMask = defaultMask;
             }
 

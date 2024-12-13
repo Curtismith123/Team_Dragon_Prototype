@@ -25,18 +25,18 @@ public class SceneLoader : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (!hasTriggered && other.CompareTag("Player"))
         {
             hasTriggered = true;
             LoadLevel(sceneIndex);
-            
+
         }
     }
 
     public async void LoadLevel(int sceneIndex)
     {
-        
+
         //fade out
         fadeController.FadeOut();
         //wait for method to finish
@@ -63,7 +63,7 @@ public class SceneLoader : MonoBehaviour
         await Task.Delay(2000);
 
         scene.allowSceneActivation = true;
-        
+
         loadingScreen.SetActive(false);
 
     }
@@ -80,6 +80,7 @@ public class SceneLoader : MonoBehaviour
     //polish the progress bar to load smoothly
     private void Update()
     {
-        progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 0.5f * Time.deltaTime);
+        if (progressBar != null)
+            progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 0.5f * Time.deltaTime);
     }
 }
