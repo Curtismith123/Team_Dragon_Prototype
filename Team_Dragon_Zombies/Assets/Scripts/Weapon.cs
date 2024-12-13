@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -14,6 +15,7 @@ public class Weapon : ScriptableObject
     [Range(1, 150)] public float bulletSpeed = 20f;
     public int ammoCur, ammoMax;
     [Range(1, 10)] public float bulletDestroyTime = 5f;
+    public Vector3 shootPosOffset;
 
     [Header("-----Shotgun Stats-----")]
     [Header("1 for single shot guns, 2+ for shotguns or other")]
@@ -28,7 +30,6 @@ public class Weapon : ScriptableObject
     public AudioClip[] outOfAmmo;
     public float outOfAmmoVol;
     public bool isTwoHanded;
-
 
 
 
