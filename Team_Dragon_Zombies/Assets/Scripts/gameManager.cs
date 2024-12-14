@@ -159,7 +159,7 @@ public class gameManager : MonoBehaviour
     {
 
 
-        if (Input.GetButtonDown("Cancel") && !gameEnded)
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.P) && !gameEnded)
         {
 
 
