@@ -400,10 +400,10 @@ public class gameManager : MonoBehaviour
         if (menuType == "Audio")
         {
 
-            musicMixer.SetFloat("musicVolume", MathF.Log10(volumeSlider.value) * 30f);
+            musicMixer.SetFloat("MusicVolume", MathF.Log10(volumeSlider.value) * 30f);
             volumeSlider.value = 0.6f;
-           // volumeTextValue.text = volumeSlider.value.ToString("F1");
-            sfxMixer.SetFloat("sfxVolume", Mathf.Log10(sfxSlider.value) * 30f);
+           //volumeTextValue.text = volumeSlider.value.ToString("F1");
+            sfxMixer.SetFloat("SFXVolume", Mathf.Log10(sfxSlider.value) * 30f);
             sfxSlider.value = 0.6f;
             volumeApply();
             if (inSetActive != null)
