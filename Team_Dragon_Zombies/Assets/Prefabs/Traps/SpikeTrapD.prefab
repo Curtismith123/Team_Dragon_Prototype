@@ -9,11 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2951093185909594476}
-  - component: {fileID: 7824364295940027290}
-  - component: {fileID: 6944130922800605118}
   - component: {fileID: 4585322018644640885}
   - component: {fileID: 4002926188823443617}
-  - component: {fileID: 2833359134201139565}
   m_Layer: 3
   m_Name: SpearD
   m_TagString: Trap
@@ -34,41 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &7824364295940027290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365782302461422428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &6944130922800605118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365782302461422428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &4585322018644640885
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -122,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2833359134201139565
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365782302461422428}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: -0.7, y: 3, z: 0.7}
 --- !u!1 &800021521339490654
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,11 +95,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843993412346223829}
-  - component: {fileID: 6269268726324703327}
-  - component: {fileID: 8687101617667483169}
   - component: {fileID: 4876994687143731264}
   - component: {fileID: 5345311853558858653}
-  - component: {fileID: 5949422064199287978}
   m_Layer: 3
   m_Name: SpearD (4)
   m_TagString: Trap
@@ -177,41 +117,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &6269268726324703327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800021521339490654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &8687101617667483169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800021521339490654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &4876994687143731264
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -265,27 +172,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5949422064199287978
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800021521339490654}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0, y: 3, z: -0.000000052154064}
 --- !u!1 &1186806430126079366
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,11 +181,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7095077350896678527}
-  - component: {fileID: 3578102478855249600}
-  - component: {fileID: 4705719058333454123}
   - component: {fileID: 7098802857262317559}
   - component: {fileID: 7153296744174712139}
-  - component: {fileID: 8297838615111654293}
   m_Layer: 3
   m_Name: SpearD (6)
   m_TagString: Trap
@@ -320,41 +203,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &3578102478855249600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186806430126079366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &4705719058333454123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186806430126079366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &7098802857262317559
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -408,27 +258,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8297838615111654293
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186806430126079366}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0.7, y: 3, z: 0.7}
 --- !u!1 &1512772363418713453
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,11 +267,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6612761523232368978}
-  - component: {fileID: 3398097722564466050}
-  - component: {fileID: 2407532634120994216}
   - component: {fileID: 238485810930308310}
   - component: {fileID: 3495591596672232798}
-  - component: {fileID: 2190904186892394174}
   m_Layer: 3
   m_Name: SpearD (2)
   m_TagString: Trap
@@ -463,41 +289,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &3398097722564466050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512772363418713453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &2407532634120994216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512772363418713453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &238485810930308310
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -551,27 +344,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2190904186892394174
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512772363418713453}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: -0.7, y: 3, z: -0.7}
 --- !u!1 &2465635846576827512
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,11 +353,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1140703224921992736}
-  - component: {fileID: 874776623603365092}
-  - component: {fileID: 2902339466456577176}
   - component: {fileID: 8679019081816330207}
   - component: {fileID: 642675888741399869}
-  - component: {fileID: 4519277354732917745}
   m_Layer: 3
   m_Name: SpearD (3)
   m_TagString: Trap
@@ -606,41 +375,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &874776623603365092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465635846576827512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &2902339466456577176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465635846576827512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &8679019081816330207
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -694,27 +430,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4519277354732917745
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465635846576827512}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0, y: 3, z: 0.7}
 --- !u!1 &3100933051014891449
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,11 +439,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7240302168794135879}
-  - component: {fileID: 6611820872633865155}
-  - component: {fileID: 3561865411253842553}
   - component: {fileID: 5679722228771204382}
   - component: {fileID: 1736459859193538817}
-  - component: {fileID: 7787104344613600869}
   m_Layer: 3
   m_Name: SpearD (5)
   m_TagString: Trap
@@ -749,41 +461,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &6611820872633865155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100933051014891449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &3561865411253842553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100933051014891449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &5679722228771204382
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -837,27 +516,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7787104344613600869
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100933051014891449}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0, y: 3, z: -0.7}
 --- !u!1 &3961839641685296807
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,11 +525,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7222589775803830129}
-  - component: {fileID: 3887027025815619035}
-  - component: {fileID: 324177870332218880}
   - component: {fileID: 7515934245587968095}
   - component: {fileID: 3587817849815158060}
-  - component: {fileID: 5688271299592104194}
   m_Layer: 3
   m_Name: SpearD (1)
   m_TagString: Trap
@@ -892,41 +547,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &3887027025815619035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3961839641685296807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &324177870332218880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3961839641685296807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 10
 --- !u!33 &7515934245587968095
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -980,27 +602,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5688271299592104194
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3961839641685296807}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: -0.7, y: 3, z: -0.000000052154064}
 --- !u!1 &4527288877772898233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,11 +611,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045777847496152495}
-  - component: {fileID: 5114209555030653487}
-  - component: {fileID: 4672382590581740819}
   - component: {fileID: 7953053508663101966}
   - component: {fileID: 7200990972402176691}
-  - component: {fileID: 1582023484635879664}
   m_Layer: 3
   m_Name: SpearD (8)
   m_TagString: Trap
@@ -1035,41 +633,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &5114209555030653487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4527288877772898233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &4672382590581740819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4527288877772898233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &7953053508663101966
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1123,13 +688,68 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1582023484635879664
-SphereCollider:
+--- !u!1 &6767981966404025932
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4527288877772898233}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1480075389336279649}
+  - component: {fileID: 7154227030449443463}
+  - component: {fileID: 1105036520136465300}
+  m_Layer: 3
+  m_Name: SpearGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1480075389336279649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767981966404025932}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.26, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2951093185909594476}
+  - {fileID: 7222589775803830129}
+  - {fileID: 6612761523232368978}
+  - {fileID: 1140703224921992736}
+  - {fileID: 4843993412346223829}
+  - {fileID: 7240302168794135879}
+  - {fileID: 7095077350896678527}
+  - {fileID: 7890097692067749701}
+  - {fileID: 1045777847496152495}
+  m_Father: {fileID: 6207858655579450673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7154227030449443463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767981966404025932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d968f94bbb00464395506dbbaca64b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
+--- !u!65 &1105036520136465300
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767981966404025932}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1139,11 +759,11 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0.7, y: 3, z: -0.7}
+  m_Size: {x: 1.76, y: 1, z: 1.46}
+  m_Center: {x: 0, y: -0.9, z: 0}
 --- !u!1 &8112606408284208512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,8 +773,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6207858655579450673}
+  - component: {fileID: 6371673237549828252}
   - component: {fileID: 2579031597340908566}
   - component: {fileID: 3725139171013993780}
+  - component: {fileID: 8352659528111218951}
+  - component: {fileID: 618234913742636579}
   m_Layer: 3
   m_Name: SpikeTrapD
   m_TagString: Trap
@@ -1171,21 +794,34 @@ Transform:
   m_GameObject: {fileID: 8112606408284208512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.11, y: -0, z: 17.580908}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2951093185909594476}
-  - {fileID: 7222589775803830129}
-  - {fileID: 6612761523232368978}
-  - {fileID: 1140703224921992736}
-  - {fileID: 4843993412346223829}
-  - {fileID: 7240302168794135879}
-  - {fileID: 7095077350896678527}
-  - {fileID: 7890097692067749701}
-  - {fileID: 1045777847496152495}
+  - {fileID: 1480075389336279649}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6371673237549828252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112606408284208512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e15f03277f5d045944387e1b0a0966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDelay: 0.25
+  upTime: 0.3
+  downTime: 3
+  resetDelay: 1
+  spikeRise: 3
+  Spikes: {fileID: 6767981966404025932}
+  Click: {fileID: 8300000, guid: 141075b7fdd6a2143adaab1670e85890, type: 3}
+  SpikesUp: {fileID: 8300000, guid: 0add7662d0bdff049a5fb6b32167c49b, type: 3}
+  SpikesDown: {fileID: 8300000, guid: ad9b26b239d5c7746893e6bf076d1f35, type: 3}
 --- !u!33 &2579031597340908566
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1239,6 +875,124 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8352659528111218951
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112606408284208512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0000005, y: 0.33, z: 2.0000007}
+  m_Center: {x: 0.000000059604645, y: 0.14, z: 0.00000011920929}
+--- !u!82 &618234913742636579
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112606408284208512}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 6077777081457391126, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &9105740487399531415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,11 +1002,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7890097692067749701}
-  - component: {fileID: 3222033491577697209}
-  - component: {fileID: 8584111041300667877}
   - component: {fileID: 2314331701168042714}
   - component: {fileID: 546354775372519990}
-  - component: {fileID: 5973733810292445924}
   m_Layer: 3
   m_Name: SpearD (7)
   m_TagString: Trap
@@ -1273,41 +1024,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6207858655579450673}
+  m_Father: {fileID: 1480075389336279649}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!114 &3222033491577697209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9105740487399531415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39eb98fa3190b1408190f9ca95e82b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  activateSound: {fileID: 0}
-  activationDelay: 3
-  spikeHeight: 2
-  spikeSpeed: 4
-  intervalDuration: 5
-  initialPosition: {x: 0, y: 0, z: 0}
-  isActivated: 1
---- !u!114 &8584111041300667877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9105740487399531415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7350bd4403969498637c0b2ecd91cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!33 &2314331701168042714
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1361,24 +1079,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5973733810292445924
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9105740487399531415}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0.6, y: 3, z: -0.000000052154064}
