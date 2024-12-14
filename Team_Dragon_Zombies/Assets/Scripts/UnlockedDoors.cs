@@ -19,7 +19,7 @@ public class UnlockedDoors : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered trigger zone");
+
             anim.SetBool("Open", true);
         }
     }
@@ -28,7 +28,7 @@ public class UnlockedDoors : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited trigger zone");
+
             anim.SetBool("Open", false);
         }
     }
