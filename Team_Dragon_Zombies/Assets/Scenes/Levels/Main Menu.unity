@@ -3126,7 +3126,7 @@ MonoBehaviour:
   qltyDropdown: {fileID: 1376609742}
   fullScrToggle: {fileID: 1940941465}
   resDropDown: {fileID: 122473324}
-  newGameLevel: ShowCase
+  newGameLevel: Level1
 --- !u!4 &486886212
 Transform:
   m_ObjectHideFlags: 0
@@ -6519,8 +6519,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2428125187097960301, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 90d9bc7d6fd3bdf4b8cbc7e61183848f, type: 3}
-  m_Resource: {fileID: 8300000, guid: 90d9bc7d6fd3bdf4b8cbc7e61183848f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 20bd0d3e45d282e4dbdb717d5de8b025, type: 3}
+  m_Resource: {fileID: 8300000, guid: 20bd0d3e45d282e4dbdb717d5de8b025, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -7616,7 +7616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1136802510
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12660,9 +12660,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 85368595}
-        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: audioApply
+      - m_Target: {fileID: 486886211}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: mainAudioApply
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

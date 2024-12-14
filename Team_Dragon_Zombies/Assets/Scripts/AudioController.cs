@@ -23,12 +23,13 @@ public class AudioController : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat("musicVolume", mSlider.value);
+            PlayerPrefs.SetFloat("musicVolume", mSlider.value);
     }
 
     private void Start()
     {
-        mSlider.value = PlayerPrefs.GetFloat("musicVolume", mSlider.value);
+            mSlider.value = PlayerPrefs.GetFloat("musicVolume", mSlider.value);
+
     }
 
     // Update is called once per frame

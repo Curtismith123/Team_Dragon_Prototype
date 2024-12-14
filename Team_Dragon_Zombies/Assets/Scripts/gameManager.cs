@@ -34,6 +34,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] public Slider volumeSlider;
     [SerializeField] public float defaultVolume = 0.6f;
     [SerializeField] AudioMixer musicMixer;
+    [SerializeField] AudioMixer sfxMixer;
+    [SerializeField] public Slider sfxSlider;
     // Gameplay Objects
     [Header("-----Gameplay-----")]
     [SerializeField] GameObject menuGameplay;
@@ -398,9 +400,11 @@ public class gameManager : MonoBehaviour
         if (menuType == "Audio")
         {
 
-            musicMixer.SetFloat("MasterVolume", MathF.Log10(volumeSlider.value) * 30f);
+            musicMixer.SetFloat("musicVolume", MathF.Log10(volumeSlider.value) * 30f);
             volumeSlider.value = 0.6f;
-            volumeTextValue.text = volumeSlider.value.ToString("F1");
+           // volumeTextValue.text = volumeSlider.value.ToString("F1");
+            sfxMixer.SetFloat("sfxVolume", Mathf.Log10(sfxSlider.value) * 30f);
+            sfxSlider.value = 0.6f;
             volumeApply();
             if (inSetActive != null)
             {
