@@ -9,6 +9,7 @@ public class Geyser : MonoBehaviour
     private bool isActive = false;
     private Coroutine damageCoroutine;
     private TrapDamage trapDamage;
+  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,11 +37,7 @@ public class Geyser : MonoBehaviour
             {
                 geyserParticleSystem.Stop(); // Deactivate the particle system
                 Debug.Log("Geyser deactivated.");
-                if (damageCoroutine != null)
-                {
-                    StopCoroutine(damageCoroutine);
-                    damageCoroutine = null; 
-                }
+                
             }
             yield return new WaitForSeconds(intervalDuration);
         }
@@ -50,7 +47,10 @@ public class Geyser : MonoBehaviour
     {
         if (other.CompareTag("Player") && isActive)
         {
-            damageCoroutine = StartCoroutine(ApplyDamage(other.gameObject));
+            if (damageCoroutine == null)
+            {
+                damageCoroutine = StartCoroutine(ApplyDamage(other.gameObject));
+            }
         }
         
     }
@@ -59,11 +59,11 @@ public class Geyser : MonoBehaviour
     {
         if (other.CompareTag("Player") )
         {
-            StopAllCoroutines();
+            StopDamageCoroutine();
         }
     }
 
-    private void StopAllDamageCoroutines()
+    private void StopDamageCoroutine()
     {
         if (damageCoroutine != null)
         {

@@ -115,7 +115,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
                     faceTarget();
                 }
 
-                if (!isAttacking)
+                if (!isAttacking && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
                 {
                     StartCoroutine(melee());
                 }
