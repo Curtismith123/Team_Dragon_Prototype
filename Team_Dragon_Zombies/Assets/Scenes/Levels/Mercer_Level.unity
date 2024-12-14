@@ -754,7 +754,11 @@ PrefabInstance:
     - target: {fileID: 5538549582337728177, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: objectToThrow
       value: 
-      objectReference: {fileID: 1543408499}
+      objectReference: {fileID: 2672635513155350364, guid: 1477e072a491f1140aa0cbcddfce9cbb, type: 3}
+    - target: {fileID: 5538549582337728177, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
+      propertyPath: remainingThrows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6691467654254822038, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2901,6 +2905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThrowObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5821682933016069551, guid: 1477e072a491f1140aa0cbcddfce9cbb, type: 3}
+      propertyPath: throwObjectsScript
+      value: 
+      objectReference: {fileID: 1316405107}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3337,11 +3345,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f990a7f182be91b41b7167bc5fdff7eb, type: 3}
---- !u!1 &1543408499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2672635513155350364, guid: 1477e072a491f1140aa0cbcddfce9cbb, type: 3}
-  m_PrefabInstance: {fileID: 1376386772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1592747463
 PrefabInstance:
   m_ObjectHideFlags: 0
