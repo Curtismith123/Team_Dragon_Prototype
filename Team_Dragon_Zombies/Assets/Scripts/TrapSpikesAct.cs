@@ -9,11 +9,13 @@ public class TrapSpikesAct : MonoBehaviour
     public float activationDelay = 1f; // Delay before spikes activate
     public float spikeHeight = 1f; // Height to which the spikes will rise
     public float spikeSpeed = 2f; // Speed at which the spike will rise
+    public float intervalDuration = 10f; // Duration of each interval
 
     public Vector3 initialPosition;
     public bool isActivated = false;
 
     private TrapDamage trapDamage;
+    private Coroutine damageCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -27,14 +29,47 @@ public class TrapSpikesAct : MonoBehaviour
        initialPosition = transform.position;
 
         trapDamage = GetComponent<TrapDamage>();
+        if (trapDamage == null)
+        {
+            Debug.LogError("TrapDamage component not found on " + gameObject.name);
+        }
+        StartCoroutine(SpikeCycle());
     }
 
+    private IEnumerator SpikeCycle()
+    {
+        while (true)
+        {
+            isActivated = !isActivated;
+            if (isActivated)
+            {
+                Debug.Log("Spikes activated.");
+                StartCoroutine(MoveSpikes(initialPosition + Vector3.up * spikeHeight));
+
+                // Play the activation sound
+                if (audioSource != null && activateSound != null)
+                {
+                    audioSource.PlayOneShot(activateSound);
+                }
+            } 
+            else
+            {
+                Debug.Log("Spikes deactivated.");
+                StartCoroutine(MoveSpikes(initialPosition));
+
+                StopDamageCoroutine();
+            }
+            yield return new WaitForSeconds(intervalDuration);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isActivated)
         {
-            Debug.Log("Player enterd spike trigger: " + other.gameObject.name);
-            StartCoroutine(ActivateSpikeWithDelay());
+           if (damageCoroutine == null)
+            {
+                damageCoroutine = StartCoroutine(ApplyDamage(other.gameObject));
+            }
         }
     }
 
@@ -42,27 +77,36 @@ public class TrapSpikesAct : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited spike trigger: " + other.gameObject.name);
+            StopDamageCoroutine();
         }
     }
 
-    IEnumerator ActivateSpikeWithDelay()
+    private void StopDamageCoroutine()
     {
-        // Wait for the activation delay
-        yield return new WaitForSeconds(activationDelay);
-
-        // Play the activation sound 
-        if (audioSource != null && activateSound != null)
+        if (damageCoroutine != null)
         {
-            audioSource.PlayOneShot(activateSound);
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
         }
-
-        // Activate the spikes
-        isActivated = true;
-        StartCoroutine(MoveSpikes(initialPosition + Vector3.up * spikeHeight));
-
-        DealDamageToPlayer();
     }
+
+    private IEnumerator ApplyDamage(GameObject player)
+    {
+        while (true)
+        {
+            if (trapDamage != null)
+            {
+                IDamage damageable = player.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(trapDamage.damageAmount, gameObject);
+                    Debug.Log("Player damaged by spikes" + player.name);
+                }
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
 
     IEnumerator MoveSpikes(Vector3 targetPosition)
     {
@@ -70,25 +114,6 @@ public class TrapSpikesAct : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, spikeSpeed * Time.deltaTime);
             yield return null;
-        }
-        
-        // Deactivate the spike after a short delay
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(MoveSpikes(initialPosition));
-        isActivated = false;
-    }
-
-    private void DealDamageToPlayer()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null && trapDamage != null)
-        {
-            IDamage damageable = player.GetComponent<IDamage>();
-            if (damageable != null)
-            {
-                damageable.takeDamage(trapDamage.damageAmount, gameObject);
-                Debug.Log("Player damaged by spikes" + player.name);
-            }   
         }
     }
 }
