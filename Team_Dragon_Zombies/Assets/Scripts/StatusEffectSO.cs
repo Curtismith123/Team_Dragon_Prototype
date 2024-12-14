@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System;
 
 [CreateAssetMenu(fileName = "StatusEffectSO", menuName = "Scriptable Objects/StatusEffectSO")]
 public class StatusEffectSO : ScriptableObject
@@ -15,45 +14,41 @@ public class StatusEffectSO : ScriptableObject
     public int damagePerSecond;
     public float slowPercentage;
     public float stunDuration;
+
     public void ApplyEffect(GameObject target)
     {
-        //play sound at location 
-        if (soundEffect != null)
+        // Check if the target has an enemyMeleeAttack component and is not dead
+        if (target.TryGetComponent(out enemyMeleeAttack enemy) && !enemy.isDead)
         {
-            // play sound at enemy location 
-            AudioSource.PlayClipAtPoint(soundEffect, target.transform.position);
+            // Play sound at the enemy's location
+            if (soundEffect != null)
+            {
+                AudioSource.PlayClipAtPoint(soundEffect, target.transform.position);
+            }
 
-        }
-        // show hit assigned hit effect 
-        if (particleEffect != null)
-        {
-            GameObject visEffect = Instantiate(particleEffect, target.transform.position, Quaternion.identity);
-            // make the vis effect a child of the target
-            visEffect.transform.parent = target.transform;
+            // Show hit effect
+            if (particleEffect != null)
+            {
+                GameObject visEffect = Instantiate(particleEffect, target.transform.position, Quaternion.identity);
+                visEffect.transform.parent = target.transform;
+                Destroy(visEffect, duration);
+            }
 
-            Destroy(visEffect, duration);
-        }
-        if (target.TryGetComponent(out enemyMeleeAttack enemy))
-        {
-            // adjust the status effect duration based on enemy tier 
+            // Adjust the status effect duration based on the enemy tier
             float adjDur = TierAdjustment(duration, (EnemyTier)enemy.enemyTier);
 
-            // apply effect based on attack type 
-            if (enemy != null && !enemy.isDead)
+            // Apply the appropriate status effect
+            switch (effectType)
             {
-                switch (effectType)
-                {
-                    case EffectType.Fire:
-                        enemy.StartCoroutine(ApplyFireEffect(enemy, adjDur));
-
-                        break;
-                    case EffectType.Ice:
-                        enemy.StartCoroutine(ApplyIceEffect(enemy, adjDur));
-                        break;
-                    case EffectType.Lightning:
-                        enemy.StartCoroutine(ApplyLightingEffect(enemy, adjDur));
-                        break;
-                }
+                case EffectType.Fire:
+                    enemy.StartCoroutine(ApplyFireEffect(enemy, adjDur));
+                    break;
+                case EffectType.Ice:
+                    enemy.StartCoroutine(ApplyIceEffect(enemy, adjDur));
+                    break;
+                case EffectType.Lightning:
+                    enemy.StartCoroutine(ApplyLightingEffect(enemy, adjDur));
+                    break;
             }
         }
     }
@@ -75,7 +70,6 @@ public class StatusEffectSO : ScriptableObject
 
         enemy.SetStunned(false);
     }
-
 
     private IEnumerator ApplyIceEffect(enemyMeleeAttack enemy, float adjDur)
     {
@@ -99,24 +93,24 @@ public class StatusEffectSO : ScriptableObject
         enemy.ResetSpeed();
     }
 
-
     private IEnumerator ApplyFireEffect(enemyMeleeAttack enemy, float adjDur)
     {
-        if (enemy != null && !enemy.isDead)
+        if (enemy == null || enemy.isDead)
         {
-            float elapsedTime = 0f;
-            while (elapsedTime < adjDur)
-            {
-                // Apply bonus damage for Fire
-                float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Fire);
-                enemy.takeDamage((int)adjustedDamage, null, EffectType.Fire);
+            yield break;
+        }
 
-                yield return new WaitForSeconds(1f);
-                elapsedTime += 1f;
-            }
+        float elapsedTime = 0f;
+        while (elapsedTime < adjDur)
+        {
+            // Apply bonus damage for Fire
+            float adjustedDamage = enemy.CalculateDamage(damagePerSecond, EffectType.Fire);
+            enemy.takeDamage((int)adjustedDamage, null, EffectType.Fire);
+
+            yield return new WaitForSeconds(1f);
+            elapsedTime += 1f;
         }
     }
-
 
     private float TierAdjustment(float duration, EnemyTier enemyTier)
     {
@@ -133,6 +127,5 @@ public class StatusEffectSO : ScriptableObject
             default:
                 return duration;
         }
-
     }
 }

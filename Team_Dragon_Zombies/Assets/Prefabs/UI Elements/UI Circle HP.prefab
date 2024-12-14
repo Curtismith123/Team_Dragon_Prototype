@@ -1108,9 +1108,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13949,7 +13949,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: 
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15245,6 +15245,8 @@ MonoBehaviour:
   volumeSlider: {fileID: 8446779593092848920}
   defaultVolume: 0
   musicMixer: {fileID: 24100000, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
+  sfxMixer: {fileID: 24100000, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
+  sfxSlider: {fileID: 6209361199012791452}
   menuGameplay: {fileID: 3357446331362277061}
   sensTextValue: {fileID: 1524581153355600544}
   sensSlider: {fileID: 4144785153412450652}
@@ -15780,7 +15782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe04ce8dfc1a1c4f93f5c5de3d0482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mVolume: SFXVolume
+  mVolume: sfxVolume
   mMixer: {fileID: 24100000, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
   mSlider: {fileID: 6209361199012791452}
   mMult: 30
@@ -18437,7 +18439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2394966720271473992
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19459,6 +19461,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9028897517187792351, guid: 0069fb0665b9b99429dc7ca43d3a78e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122676753069156301, guid: 0069fb0665b9b99429dc7ca43d3a78e5, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122676753069156301, guid: 0069fb0665b9b99429dc7ca43d3a78e5, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
