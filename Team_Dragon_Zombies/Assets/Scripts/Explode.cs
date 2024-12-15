@@ -48,8 +48,6 @@ public class Explode : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log($"Calculated Object Size: {objectSize}");
     }
 
     void Update()

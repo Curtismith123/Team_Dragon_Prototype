@@ -9,7 +9,6 @@ public class TriggerObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             platform.canMove = true;
-            Debug.Log("Player entered trigger, platform can move now. ");
         }
     }
 
@@ -18,7 +17,6 @@ public class TriggerObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             platform.canMove = false;
-            Debug.Log("Player exited trigger, platform stops moving. ");
         }
     }
 }
