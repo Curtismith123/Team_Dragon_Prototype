@@ -18,6 +18,7 @@ public class TalkingHeads : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !hasPlayed)
             PlaySound(clip);
+        hasPlayed = true;
 
     }
     private void PlaySound(AudioClip clip)

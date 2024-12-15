@@ -7,6 +7,7 @@ using static StatusEffectSO;
 
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
+    [SerializeField] GameObject dropItem;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
     [SerializeField] Animator anim;
@@ -317,6 +318,10 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             isDead = true;
+            if (dropItem != null)
+            {
+                Instantiate(dropItem, this.transform.position + Vector3.up, Quaternion.identity);
+            }
             OnDeath?.Invoke();
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
