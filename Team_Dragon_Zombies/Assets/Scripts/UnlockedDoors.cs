@@ -4,10 +4,13 @@ public class UnlockedDoors : MonoBehaviour
 {
 
     private Animator anim;
+    private AudioSource doorSource;
+    public AudioClip clip;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         anim = GetComponent<Animator>();
+        doorSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class UnlockedDoors : MonoBehaviour
         {
 
             anim.SetBool("Open", true);
+            PlaySound(clip);
         }
     }
 
@@ -33,4 +37,11 @@ public class UnlockedDoors : MonoBehaviour
         }
     }
 
+    private void PlaySound(AudioClip clip)
+    {
+        if (doorSource != null && clip != null)
+        {
+            doorSource.PlayOneShot(clip);
+        }
+    }
 }
