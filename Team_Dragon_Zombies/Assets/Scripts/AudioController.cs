@@ -23,12 +23,26 @@ public class AudioController : MonoBehaviour
 
     private void OnDisable()
     {
-            PlayerPrefs.SetFloat("musicVolume", mSlider.value);
+        if (mVolume == "MusicVolume")
+        {
+            PlayerPrefs.SetFloat("MusicVolume", mSlider.value);
+        }
+        if (mVolume == "SFXVolume")
+        {
+            PlayerPrefs.SetFloat("SFXVolume", mSlider.value);
+        }
     }
 
     private void Start()
     {
-            mSlider.value = PlayerPrefs.GetFloat("musicVolume", mSlider.value);
+        if (mVolume == "MusicVolume")
+        {
+            mSlider.value = PlayerPrefs.GetFloat("MusicVolume", mSlider.value);
+        }
+        if (mVolume == "SFXVolume")
+        {
+            mSlider.value = PlayerPrefs.GetFloat("SFXVolume", mSlider.value);
+        }
 
     }
 

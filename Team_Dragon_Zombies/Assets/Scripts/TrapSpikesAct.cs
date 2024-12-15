@@ -29,10 +29,6 @@ public class TrapSpikesAct : MonoBehaviour
        initialPosition = transform.position;
 
         trapDamage = GetComponent<TrapDamage>();
-        if (trapDamage == null)
-        {
-            Debug.LogError("TrapDamage component not found on " + gameObject.name);
-        }
         StartCoroutine(SpikeCycle());
     }
 
@@ -43,7 +39,7 @@ public class TrapSpikesAct : MonoBehaviour
             isActivated = !isActivated;
             if (isActivated)
             {
-                Debug.Log("Spikes activated.");
+               
                 StartCoroutine(MoveSpikes(initialPosition + Vector3.up * spikeHeight));
 
                 // Play the activation sound
@@ -54,9 +50,8 @@ public class TrapSpikesAct : MonoBehaviour
             } 
             else
             {
-                Debug.Log("Spikes deactivated.");
+               
                 StartCoroutine(MoveSpikes(initialPosition));
-
                 StopDamageCoroutine();
             }
             yield return new WaitForSeconds(intervalDuration);
@@ -100,7 +95,7 @@ public class TrapSpikesAct : MonoBehaviour
                 if (damageable != null)
                 {
                     damageable.takeDamage(trapDamage.damageAmount, gameObject);
-                    Debug.Log("Player damaged by spikes" + player.name);
+       
                 }
             }
             yield return new WaitForSeconds(1f);

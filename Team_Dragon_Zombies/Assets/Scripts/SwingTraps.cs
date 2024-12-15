@@ -22,7 +22,6 @@ public class SwingTraps : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered log trap trigger: " + other.gameObject.name);
             StartCoroutine(ActivatieLogWithDelay());
         }
     }
@@ -31,7 +30,7 @@ public class SwingTraps : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited log trap trigger: " + other.gameObject.name);
+           
         }
     }
 
@@ -56,7 +55,6 @@ public class SwingTraps : MonoBehaviour
             if (damageable != null)
             {
                 damageable.takeDamage(trapDamage.damageAmount, gameObject);
-                Debug.Log("Player damaged by log trap: " + player.name);
             }
 
         }
