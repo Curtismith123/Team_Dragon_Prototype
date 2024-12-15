@@ -130,7 +130,6 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        throwObjects = player.GetComponent<ThrowObjects>();
 
         resDropDown.AddOptions(resOptions);
         resDropDown.value = currRes;
@@ -141,6 +140,11 @@ public class gameManager : MonoBehaviour
         gmDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
         gmDmgEffectVol.profile.TryGetSettings<Vignette>(out gmDmgVignette);
         gmDmgVignette.enabled.Override(false);
+        if (throwObjects == null)
+        {
+
+            throwObjects = player.GetComponent<ThrowObjects>();
+        }
     }
 
     void Start()
@@ -402,7 +406,7 @@ public class gameManager : MonoBehaviour
 
             musicMixer.SetFloat("MusicVolume", MathF.Log10(volumeSlider.value) * 30f);
             volumeSlider.value = 0.6f;
-           //volumeTextValue.text = volumeSlider.value.ToString("F1");
+            //volumeTextValue.text = volumeSlider.value.ToString("F1");
             sfxMixer.SetFloat("SFXVolume", Mathf.Log10(sfxSlider.value) * 30f);
             sfxSlider.value = 0.6f;
             volumeApply();
