@@ -14,7 +14,6 @@ public class TrapDamage : MonoBehaviour
             { 
                 damageable.takeDamage(damageAmount,gameObject);
                 playerHit = true;
-                Debug.Log("Player hit" + collision.gameObject.name);
             }
         }
     }
@@ -24,7 +23,6 @@ public class TrapDamage : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerHit = false;
-            Debug.Log("Player exited: " + collision.gameObject.name);
         }
     }
 }

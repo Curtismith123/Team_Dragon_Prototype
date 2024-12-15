@@ -12,7 +12,6 @@ public class TrapDoor : MonoBehaviour
     private void Start()
     {
         angle = transform.eulerAngles.x;
-        
     }
 
     private void Update()
@@ -28,7 +27,6 @@ public class TrapDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player is near the door");
             OpenTrapDoor();
         }
     }
@@ -37,7 +35,6 @@ public class TrapDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player left the door area");
             CloseTrapDoor();
         }
     }
@@ -46,14 +43,12 @@ public class TrapDoor : MonoBehaviour
     {
         angle = 0;
         direction = -Vector3.right;
-        Debug.Log("OpenTrapDoor called, targetAngle set to " + angle);
     }
 
     public void CloseTrapDoor() 
     {
         angle = 90;
         direction = Vector3.right;
-        Debug.Log("CloseTrapDoor called, targetAngle set to " + angle);
     }
 
 }
