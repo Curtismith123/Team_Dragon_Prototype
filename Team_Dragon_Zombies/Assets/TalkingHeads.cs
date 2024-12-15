@@ -6,9 +6,10 @@ public class TalkingHeads : MonoBehaviour
 
     public AudioSource AudioSource;
     public AudioClip clip;
-    private bool hasPlayed = false;
+    public bool hasPlayed;
     private void Start()
     {
+        hasPlayed = false;
         if (AudioSource == null)
         {
             AudioSource = GetComponent<AudioSource>();
@@ -17,8 +18,11 @@ public class TalkingHeads : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !hasPlayed)
+        {
+
             PlaySound(clip);
-        hasPlayed = true;
+            hasPlayed = true;
+        }
 
     }
     private void PlaySound(AudioClip clip)
