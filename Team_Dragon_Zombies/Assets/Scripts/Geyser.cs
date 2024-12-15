@@ -15,10 +15,6 @@ public class Geyser : MonoBehaviour
     void Start()
     {
         trapDamage = GetComponent<TrapDamage>(); // Get the TrapDamage component
-        if (trapDamage == null) 
-        {
-            Debug.LogError("TrapDamage component not found on " + gameObject.name);
-        }
         StartCoroutine(GeyserCycle());
     }
 
@@ -30,14 +26,11 @@ public class Geyser : MonoBehaviour
             isActive = !isActive;
             if (isActive)
             {
-                geyserParticleSystem.Play(); // Activate the particle system
-                Debug.Log("Geyser activated.");
+                geyserParticleSystem.Play(); // Activate the particle system 
             } 
             else
             {
                 geyserParticleSystem.Stop(); // Deactivate the particle system
-                Debug.Log("Geyser deactivated.");
-                
             }
             yield return new WaitForSeconds(intervalDuration);
         }
@@ -82,7 +75,6 @@ public class Geyser : MonoBehaviour
                 if (damageable != null)
                 {
                     damageable.takeDamage(trapDamage.damageAmount, gameObject);
-                    Debug.Log("Player damaged by geyser: " + player.name);
                 }
             }
             yield return new WaitForSeconds(1f);
