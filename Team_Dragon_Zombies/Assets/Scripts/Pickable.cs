@@ -14,8 +14,7 @@ public class Pickable : MonoBehaviour
         if (throwObjectsScript == null)
         {
             // attempt to clear warning revert if broken
-            //throwObjectsScript = FindObjectOfType<ThrowObjects>();
-            throwObjectsScript = FindAnyObjectByType<ThrowObjects>();
+            throwObjectsScript = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
 
             if (throwObjectsScript == null)
             {

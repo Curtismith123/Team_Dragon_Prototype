@@ -69,7 +69,7 @@ public class ThrowObjects : MonoBehaviour
 
             remainingThrows--;
             gameManager.instance.UpdateThrowers(remainingThrows);
-
+            readyToThrow = true;
             Invoke(nameof(ResetThrow), throwCooldown);
         }
     }
