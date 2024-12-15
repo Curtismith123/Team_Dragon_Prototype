@@ -17,13 +17,15 @@ public class Explode : MonoBehaviour
 
     private Vector3 objectSize;
     private Vector3 objectMinBounds;
+    private AudioSource audioSource;
+    public AudioClip clip;
 
     [Range(0.1f, 1.0f)] public float resolutionFactor = 1.0f;
 
     void Start()
     {
         rb.isKinematic = true;
-
+        audioSource = GetComponent<AudioSource>();
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -69,13 +71,13 @@ public class Explode : MonoBehaviour
         {
             isBroken = true;
             ExplodeObjects();
-
             CheckChildrenForExplosion();
         }
     }
 
     public void ExplodeObjects()
     { //.
+        PlaySound(clip);
         // Attempt to clear warning Revert if broken 
         //DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
         DestroyActivate destroyActivate = FindAnyObjectByType<DestroyActivate>();
@@ -139,7 +141,7 @@ public class Explode : MonoBehaviour
 
         if (DropItem != null)
         {
-            Instantiate(DropItem, this.transform.position, Quaternion.identity);
+            Instantiate(DropItem, this.transform.position + Vector3.up, Quaternion.identity);
         }
         float offsetX = (x + 0.5f) / cubesInRowX;
         float offsetY = (y + 0.5f) / cubesInRowY;
@@ -167,5 +169,12 @@ public class Explode : MonoBehaviour
 
         Destroy(piece, pieceLifetime);
 
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

@@ -303,6 +303,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
         HP -= amount;
+        anim.SetTrigger("Damage");
         //popupDamage.text = amount.ToString();
         //Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
@@ -322,7 +323,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             {
                 Instantiate(dropItem, this.transform.position + Vector3.up, Quaternion.identity);
             }
-            OnDeath?.Invoke();
+            StartCoroutine(Die());
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
@@ -332,7 +333,12 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity);
         popup.GetComponent<PopUpDmgTxt>().Intialize(amt);
     }
-
+    private IEnumerator Die()
+    {
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(3f);
+        OnDeath?.Invoke();
+    }
 
     IEnumerator flashRed()
     {
@@ -353,6 +359,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     {
         isAttacking = true;
         anim.SetTrigger("Melee");
+        anim.SetTrigger("LeftAttack");
         audioSource.PlayOneShot(attackSound, attackSoundVolume);
 
         yield return new WaitForSeconds(0.1f);
