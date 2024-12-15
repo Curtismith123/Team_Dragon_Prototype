@@ -117,7 +117,7 @@ public class gameManager : MonoBehaviour
         resDropDown.ClearOptions();
 
         List<string> resOptions = new List<string>();
-        int currRes = 0;
+        int currRes = 19;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
