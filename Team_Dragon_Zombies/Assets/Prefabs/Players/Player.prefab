@@ -2410,24 +2410,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 300
-  lockVertMin: -90
-  lockVertMax: 90
+  lockVertMin: -60
+  lockVertMax: 60
   invertY: 0
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 1070903
   cameraRadius: 0.5
-  smoothSpeed: 25
+  smoothSpeed: 25.1
   viewChangeDistance: 0.5
   defaultMask:
     serializedVersion: 2
     m_Bits: 4294967295
   collisionMask:
     serializedVersion: 2
-    m_Bits: 1535115135
+    m_Bits: 310378367
   FpvMask:
     serializedVersion: 2
-    m_Bits: 1535115135
+    m_Bits: 310378367
   FpsPos: {fileID: 5125171135812397826}
   OtsPos: {fileID: 506573424892913857}
   isFPV: 1
@@ -2505,7 +2505,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 4460428050440362324}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 4194304
+    m_Bits: 12582912
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -3143,7 +3143,7 @@ AudioSource:
   m_GameObject: {fileID: 6691467654254822038}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6077777081457391126, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

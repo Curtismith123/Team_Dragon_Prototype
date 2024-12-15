@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
 
     [Header("-----Weapon Info-----")]
-    [SerializeField] List<Weapon> weaponList = new List<Weapon>();
+    [SerializeField] public List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] GameObject weaponModel;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] Transform shootPos;
@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour, IDamage
             RotateEffect();
         }
         // Aim to shoot 
-        if (Input.GetButtonDown("Aim"))
+        if (Input.GetButtonDown("Aim") && weaponList.Count > 0)
         {
             isAiming = true;
 

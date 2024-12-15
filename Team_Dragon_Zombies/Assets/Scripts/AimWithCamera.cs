@@ -7,10 +7,14 @@ public class AimWithCamera : MonoBehaviour
     public float pitchCorrection = 90f; // Tunable correction for the pitch
     public float minClamp = -60f;     // Minimum pitch angle (look down limit)
     public float maxClamp = 60f;      // Maximum pitch angle (look up limit)
-
+    private PlayerController player;
+    private void Start()
+    {
+        player = gameManager.instance.playerScript;
+    }
     void Update()
     {
-        if (Input.GetButtonDown("Aim"))
+        if (Input.GetButtonDown("Aim") && player.weaponList.Count > 0)
         {
             isAiming = true;
         }

@@ -10,7 +10,7 @@ public class MoveObject : MonoBehaviour
     [SerializeField] Transform[] points;
 
     int i;
-    bool reverse;
+    public bool reverse = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +32,7 @@ public class MoveObject : MonoBehaviour
                 i--;
                 return;
             }
-            else if (i == 0) 
+            else if (i == 0)
             {
                 reverse = false;
                 i++;
@@ -50,7 +50,7 @@ public class MoveObject : MonoBehaviour
         }
 
 
-        if (canMove) 
+        if (canMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
         }

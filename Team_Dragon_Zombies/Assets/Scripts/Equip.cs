@@ -10,6 +10,8 @@ public class Equip : MonoBehaviour
     [SerializeField] Weapon weapon;
     [SerializeField] string keyID;
     [SerializeField] float conversionChargeAmount = 20f;
+    private AudioSource audioSource;
+    public AudioClip clip;
 
     void Start()
     {
@@ -40,6 +42,13 @@ public class Equip : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
 }
