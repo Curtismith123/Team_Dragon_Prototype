@@ -5581,7 +5581,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: 'Main Menu
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3d08f37ab6bf6404c83676bded4cfdba, type: 2}
   m_sharedMaterial: {fileID: -5301462065457902301, guid: 3d08f37ab6bf6404c83676bded4cfdba, type: 2}
@@ -5646,7 +5648,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -12.098022, y: -13.237671, z: -14.216431, w: -15.208618}
+  m_margin: {x: -75.31323, y: -13.237671, z: -72.932495, w: -66.517365}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5698,7 +5700,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5844686829559586141}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quit
+        m_MethodName: mainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8196,7 +8198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quit
+  m_text: 'Main Menu
 
 '
   m_isRightToLeft: 0
@@ -8263,7 +8265,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -30.370697}
+  m_margin: {x: -63.201904, y: 0, z: -65.4375, w: -63.773956}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8315,7 +8317,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5844686829559586141}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quit
+        m_MethodName: mainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15782,7 +15784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe04ce8dfc1a1c4f93f5c5de3d0482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mVolume: sfxVolume
+  mVolume: SFXVolume
   mMixer: {fileID: 24100000, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
   mSlider: {fileID: 6209361199012791452}
   mMult: 30
