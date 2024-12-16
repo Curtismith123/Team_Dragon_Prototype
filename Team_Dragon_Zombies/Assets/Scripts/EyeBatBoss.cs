@@ -57,6 +57,10 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private float lavaRiseTime = 3f;
     [SerializeField] private float platformRiseTime = 1.5f;
 
+    // New Serialized Field for Lava Height Offset
+    [Tooltip("Additional height above the player's foot level for lava during Phase 2.")]
+    [SerializeField] private float lavaHeightOffset = 2f;
+
     [Header("----- Floor Detection -----")]
     [SerializeField] private float sinkSpeed = 1f;
     [SerializeField] private GameObject floorCheckObj;
@@ -70,6 +74,13 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     [SerializeField] private Color hitFlashEmissionColor = Color.white;
     [SerializeField] private float hitFlashEmissionIntensity = 3f;
+
+    [Header("----- Boulder Spawn Heights -----")]
+    [Tooltip("Minimum height above the player from which boulders can spawn.")]
+    [SerializeField] private float boulderMinSpawnHeight = 15f;
+
+    [Tooltip("Maximum height above the player from which boulders can spawn.")]
+    [SerializeField] private float boulderMaxSpawnHeight = 25f;
 
     private enum BossPhase { Phase1, Phase2, Phase3 }
     private BossPhase currentPhase = BossPhase.Phase1;
@@ -210,7 +221,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         foreach (Renderer rend in allRenderers)
         {
             rend.material.color = originalColor;
-
             rend.material.SetColor("_EmissionColor", originalColor * 1f);
         }
     }
@@ -293,8 +303,12 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         Collider playerCollider = player.GetComponent<Collider>();
         if (playerCollider == null) return;
         float playerFootHeight = playerCollider.bounds.min.y;
+
+        float lavaTargetY = playerFootHeight + lavaHeightOffset;
+
         if (lava != null)
-            StartCoroutine(MoveObjectUpwards(lava.transform, lava.transform.position.y, playerFootHeight, lavaRiseTime));
+            StartCoroutine(MoveObjectUpwards(lava.transform, lava.transform.position.y, lavaTargetY, lavaRiseTime));
+
         if (platforms != null)
         {
             for (int i = 0; i < platforms.Length; i++)
@@ -376,15 +390,22 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         Quaternion randomRotation = Random.rotation;
         float rand = Random.value;
         Vector3 spawnPos;
+        float spawnHeight;
+
         if (rand < 0.33f)
-            spawnPos = player.transform.position + new Vector3(0, 10f, 0);
+        {
+            spawnHeight = Random.Range(boulderMinSpawnHeight, boulderMaxSpawnHeight);
+            spawnPos = player.transform.position + new Vector3(0, spawnHeight, 0);
+        }
         else
         {
+
             Vector3 randomOffset = Random.insideUnitSphere * boulderSpawnRadius;
-            randomOffset.y = Mathf.Clamp(randomOffset.y, 1f, 10f);
-            spawnPos = player.transform.position + randomOffset;
-            spawnPos += Vector3.up * 5f;
+            randomOffset.y = 0f;
+            spawnHeight = Random.Range(boulderMinSpawnHeight, boulderMaxSpawnHeight);
+            spawnPos = player.transform.position + randomOffset + Vector3.up * spawnHeight;
         }
+
         Instantiate(boulderPrefab, spawnPos, randomRotation);
         AudioSource.PlayClipAtPoint(boulderFallingClip, spawnPos, boulderVolume);
     }
