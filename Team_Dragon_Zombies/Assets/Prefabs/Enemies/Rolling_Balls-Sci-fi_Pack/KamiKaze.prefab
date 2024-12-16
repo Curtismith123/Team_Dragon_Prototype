@@ -451,9 +451,9 @@ AudioSource:
   m_GameObject: {fileID: 6885022589093835905}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6ddc0ef1d99840c44b179941f6322972, type: 3}
-  m_Resource: {fileID: 8300000, guid: 6ddc0ef1d99840c44b179941f6322972, type: 3}
+  OutputAudioMixerGroup: {fileID: 6077777081457391126, guid: bc1e6699238cd654497649d6af6b39bb, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 7116b092cf0cf5344bd976a6c282b336, type: 3}
+  m_Resource: {fileID: 8300000, guid: 7116b092cf0cf5344bd976a6c282b336, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
@@ -659,6 +659,13 @@ MonoBehaviour:
   explosionDamage: 65
   flashCount: 3
   flashDuration: 0.2
+  followRadius: 5
+  idleRoamRadius: 3
+  minIdleRoamInterval: 2
+  maxIdleRoamInterval: 5
+  playerMoveThreshold: 0.2
+  maxTeleportDistance: 20
+  noEnemyDuration: 5
   roamTimer: 3
   walkSound: {fileID: 8300000, guid: 6ddc0ef1d99840c44b179941f6322972, type: 3}
   explosionSound: {fileID: 8300000, guid: 53c66124f6874724eb77cefc6f3fdcec, type: 3}
