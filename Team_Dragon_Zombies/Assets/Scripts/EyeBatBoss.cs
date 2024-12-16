@@ -23,11 +23,9 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private AudioClip phaseTransitionClipPhase2to3;
     [SerializeField] private AudioClip firingClip;
     [SerializeField] private AudioClip dyingClip;
-
-    [Header("----- Audio Volumes -----")]
     [SerializeField] private float boulderVolume = 1f;
-    [SerializeField] private float phaseTransitionVolume1to2 = 1f; // Can now be set above 1
-    [SerializeField] private float phaseTransitionVolume2to3 = 1f; // Can now be set above 1
+    [SerializeField] private float phaseTransitionVolume1to2 = 1f;
+    [SerializeField] private float phaseTransitionVolume2to3 = 1f;
     [Range(0f, 1f)][SerializeField] private float firingVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float dyingVolume = 1f;
 
@@ -59,6 +57,20 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private float lavaRiseTime = 3f;
     [SerializeField] private float platformRiseTime = 1.5f;
 
+    [Header("----- Floor Detection -----")]
+    [SerializeField] private float sinkSpeed = 1f;
+    [SerializeField] private GameObject floorCheckObj;
+
+    [Header("----- Emission Settings -----")]
+    [SerializeField] private Color deathEmissionColor = Color.white;
+    [SerializeField] private float deathEmissionIntensity = 5f;
+
+    [SerializeField] private Color flashEmissionColor = Color.red;
+    [SerializeField] private float flashEmissionIntensity = 2f;
+
+    [SerializeField] private Color hitFlashEmissionColor = Color.white;
+    [SerializeField] private float hitFlashEmissionIntensity = 3f;
+
     private enum BossPhase { Phase1, Phase2, Phase3 }
     private BossPhase currentPhase = BossPhase.Phase1;
     private BossPhase previousPhase = BossPhase.Phase1;
@@ -67,6 +79,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     private Coroutine flashRoutine;
     private Coroutine firingRoutine;
     private Coroutine extraFiringRoutine;
+    private Coroutine hitFlashRoutine;
     private float lastEnemyTime;
     private float lastBoulderTime;
     private List<Renderer> allRenderers = new List<Renderer>();
@@ -78,12 +91,16 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     {
         currentHP = maxHP;
         foreach (Renderer rend in GetComponentsInChildren<Renderer>())
+        {
             allRenderers.Add(rend);
+        }
         if (allRenderers.Count > 0)
             originalColor = allRenderers[0].material.color;
         else
             originalColor = Color.white;
+
         gameManager.instance.updateGameGoal(1);
+
         if (lava != null)
             lavaOriginalPos = lava.transform.position;
         if (platforms != null && platforms.Length > 0)
@@ -93,6 +110,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
                 if (platforms[i] != null)
                     platformsOriginalPos[i] = platforms[i].transform.position;
         }
+
         currentPhase = BossPhase.Phase1;
         if (warningText != null)
             warningText.gameObject.SetActive(false);
@@ -124,8 +142,10 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         Ray ray = new Ray(transform.position + Vector3.up, dirToPlayer.normalized);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, dist))
+        {
             if (hit.collider.gameObject == player)
                 return true;
+        }
         return false;
     }
 
@@ -139,6 +159,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
             newPhase = BossPhase.Phase2;
         else
             newPhase = BossPhase.Phase3;
+
         if (newPhase != currentPhase)
         {
             previousPhase = currentPhase;
@@ -149,15 +170,19 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     void PhaseChanged()
     {
+        // Stop all ongoing coroutines that might affect color or behavior
         if (flashRoutine != null) StopCoroutine(flashRoutine);
         if (firingRoutine != null) StopCoroutine(firingRoutine);
         if (extraFiringRoutine != null) StopCoroutine(extraFiringRoutine);
+        if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
 
+        // Play appropriate phase transition audio
         if (previousPhase == BossPhase.Phase1 && currentPhase == BossPhase.Phase2)
             audioSource.PlayOneShot(phaseTransitionClipPhase1to2, phaseTransitionVolume1to2);
         else if (previousPhase == BossPhase.Phase2 && currentPhase == BossPhase.Phase3)
             audioSource.PlayOneShot(phaseTransitionClipPhase2to3, phaseTransitionVolume2to3);
 
+        // Handle color flashing and environment changes based on the new phase
         if (currentPhase == BossPhase.Phase2)
         {
             flashRoutine = StartCoroutine(FlashRedRoutine(1.0f));
@@ -178,7 +203,19 @@ public class EyeBatBoss : MonoBehaviour, IDamage
             ResetColor();
             LowerLavaAndPlatforms();
         }
+
+        // Start the firing pattern appropriate for the current phase
         StartFiringPatternForCurrentPhase();
+    }
+
+    void ResetColor()
+    {
+        foreach (Renderer rend in allRenderers)
+        {
+            rend.material.color = originalColor;
+            // Reset emission to original color with normal intensity
+            rend.material.SetColor("_EmissionColor", originalColor * 1f);
+        }
     }
 
     void StartFiringPatternForCurrentPhase()
@@ -241,7 +278,9 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         Vector3 direction = (playerPos - shootPos.position).normalized;
         GameObject projectile = Instantiate(bulletPrefab, shootPos.position, Quaternion.LookRotation(direction));
         if (projectile.TryGetComponent(out Rigidbody rb))
+        {
             rb.linearVelocity = direction * projectileSpeed;
+        }
         if (projectile.TryGetComponent(out Bullet bullet))
         {
             bullet.SetSpeed(projectileSpeed);
@@ -258,19 +297,19 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         if (playerCollider == null) return;
         float playerFootHeight = playerCollider.bounds.min.y;
         if (lava != null)
-            StartCoroutine(MoveObjectUpwards(lava.transform, lavaOriginalPos.y, playerFootHeight, lavaRiseTime));
+            StartCoroutine(MoveObjectUpwards(lava.transform, lava.transform.position.y, playerFootHeight, lavaRiseTime));
         if (platforms != null)
         {
             for (int i = 0; i < platforms.Length; i++)
                 if (platforms[i] != null)
-                    StartCoroutine(MoveObjectUpwards(platforms[i].transform, platformsOriginalPos[i].y, playerFootHeight, platformRiseTime));
+                    StartCoroutine(MoveObjectUpwards(platforms[i].transform, platforms[i].transform.position.y, playerFootHeight, platformRiseTime));
         }
     }
 
     void LowerLavaAndPlatforms()
     {
         if (lava != null)
-            StartCoroutine(MoveObjectUpwards(lava.transform, lava.transform.position.y, lavaOriginalPos.y, platformRiseTime));
+            StartCoroutine(MoveObjectUpwards(lava.transform, lava.transform.position.y, lavaOriginalPos.y, lavaRiseTime));
         if (platforms != null)
         {
             for (int i = 0; i < platforms.Length; i++)
@@ -340,11 +379,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         Quaternion randomRotation = Random.rotation;
         float rand = Random.value;
         Vector3 spawnPos;
-
         if (rand < 0.33f)
-        {
             spawnPos = player.transform.position + new Vector3(0, 10f, 0);
-        }
         else
         {
             Vector3 randomOffset = Random.insideUnitSphere * boulderSpawnRadius;
@@ -352,7 +388,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
             spawnPos = player.transform.position + randomOffset;
             spawnPos += Vector3.up * 5f;
         }
-
         Instantiate(boulderPrefab, spawnPos, randomRotation);
         AudioSource.PlayClipAtPoint(boulderFallingClip, spawnPos, boulderVolume);
     }
@@ -361,23 +396,31 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     {
         while (!isDead && (currentPhase == BossPhase.Phase2 || currentPhase == BossPhase.Phase3))
         {
-            SetAllRenderersColor(Color.red);
+            // Flash to red with specified intensity
+            SetAllRenderersColor(flashEmissionColor, flashEmissionIntensity);
             yield return new WaitForSeconds(0.1f);
-            ResetColor();
+
+            // Revert to original color with normal intensity
+            SetAllRenderersColor(originalColor, 1f);
             yield return new WaitForSeconds(interval);
         }
+        SetAllRenderersColor(originalColor, 1f);
     }
 
-    void SetAllRenderersColor(Color c)
+    void SetAllRenderersColor(Color color, float emissionIntensity = 1f)
     {
         foreach (Renderer rend in allRenderers)
-            rend.material.color = c;
-    }
+        {
+            // Set the main color
+            rend.material.color = color;
 
-    void ResetColor()
-    {
-        foreach (Renderer rend in allRenderers)
-            rend.material.color = originalColor;
+            // Enable emission keyword if not already enabled
+            rend.material.EnableKeyword("_EMISSION");
+
+            // Set the emission color with intensity
+            Color emissionColor = color * Mathf.LinearToGammaSpace(emissionIntensity);
+            rend.material.SetColor("_EmissionColor", emissionColor);
+        }
     }
 
     void RotateToFacePlayer()
@@ -393,17 +436,64 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     {
         if (isDead) return;
         currentHP -= amount;
+
+        // Assign the coroutine to hitFlashRoutine so it can be stopped upon death
+        if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
+        hitFlashRoutine = StartCoroutine(FlashOnHit());
         if (currentHP <= 0)
+        {
+            if (flashRoutine != null) StopCoroutine(flashRoutine);
             Die();
+        }
+    }
+
+    IEnumerator FlashOnHit()
+    {
+        // Flash to white with specified intensity
+        SetAllRenderersColor(hitFlashEmissionColor, hitFlashEmissionIntensity);
+        yield return new WaitForSeconds(0.1f);
+
+        // Revert to original color with normal intensity
+        SetAllRenderersColor(originalColor, 1f);
     }
 
     void Die()
     {
         isDead = true;
+        // Stop all ongoing coroutines that might affect color or behavior
         if (firingRoutine != null) StopCoroutine(firingRoutine);
         if (extraFiringRoutine != null) StopCoroutine(extraFiringRoutine);
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
+
+        // Set color to white with high intensity
+        SetAllRenderersColor(deathEmissionColor, deathEmissionIntensity);
+
+        // Play dying audio
         audioSource.PlayOneShot(dyingClip, dyingVolume);
+
+        // Update game goal
         gameManager.instance.updateGameGoal(-1);
+
+        // Start sinking down
+        StartCoroutine(SinkDown());
+    }
+
+    IEnumerator SinkDown()
+    {
+        // Ensure the boss remains white with high intensity during sinking
+        SetAllRenderersColor(deathEmissionColor, deathEmissionIntensity);
+
+        while (true)
+        {
+            transform.position += Vector3.down * Time.deltaTime * sinkSpeed;
+            yield return null;
+        }
+    }
+
+    // Method to be called by FloorCheck.cs to destroy the boss
+    public void DestroyBossNow()
+    {
         Destroy(gameObject);
     }
 
