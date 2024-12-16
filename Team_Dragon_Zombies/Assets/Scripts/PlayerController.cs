@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float switchTime;
 
     [Header("-----Effect Selection-----")]
-    [SerializeField] private Image currentEffectIcon;
+    [SerializeField] public Image currentEffectIcon;
     [SerializeField] private Sprite fireIcon;
     [SerializeField] private Sprite iceIcon;
     [SerializeField] private Sprite lightningIcon;
@@ -139,8 +139,8 @@ public class PlayerController : MonoBehaviour, IDamage
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        
-        else 
+
+        else
         {
             Destroy(this.gameObject);
         }

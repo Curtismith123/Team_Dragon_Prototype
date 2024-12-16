@@ -4,46 +4,29 @@ using UnityEngine;
 public class FadeInOut : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
-
     [SerializeField] public float fadeDuration = 1.0f;
-
-    private bool hasFadedIn = false;
-
-
-
-
-    private void Start()
-    {
-        
-        canvasGroup.alpha = 1;
-        if (!hasFadedIn)
-        {
-            
-            FadeIn();
-            hasFadedIn = true;
-        }
-    }
-
 
     public void FadeIn()
     {
-        StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeDuration));
+        StartCoroutine(FadeCanvasGroup(1, 0)); // Fade from opaque to transparent
     }
 
     public void FadeOut()
     {
-        StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeDuration));
+        StartCoroutine(FadeCanvasGroup(0, 1)); // Fade from transparent to opaque
     }
 
-    private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float duration)
+    private IEnumerator FadeCanvasGroup(float startAlpha, float endAlpha)
     {
         float elapsedTime = 0.0f;
+
         while (elapsedTime < fadeDuration)
         {
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
             elapsedTime += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(start, end, elapsedTime / duration);
-            yield return null;
+            yield return null; // Wait for the next frame
         }
-        cg.alpha = end;
+
+        canvasGroup.alpha = endAlpha;
     }
 }

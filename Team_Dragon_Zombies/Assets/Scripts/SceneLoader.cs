@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
-using System.Threading.Tasks;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -14,73 +11,92 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] public FadeInOut fadeController;
 
     private float target;
-    public PlayerController player;
-
     private bool hasTriggered = false;
-
-    private void Start()
-    {
-        player = FindFirstObjectByType<PlayerController>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (!hasTriggered && other.CompareTag("Player"))
         {
             hasTriggered = true;
-            LoadLevel(sceneIndex);
-
+            StartCoroutine(LoadLevelCoroutine(sceneIndex));
         }
     }
 
-    public async void LoadLevel(int sceneIndex)
+    private IEnumerator LoadLevelCoroutine(int sceneIndex)
     {
+        ToggleCurrentEffectIcon(false);
+        if (fadeController != null)
+        {
+            fadeController.FadeOut();
+            yield return new WaitForSeconds(fadeController.fadeDuration);
+        }
 
-        //fade out
-        fadeController.FadeOut();
-        //wait for method to finish
-        await Task.Delay((int)(fadeController.fadeDuration * 1000));
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
 
-        loadingScreen.SetActive(true);
-
-        //restart progress
         target = 0;
-        progressBar.fillAmount = 0;
+        if (progressBar != null)
+            progressBar.fillAmount = 0;
 
-        var scene = SceneManager.LoadSceneAsync(sceneIndex);
+        // Start loading scene
+        AsyncOperation scene = SceneManager.LoadSceneAsync(sceneIndex);
         scene.allowSceneActivation = false;
 
+        // Subscribe to sceneLoaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        do
+        while (scene.progress < 0.9f)
         {
-            await Task.Delay(100);
-
             target = scene.progress;
-        } while (scene.progress < 0.9f);
+            yield return null; // Wait for the next frame
+        }
 
-        await Task.Delay(2000);
+        yield return new WaitForSeconds(2f); // Simulated load delay
 
         scene.allowSceneActivation = true;
 
-        loadingScreen.SetActive(false);
-
+        if (loadingScreen != null)
+            loadingScreen.SetActive(false);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Unsubscribe from the event to prevent duplication
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        if (player != null)
+
+        // Find spawn point in the scene
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        if (spawnPoint != null)
         {
-            player.spawnCurrentPlayer();
+            // Move the player to the spawn point position
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                player.transform.position = spawnPoint.transform.position;
+                player.transform.rotation = spawnPoint.transform.rotation;
+            }
+           
         }
+       
+        ToggleCurrentEffectIcon(true);
     }
 
-    //polish the progress bar to load smoothly
     private void Update()
     {
         if (progressBar != null)
             progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 0.5f * Time.deltaTime);
     }
+    private void ToggleCurrentEffectIcon(bool isVisible)
+    {
+        if (gameManager.instance.playerScript != null)
+        {
+            Image effectIcon = gameManager.instance.playerScript.currentEffectIcon;
+
+            if (effectIcon != null)
+                effectIcon.enabled = isVisible;
+        }
+    }
+
+
 }
+
