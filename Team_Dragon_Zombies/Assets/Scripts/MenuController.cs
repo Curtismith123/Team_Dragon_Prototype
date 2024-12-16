@@ -48,7 +48,8 @@ public class MenuController : MonoBehaviour
     [Header("-----New Game-----")]
     public string newGameLevel;
     private string loadLevel;
-
+    [Header("-----Credits----")]
+    public GameObject credits;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
