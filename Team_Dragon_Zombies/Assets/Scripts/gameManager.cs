@@ -107,6 +107,7 @@ public class gameManager : MonoBehaviour
 
     void Awake()
     {
+        
         instance = this;
         timeScaleOriG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
@@ -143,7 +144,6 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
-
         if (throwObjects == null)
         {
 
@@ -244,6 +244,11 @@ public class gameManager : MonoBehaviour
             menuActive = null;
         }
 
+    }
+
+    public void ResetTimeScale()
+    {
+        Time.timeScale = timeScaleOriG;
     }
 
     private void ToggleSpinObjects(bool enableSpin)

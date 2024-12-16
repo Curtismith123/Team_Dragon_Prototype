@@ -127,6 +127,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void loadMain()
     {
+        gameManager.instance.ResetTimeScale();
         SceneManager.LoadScene("Main Menu");
     }
 
