@@ -137,11 +137,28 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        else
+        
+        else 
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //If main menu is loaded during gameplay, destory player
+        if (scene.name == "Main Menu")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    //unsubscribe from sceneLoaded to prevent memory leaks
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
