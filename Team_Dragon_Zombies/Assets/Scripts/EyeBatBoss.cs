@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.AI;
+
+[System.Serializable]
+public class EnemySpawnInfo
+{
+    [Tooltip("Enemy prefab to spawn.")]
+    public GameObject enemyPrefab;
+
+    [Tooltip("Time interval between spawns for this enemy type.")]
+    public float spawnInterval = 4f;
+}
 
 public class EyeBatBoss : MonoBehaviour, IDamage
 {
@@ -57,7 +68,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private float lavaRiseTime = 3f;
     [SerializeField] private float platformRiseTime = 1.5f;
 
-    // New Serialized Field for Lava Height Offset
     [Tooltip("Additional height above the player's foot level for lava during Phase 2.")]
     [SerializeField] private float lavaHeightOffset = 2f;
 
@@ -82,6 +92,10 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [Tooltip("Maximum height above the player from which boulders can spawn.")]
     [SerializeField] private float boulderMaxSpawnHeight = 25f;
 
+    [Header("----- Enemy Spawn Settings -----")]
+    [Tooltip("Array of enemy types the boss can spawn.")]
+    [SerializeField] private EnemySpawnInfo[] enemySpawnInfos;
+
     private enum BossPhase { Phase1, Phase2, Phase3 }
     private BossPhase currentPhase = BossPhase.Phase1;
     private BossPhase previousPhase = BossPhase.Phase1;
@@ -97,6 +111,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     private Vector3 lavaOriginalPos;
     private Vector3[] platformsOriginalPos;
     private bool canEngage = false;
+
+    private List<Coroutine> enemySpawnCoroutines = new List<Coroutine>();
 
     void Start()
     {
@@ -187,6 +203,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         if (extraFiringRoutine != null) StopCoroutine(extraFiringRoutine);
         if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
 
+        StopAllEnemySpawnCoroutines();
+
         if (previousPhase == BossPhase.Phase1 && currentPhase == BossPhase.Phase2)
             audioSource.PlayOneShot(phaseTransitionClipPhase1to2, phaseTransitionVolume1to2);
         else if (previousPhase == BossPhase.Phase2 && currentPhase == BossPhase.Phase3)
@@ -206,6 +224,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         {
             flashRoutine = StartCoroutine(FlashRedRoutine(0.5f));
             LowerLavaAndPlatforms();
+
+            StartAllEnemySpawnCoroutines();
         }
         else
         {
@@ -344,11 +364,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     void HandlePhase3Actions()
     {
-        if (Time.time - lastEnemyTime >= enemySpawnInterval)
-        {
-            SpawnEnemyOutsidePlayerFOV();
-            lastEnemyTime = Time.time;
-        }
+
         if (Time.time - lastBoulderTime >= boulderSpawnInterval)
         {
             DropBoulder();
@@ -356,19 +372,77 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         }
     }
 
-    void SpawnEnemyOutsidePlayerFOV()
+    void StartAllEnemySpawnCoroutines()
+    {
+        foreach (EnemySpawnInfo enemyInfo in enemySpawnInfos)
+        {
+            if (enemyInfo.enemyPrefab != null)
+            {
+                Coroutine spawnCoroutine = StartCoroutine(SpawnEnemyRoutine(enemyInfo));
+                enemySpawnCoroutines.Add(spawnCoroutine);
+            }
+        }
+    }
+
+    void StopAllEnemySpawnCoroutines()
+    {
+        foreach (Coroutine coroutine in enemySpawnCoroutines)
+        {
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+        }
+        enemySpawnCoroutines.Clear();
+    }
+
+    IEnumerator SpawnEnemyRoutine(EnemySpawnInfo enemyInfo)
+    {
+        while (!isDead && currentPhase == BossPhase.Phase3)
+        {
+            SpawnEnemyOutsidePlayerFOV(enemyInfo.enemyPrefab);
+            yield return new WaitForSeconds(enemyInfo.spawnInterval);
+        }
+    }
+
+    void SpawnEnemyOutsidePlayerFOV(GameObject enemyPrefab)
     {
         if (enemyPrefab == null || player == null) return;
-        int attempts = 5;
+        int attempts = 15;
         Vector3 spawnPos = player.transform.position;
+        NavMeshHit hit;
+        float sampleRadius = enemySpawnRadius * 2f;
+
         for (int i = 0; i < attempts; i++)
         {
-            spawnPos = player.transform.position + Random.insideUnitSphere * enemySpawnRadius;
-            spawnPos.y = player.transform.position.y;
+            Vector3 randomOffset = Random.insideUnitSphere * enemySpawnRadius;
+            spawnPos = player.transform.position + new Vector3(randomOffset.x, 0, randomOffset.z);
+
             if (!IsWithinPlayerFOV(spawnPos))
-                break;
+            {
+                if (NavMesh.SamplePosition(spawnPos, out hit, sampleRadius, NavMesh.AllAreas))
+                {
+                    spawnPos = hit.position;
+                    break;
+                }
+            }
         }
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+        if (NavMesh.SamplePosition(spawnPos, out hit, sampleRadius, NavMesh.AllAreas))
+        {
+            spawnPos = hit.position;
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.enabled = false;
+                enemy.transform.position = hit.position;
+                agent.Warp(hit.position);
+                agent.enabled = true;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("EyeBatBoss: Failed to find a valid spawn position on the NavMesh for enemy.");
+        }
     }
 
     bool IsWithinPlayerFOV(Vector3 position)
@@ -399,7 +473,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         }
         else
         {
-
             Vector3 randomOffset = Random.insideUnitSphere * boulderSpawnRadius;
             randomOffset.y = 0f;
             spawnHeight = Random.Range(boulderMinSpawnHeight, boulderMaxSpawnHeight);
@@ -428,11 +501,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     {
         foreach (Renderer rend in allRenderers)
         {
-
             rend.material.color = color;
-
             rend.material.EnableKeyword("_EMISSION");
-
             Color emissionColor = color * Mathf.LinearToGammaSpace(emissionIntensity);
             rend.material.SetColor("_EmissionColor", emissionColor);
         }
@@ -463,10 +533,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     IEnumerator FlashOnHit()
     {
-
         SetAllRenderersColor(hitFlashEmissionColor, hitFlashEmissionIntensity);
         yield return new WaitForSeconds(0.1f);
-
         SetAllRenderersColor(originalColor, 1f);
     }
 
@@ -479,6 +547,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         if (flashRoutine != null) StopCoroutine(flashRoutine);
         if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
 
+        StopAllEnemySpawnCoroutines();
+
         SetAllRenderersColor(deathEmissionColor, deathEmissionIntensity);
 
         audioSource.PlayOneShot(dyingClip, dyingVolume);
@@ -490,7 +560,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     IEnumerator SinkDown()
     {
-
         SetAllRenderersColor(deathEmissionColor, deathEmissionIntensity);
 
         while (true)
