@@ -105,91 +105,91 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
         }
     }
 
-void Update()
-{
-    float agentSpeed = agent.velocity.magnitude;
-    float animSpeed = anim.GetFloat("Speed");
-    anim.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTrans));
-
-    bool hasEnemy = canSeeEnemy();
-
-    if (hasEnemy)
+    void Update()
     {
-        // Reset noEnemyTimer since we have an enemy
-        noEnemyTimer = 0f;
-        agent.stoppingDistance = attackRange - 0.1f;
-        agent.SetDestination(currentEnemy.transform.position);
-        FaceTarget(currentEnemy.transform.position);
+        float agentSpeed = agent.velocity.magnitude;
+        float animSpeed = anim.GetFloat("Speed");
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTrans));
 
-        if (!isAttacking && agent.remainingDistance <= attackRange)
-        {
-            StartCoroutine(Melee());
-        }
-    }
-    else
-    {
-        // No enemy in sight
-        noEnemyTimer += Time.deltaTime;
+        bool hasEnemy = canSeeEnemy();
 
-        if (!isAttacking && !isRoaming)
+        if (hasEnemy)
         {
-            FollowPlayer();
-        }
+            // Reset noEnemyTimer since we have an enemy
+            noEnemyTimer = 0f;
+            agent.stoppingDistance = attackRange - 0.1f;
+            agent.SetDestination(currentEnemy.transform.position);
+            FaceTarget(currentEnemy.transform.position);
 
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if (!isRoaming && Time.time - lastIdleRoamTime > idleRoamInterval)
+            if (!isAttacking && agent.remainingDistance <= attackRange)
             {
-                StartCoroutine(IdleRoam());
+                StartCoroutine(Melee());
             }
         }
         else
         {
-            if (agent.velocity.sqrMagnitude > 0.1f)
+            // No enemy in sight
+            noEnemyTimer += Time.deltaTime;
+
+            if (!isAttacking && !isRoaming)
             {
-                FaceDirection(agent.velocity.normalized);
+                FollowPlayer();
+            }
+
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!isRoaming && Time.time - lastIdleRoamTime > idleRoamInterval)
+                {
+                    StartCoroutine(IdleRoam());
+                }
+            }
+            else
+            {
+                if (agent.velocity.sqrMagnitude > 0.1f)
+                {
+                    FaceDirection(agent.velocity.normalized);
+                }
+            }
+
+            // Check if we should teleport to player
+            float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distToPlayer > maxTeleportDistance && noEnemyTimer >= noEnemyDuration && !isAttacking && !isRoaming)
+            {
+                TeleportToPlayerSide();
+                noEnemyTimer = 0f;
             }
         }
 
-        // Check if we should teleport to player
-        float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        if (distToPlayer > maxTeleportDistance && noEnemyTimer >= noEnemyDuration && !isAttacking && !isRoaming)
+        // Walking sound logic remains the same
+        if (agent.velocity.magnitude > 0.1f && !audioSource.isPlaying)
         {
-            TeleportToPlayerSide();
-            noEnemyTimer = 0f;
+            audioSource.clip = walkSound;
+            audioSource.loop = true;
+            audioSource.volume = walkSoundVolume;
+            audioSource.Play();
+        }
+        else if (agent.velocity.magnitude < 0.1f && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
     }
 
-    // Walking sound logic remains the same
-    if (agent.velocity.magnitude > 0.1f && !audioSource.isPlaying)
+    void TeleportToPlayerSide()
     {
-        audioSource.clip = walkSound;
-        audioSource.loop = true;
-        audioSource.volume = walkSoundVolume;
-        audioSource.Play();
+        // Teleport close to the player plus follow offset
+        Vector3 teleportPosition = player.transform.position + followOffset;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(teleportPosition, out hit, 2f, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            agent.Warp(hit.position);
+        }
+        else
+        {
+            transform.position = player.transform.position;
+            agent.Warp(player.transform.position);
+        }
     }
-    else if (agent.velocity.magnitude < 0.1f && audioSource.isPlaying)
-    {
-        audioSource.Stop();
-    }
-}
-
-void TeleportToPlayerSide()
-{
-    // Teleport close to the player plus follow offset
-    Vector3 teleportPosition = player.transform.position + followOffset;
-    NavMeshHit hit;
-    if (NavMesh.SamplePosition(teleportPosition, out hit, 2f, NavMesh.AllAreas))
-    {
-        transform.position = hit.position;
-        agent.Warp(hit.position);
-    }
-    else
-    {
-        transform.position = player.transform.position;
-        agent.Warp(player.transform.position);
-    }
-}
 
     public void AssignFollowOffset(int index, int totalFriendlies)
     {
@@ -277,7 +277,7 @@ void TeleportToPlayerSide()
     IEnumerator Melee()
     {
         isAttacking = true;
-        anim.SetTrigger("Melee");
+        //anim.SetTrigger("Melee");
         audioSource.PlayOneShot(attackSound, attackSoundVolume);
 
         yield return new WaitForSeconds(0.1f);

@@ -26,6 +26,8 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private GameObject lava;
     [SerializeField] private GameObject player;
     [SerializeField] private TMP_Text warningText;
+    [SerializeField] public GameObject dropItem;
+    [SerializeField] public Transform dropLocation;
 
     [Header("----- Audio -----")]
     [SerializeField] private AudioSource audioSource;
@@ -55,7 +57,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
     [SerializeField] private float horizontalOffsetDistance = 2f;
 
     [Header("----- Phase Timings and Spawns -----")]
-    [SerializeField] private float enemySpawnInterval = 4f;
+    //[SerializeField] private float enemySpawnInterval = 4f;
     [SerializeField] private float boulderSpawnInterval = 2f;
 
     [Header("----- Spawn Settings -----")]
@@ -554,7 +556,7 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         audioSource.PlayOneShot(dyingClip, dyingVolume);
 
         gameManager.instance.updateGameGoal(-1);
-
+        Instantiate(dropItem, dropLocation.position, Quaternion.identity);
         StartCoroutine(SinkDown());
     }
 

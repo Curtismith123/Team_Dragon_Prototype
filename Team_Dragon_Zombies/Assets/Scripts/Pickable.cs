@@ -13,7 +13,7 @@ public class Pickable : MonoBehaviour
     {
         if (throwObjectsScript == null)
         {
-            throwObjectsScript = FindObjectOfType<ThrowObjects>();
+            throwObjectsScript = FindAnyObjectByType<ThrowObjects>();
             if (throwObjectsScript == null)
             {
                 Debug.LogError("No throwobject script located in scene");
@@ -23,6 +23,8 @@ public class Pickable : MonoBehaviour
 
     private void Update()
     {
+        throwObjectsScript = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
+
         if (Input.GetKeyDown(KeyCode.E) && canPickUp && !isPickedUp) //backup pickup system if not auto picking up.
         {
             TryPickup();

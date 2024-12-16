@@ -135,24 +135,25 @@ public class gameManager : MonoBehaviour
         resDropDown.value = currRes;
         resDropDown.RefreshShownValue();
 
-        InitializeThrowers();
 
         gmDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
         gmDmgEffectVol.profile.TryGetSettings<Vignette>(out gmDmgVignette);
         gmDmgVignette.enabled.Override(false);
-        if (throwObjects == null)
-        {
-
-            throwObjects = player.GetComponent<ThrowObjects>();
-        }
     }
 
     void Start()
     {
 
+        if (throwObjects == null)
+        {
+
+            throwObjects = player.GetComponent<ThrowObjects>();
+        }
+        InitializeThrowers();
+
         // patch code in an attempt to clear unknown origin bug . 
-        ThrowObjects throwtalker = player.GetComponent<ThrowObjects>();
-        throwtalker.ResetThrow();
+        //ThrowObjects throwtalker = player.GetComponent<ThrowObjects>();
+        //throwtalker.ResetThrow();
         volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", volumeSlider.value);
         //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
         //sensSlider.value = MenuController.instance.mainSens;
@@ -163,7 +164,6 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
-
 
         if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.P) && !gameEnded)
         {

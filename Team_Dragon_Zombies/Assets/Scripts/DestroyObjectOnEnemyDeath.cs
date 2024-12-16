@@ -11,7 +11,7 @@ public class DestroyObjectOnEnemyDeath : MonoBehaviour
         enemyHealth = GetComponent<enemyMeleeAttack>();
         if (enemyHealth == null)
         {
-            Debug.LogError("No enemyMeleeAttack script found on this GameObject!");
+            //Debug.LogError("No enemyMeleeAttack script found on this GameObject!");
             return;
         }
 
@@ -22,12 +22,12 @@ public class DestroyObjectOnEnemyDeath : MonoBehaviour
     {
         if (objectToDestroy != null)
         {
-            Debug.Log($"Destroying object: {objectToDestroy.name}");
+            //Debug.Log($"Destroying object: {objectToDestroy.name}");
             Destroy(objectToDestroy);
         }
         else
         {
-            Debug.LogWarning("No object assigned to destroy.");
+            //Debug.LogWarning("No object assigned to destroy.");
         }
 
         Destroy(this);

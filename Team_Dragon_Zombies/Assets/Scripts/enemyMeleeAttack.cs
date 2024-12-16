@@ -303,7 +303,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
         HP -= amount;
-        anim.SetTrigger("Damage");
+        //anim.SetTrigger("Damage");
         //popupDamage.text = amount.ToString();
         //Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
@@ -358,7 +358,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     IEnumerator melee()
     {
         isAttacking = true;
-        anim.SetTrigger("Melee");
+        //anim.SetTrigger("Melee");
         anim.SetTrigger("LeftAttack");
         audioSource.PlayOneShot(attackSound, attackSoundVolume);
 

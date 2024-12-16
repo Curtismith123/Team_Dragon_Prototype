@@ -38,7 +38,7 @@ public class FriendlyExploderAI : MonoBehaviour, IDamage, IFriendly
     public float noEnemyDuration = 5f;
     private float noEnemyTimer = 0f;
 
-    [SerializeField] private float roamTimer = 3f;
+    //[SerializeField] private float roamTimer = 3f;
     private float lastRoamTime = 0f;
 
     [Header("-----Audio-----")]
