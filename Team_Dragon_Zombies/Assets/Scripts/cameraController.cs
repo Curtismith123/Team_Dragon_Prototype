@@ -38,6 +38,7 @@ public class cameraController : MonoBehaviour
 
     private bool isPanning = false;
     private Vector3 origPos;
+    private bool isDead;
 
     public int Sensitivity
     {
@@ -94,7 +95,10 @@ public class cameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(rotX, 0, 0);
 
         // Apply horizontal rotation to the parent (e.g., player object)
-        transform.parent.Rotate(Vector3.up * mouseX);
+        if (!isDead)
+        {
+            transform.parent.Rotate(Vector3.up * mouseX);
+        }
     }
 
     private void HandleViewToggle()
@@ -189,11 +193,13 @@ public class cameraController : MonoBehaviour
     private IEnumerator DeathCam()
     {
         bool holder = isFPV;
+
         isFPV = false;
-
+        isDead = true;
         yield return new WaitForSeconds(player.deathAnimDelay);
-
+        isDead = false;
         transform.position = origPos;
+
         isFPV = holder;
     }
 }
