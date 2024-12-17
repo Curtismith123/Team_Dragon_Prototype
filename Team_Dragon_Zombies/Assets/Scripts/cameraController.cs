@@ -181,5 +181,19 @@ public class cameraController : MonoBehaviour
         StartCoroutine(PanToPosCo(origPos, smoothSpeed));
     }
     public void DeathView()
-    { isFPV = false; }
+    {
+        origPos = isFPV ? FpsPos.transform.position : OtsPos.transform.position;
+        StartCoroutine(DeathCam());
+    }
+
+    private IEnumerator DeathCam()
+    {
+        bool holder = isFPV;
+        isFPV = false;
+
+        yield return new WaitForSeconds(player.deathAnimDelay);
+
+        transform.position = origPos;
+        isFPV = holder;
+    }
 }
