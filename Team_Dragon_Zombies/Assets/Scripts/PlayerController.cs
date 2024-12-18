@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Death Settings------")]
 
     [SerializeField] Vector3 camOffset = new Vector3(0, 5, -5);
-    [SerializeField] float deathAnimDelay = 2f;
+    [SerializeField] public float deathAnimDelay = 2f;
 
 
     [Header("-----Weapon Info-----")]

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Explode : MonoBehaviour
 {
-    public float cubeSize = 0.2f; // The size of each cube
+    private PlayerController player;
+    public float cubeSize = 0.2f;
     public float explosionForce = 50f;
     public float explosionRadius = 4f;
     public float explosionUpward = 0.4f;
@@ -22,10 +23,16 @@ public class Explode : MonoBehaviour
 
     [Range(0.1f, 1.0f)] public float resolutionFactor = 1.0f;
 
+    public Color emissionColor = new Color(1f, 0.647f, 0f);
+    public float emissionIntensity = 0.5f;
+
+    public Light glowLight;
+
     void Start()
     {
+        player = gameManager.instance.playerScript;
         rb.isKinematic = true;
-        audioSource = GetComponent<AudioSource>();
+        audioSource = player.GetComponent<AudioSource>();
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -50,6 +57,9 @@ public class Explode : MonoBehaviour
                 }
             }
         }
+
+        SetEmissionColor();
+        AddGlowLight();
     }
 
     void Update()
@@ -76,10 +86,8 @@ public class Explode : MonoBehaviour
     }
 
     public void ExplodeObjects()
-    { //.
+    {
         PlaySound(clip);
-        // Attempt to clear warning Revert if broken 
-        //DestroyActivate destroyActivate = FindObjectOfType<DestroyActivate>();
         DestroyActivate destroyActivate = FindAnyObjectByType<DestroyActivate>();
         if (destroyActivate != null && destroyActivate.objectToDestroy == gameObject)
         {
@@ -168,8 +176,30 @@ public class Explode : MonoBehaviour
         rb.mass = cubeSize;
 
         Destroy(piece, pieceLifetime);
-
     }
+
+    private void SetEmissionColor()
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            if (renderer.material.HasProperty("_EmissionColor"))
+            {
+                renderer.material.SetColor("_EmissionColor", emissionColor * emissionIntensity);
+                renderer.material.EnableKeyword("_EMISSION");
+            }
+        }
+    }
+
+    private void AddGlowLight()
+    {
+        glowLight = gameObject.AddComponent<Light>();
+        glowLight.type = LightType.Point;
+        glowLight.color = emissionColor;
+        glowLight.intensity = 2f;
+        glowLight.range = 3f;
+    }
+
     private void PlaySound(AudioClip clip)
     {
         if (audioSource != null && clip != null)
