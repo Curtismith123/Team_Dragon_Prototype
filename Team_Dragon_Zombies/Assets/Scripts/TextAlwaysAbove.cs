@@ -7,7 +7,7 @@ public class TextAlwaysAbove : MonoBehaviour
 
     void Update()
     {
-        if (rollingObject != null)
+        if (rollingObject != null && Camera.main != null)
         {
             transform.position = rollingObject.position + offset;
 
