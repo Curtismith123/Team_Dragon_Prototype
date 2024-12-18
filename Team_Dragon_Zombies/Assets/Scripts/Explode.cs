@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Explode : MonoBehaviour
 {
+    private PlayerController player;
     public float cubeSize = 0.2f;
     public float explosionForce = 50f;
     public float explosionRadius = 4f;
@@ -29,8 +30,9 @@ public class Explode : MonoBehaviour
 
     void Start()
     {
+        player = gameManager.instance.playerScript;
         rb.isKinematic = true;
-        audioSource = GetComponent<AudioSource>();
+        audioSource = player.GetComponent<AudioSource>();
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
