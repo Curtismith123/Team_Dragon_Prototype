@@ -80,8 +80,11 @@ public class Explode : MonoBehaviour
         if (other.CompareTag("Breaker"))
         {
             isBroken = true;
+            InitObject();
+            DropItem = null;
             ExplodeObjects();
             CheckChildrenForExplosion();
+
         }
     }
 
@@ -146,11 +149,6 @@ public class Explode : MonoBehaviour
 
     void createPiece(int x, int y, int z, int cubesInRowX, int cubesInRowY, int cubesInRowZ)
     {
-
-        if (DropItem != null)
-        {
-            Instantiate(DropItem, this.transform.position + Vector3.up, Quaternion.identity);
-        }
         float offsetX = (x + 0.5f) / cubesInRowX;
         float offsetY = (y + 0.5f) / cubesInRowY;
         float offsetZ = (z + 0.5f) / cubesInRowZ;
@@ -205,6 +203,13 @@ public class Explode : MonoBehaviour
         if (audioSource != null && clip != null)
         {
             audioSource.PlayOneShot(clip);
+        }
+    }
+    private void InitObject()
+    {
+        if (DropItem != null)
+        {
+            Instantiate(DropItem, this.transform.position + Vector3.up, Quaternion.identity);
         }
     }
 }
