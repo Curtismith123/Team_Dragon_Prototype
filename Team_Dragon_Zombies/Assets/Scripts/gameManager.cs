@@ -89,7 +89,7 @@ public class gameManager : MonoBehaviour
     PostProcessVolume gmDmgEffectVol;
     Vignette gmDmgVignette;
 
-    private bool isPaused;
+    public bool isPaused;
     private bool gameEnded; //flag to indicate win/lose state
     private bool individualSet;
 
@@ -107,7 +107,7 @@ public class gameManager : MonoBehaviour
 
     void Awake()
     {
-        
+
         instance = this;
         timeScaleOriG = Time.timeScale;
         player = GameObject.FindWithTag("Player");

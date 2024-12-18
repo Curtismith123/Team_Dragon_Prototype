@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         // Update the animator's Speed parameter
         UpdateAnimator();
-
+        updatePlayerUI();
         UpdateEffectUI();
         if (weaponList.Count > 0)
         {
@@ -689,17 +689,20 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void selectWeapon()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+        if (!gameManager.instance.isPaused)
         {
-            selectedWeapon++;
-            changeWeapon();
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+            {
+                selectedWeapon++;
+                changeWeapon();
+            }
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+            {
+                selectedWeapon--;
+                changeWeapon();
+            }
+            selectedWeapon = Mathf.Clamp(selectedWeapon, 0, weaponList.Count - 1);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
-        {
-            selectedWeapon--;
-            changeWeapon();
-        }
-        selectedWeapon = Mathf.Clamp(selectedWeapon, 0, weaponList.Count - 1);
     }
 
     void changeWeapon()
