@@ -1,21 +1,24 @@
-using NUnit.Framework.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Equip : MonoBehaviour
 {
-    enum pickupType { weapon, HP, stamina, ammo, key, conversionCharge }
-    [SerializeField] pickupType type;
-    [SerializeField] Weapon weapon;
-    [SerializeField] string keyID;
-    [SerializeField] float conversionChargeAmount = 20f;
-    private AudioSource audioSource;
-    public AudioClip clip;
+    private enum PickupType { Weapon, HP, Stamina, Ammo, Key, ConversionCharge }
+
+    [Header("Pickup Settings")]
+    [SerializeField] private PickupType type;
+    [SerializeField] private Weapon weapon;
+    [SerializeField] private string keyID;
+    [SerializeField] private float conversionChargeAmount = 20f;
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip weaponPickupClip;
+    [SerializeField] private AudioClip keyPickupClip;
+
+    private AudioSource playerAudioSource;
 
     void Start()
     {
-        if (type == pickupType.weapon)
+        if (type == PickupType.Weapon && weapon != null)
         {
             weapon.ammoCur = weapon.ammoMax;
         }
@@ -25,30 +28,57 @@ public class Equip : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            playerAudioSource = other.GetComponent<AudioSource>();
+
+            if (playerAudioSource == null)
+            {
+                Debug.LogWarning("Player does not have an AudioSource component.");
+            }
+
             switch (type)
             {
-                case pickupType.weapon:
-                    gameManager.instance.playerScript.getWeaponStats(weapon);
-                    gameManager.instance.ammoUpdate(weapon.ammoCur);
+                case PickupType.Weapon:
+                    if (weapon != null)
+                    {
+                        gameManager.instance.playerScript.getWeaponStats(weapon);
+                        gameManager.instance.ammoUpdate(weapon.ammoCur);
+                        PlaySound(weaponPickupClip);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Weapon reference is missing on pickup object.");
+                    }
                     break;
 
-                case pickupType.key:
+                case PickupType.Key:
                     gameManager.instance.AddKey(keyID);
+                    PlaySound(keyPickupClip);
                     break;
 
-                case pickupType.conversionCharge:
+                case PickupType.ConversionCharge:
                     gameManager.instance.playerScript.AddConversionGauge(conversionChargeAmount);
+                    break;
+
+                default:
                     break;
             }
 
             Destroy(gameObject);
         }
     }
+
     private void PlaySound(AudioClip clip)
     {
-        if (audioSource != null && clip != null)
+        if (playerAudioSource != null && clip != null)
         {
-            audioSource.PlayOneShot(clip);
+            playerAudioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            if (playerAudioSource == null)
+                Debug.LogWarning("Player AudioSource is missing. Cannot play pickup sound.");
+            if (clip == null)
+                Debug.LogWarning("AudioClip is not assigned for this pickup type.");
         }
     }
 }
