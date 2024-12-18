@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8725657131192380327}
   - component: {fileID: 7353888940616951298}
   - component: {fileID: -8027760808565402387}
+  - component: {fileID: 757754478039420082}
   m_Layer: 0
   m_Name: BarrelD
   m_TagString: Untagged
@@ -50,10 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeSize: 0.2
-  explosionForce: 50
+  explosionForce: 10
   explosionRadius: 4
   explosionUpward: 0.4
-  DropItem: {fileID: 0}
+  DropItem: {fileID: 9047859364084295120, guid: 4cb8d1e4091c4c34c92f97a87a96b4c9, type: 3}
   rb: {fileID: 8725657131192380327}
   isBroken: 0
   ignoreLayers:
@@ -63,6 +64,9 @@ MonoBehaviour:
   pieceLifetime: 5
   clip: {fileID: 8300000, guid: 53c66124f6874724eb77cefc6f3fdcec, type: 3}
   resolutionFactor: 0.231
+  emissionColor: {r: 1, g: 0.647, b: 0, a: 1}
+  emissionIntensity: 0.5
+  glowLight: {fileID: 0}
 --- !u!33 &6242888100122043272
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -158,7 +162,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -262,3 +266,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &757754478039420082
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302706839107745055}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.69534135
+  m_Height: 2.2109697
+  m_Direction: 1
+  m_Center: {x: 0.00000023841858, y: 0.76860654, z: -0.002053976}
