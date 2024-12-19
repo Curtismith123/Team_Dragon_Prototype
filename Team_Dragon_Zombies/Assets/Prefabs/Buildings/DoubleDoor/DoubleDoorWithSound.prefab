@@ -331,9 +331,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3689900774193318450}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.1952093, z: -0, w: -0.9807617}
+  m_LocalRotation: {x: -0, y: -0.19521044, z: 0, w: -0.9807614}
   m_LocalPosition: {x: -29.264, y: -7.61, z: -16.007}
-  m_LocalScale: {x: 1.8574144, y: 1.3689455, z: 1.3035092}
+  m_LocalScale: {x: 3.5359597, y: 3.0108585, z: 1.3035092}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5364179916429945330}
@@ -355,13 +355,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd2dd68fd2df5341b01f3b23e0083b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredKeyID: 8472
+  requiredKeyID: 201
   locked: {fileID: 5419913407169282582}
   unlocked: {fileID: 6460649664041700171}
   doorSource: {fileID: 4430180831734751037}
   lockedClip: {fileID: 8300000, guid: e9e33ed7b492a9a4495b879cf55d9c89, type: 3}
   unlockedClip: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
-  openClip: {fileID: 8300000, guid: 7852d0a3750e3344591245420d563cda, type: 3}
+  openClip: {fileID: 8300000, guid: 10fab2a262c95d641a18b7db1bc2cc2f, type: 3}
 --- !u!95 &1250676938130927077
 Animator:
   serializedVersion: 7
@@ -430,8 +430,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.750001, y: 2.5, z: 1.9742597}
-  m_Center: {x: 0.00000000462608, y: 1.25, z: 0.5571286}
+  m_Size: {x: 1.750001, y: 2.5, z: 5.537267}
+  m_Center: {x: -6.509082e-10, y: 1.25, z: 0.6337696}
 --- !u!82 &4430180831734751037
 AudioSource:
   m_ObjectHideFlags: 0
