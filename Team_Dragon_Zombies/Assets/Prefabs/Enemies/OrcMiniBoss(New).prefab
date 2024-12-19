@@ -635,6 +635,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3095294133296825826}
+  - {fileID: 9076772909263615297}
   m_Father: {fileID: 8794567677123500714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2856750608143470333
@@ -733,6 +734,74 @@ Transform:
   - {fileID: 7358958008472205757}
   m_Father: {fileID: 106504361435947458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3054242117156703901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9076772909263615297}
+  - component: {fileID: 3568825319183394701}
+  - component: {fileID: 4413741836277415833}
+  m_Layer: 8
+  m_Name: HitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9076772909263615297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054242117156703901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5494130694852318982}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3568825319183394701
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054242117156703901}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.005
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4413741836277415833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054242117156703901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc06b892c09c87a4a83c8900cef435ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 20
+  delay: 1
 --- !u!1 &3151301446482458765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,6 +1566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7a0c2ae867eff4785c355941b860ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rangeTuner: 0
+  hitPoint: {fileID: 0}
+  dropItem: {fileID: 0}
   agent: {fileID: 8182042440095104188}
   model: {fileID: 0}
   anim: {fileID: 4799034582025842671}
@@ -1507,7 +1579,7 @@ MonoBehaviour:
   roamDist: 0
   roamTimer: 0
   animSpeedTrans: 2
-  attackRate: 1.5
+  attackRate: 1
   meleeDamage: 50
   attackRange: 5
   walkSound: {fileID: 8300000, guid: 7d475a8b12c1fb2448959d0d82cb403f, type: 3}

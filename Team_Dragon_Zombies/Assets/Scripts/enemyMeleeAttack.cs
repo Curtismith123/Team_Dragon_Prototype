@@ -7,6 +7,9 @@ using static StatusEffectSO;
 
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
+
+    [SerializeField] public float rangeTuner;
+    [SerializeField] public GameObject hitPoint;
     [SerializeField] GameObject dropItem;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
@@ -91,53 +94,65 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         }
 
         gameManager.instance.updateGameGoal(1);
-        stoppingDistOrig = agent.stoppingDistance;
+        stoppingDistOrig = 0 + rangeTuner;
         startingPos = transform.position;
         originalSpeed = agent.speed;
     }
 
     void Update()
     {
+        // Update animation speed
         float agentSpeed = agent.velocity.magnitude;
         float animSpeed = anim.GetFloat("Speed");
         anim.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTrans));
 
+        // Increment timers
         timeSinceLastHit += Time.deltaTime;
 
         if (target != null)
         {
             if (canSeeTarget())
             {
-                targetDir = target.transform.position - headPos.position;
-                agent.SetDestination(target.transform.position);
+                // Adjust stopping distance for attacking
+                agent.stoppingDistance = attackRange - rangeTuner;
 
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+                if (!agent.pathPending && distanceToTarget > attackRange + rangeTuner)
                 {
-                    faceTarget();
+                    // Resume movement if the target is out of melee range
+                    agent.isStopped = false;
+                    agent.SetDestination(target.transform.position);
                 }
-
-                if (!isAttacking && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+                else if (!agent.pathPending && distanceToTarget <= attackRange)
                 {
-                    StartCoroutine(melee());
+                    // Stop and attack if within melee range
+                    agent.isStopped = true;
+                    faceTarget();
+
+                    if (!isAttacking)
+                    {
+
+                        StartCoroutine(melee()); // Trigger attack animation
+                    }
                 }
             }
-            else
+            else if (timeSinceLastHit >= timeToSwitchTarget)
             {
-                //can't see target, switch if necessary
-                if (timeSinceLastHit >= timeToSwitchTarget)
-                {
-                    FindClosestTarget();
-                }
+                FindClosestTarget();
             }
         }
         else
         {
+            // Adjust stopping distance for roaming
+            agent.stoppingDistance = 0;
+
             if (timeSinceLastHit >= timeToSwitchTarget)
             {
                 FindClosestTarget();
             }
 
-            if (target == null && !isRoaming && agent.remainingDistance < 0.05f)
+            if (!isRoaming && agent.remainingDistance < 0.05f)
             {
                 StartCoroutine(roam());
             }
@@ -145,8 +160,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
         HandleAudio();
         HandleConversion();
-
     }
+
+
 
     public float CalculateDamage(float baseDamage, EffectType effectType)
     {
@@ -362,15 +378,16 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
         anim.SetTrigger("LeftAttack");
         audioSource.PlayOneShot(attackSound, attackSoundVolume);
 
-        yield return new WaitForSeconds(0.1f);
+        // Get the current animation's state information
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(1);
+        float animDelay = stateInfo.length;
+        hitPoint.SetActive(true);
+        Debug.Log("collider one");
+        yield return new WaitForSeconds(animDelay - .2f);
+        hitPoint.SetActive(false);
+        Debug.Log("Collider off");
 
-        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
-        {
-            IDamage targetDamage = target.GetComponent<IDamage>();
-            targetDamage?.takeDamage(meleeDamage, gameObject);
-        }
-
-        yield return new WaitForSeconds(attackRate - 0.1f);
+        yield return new WaitForSeconds(attackRate);
         isAttacking = false;
     }
 
@@ -486,4 +503,8 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
     public enum EnemyTier { Tier1, Tier2, Tier3, Tier4 }
+
+
+
 }
+
