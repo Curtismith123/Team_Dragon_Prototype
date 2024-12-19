@@ -116,4 +116,9 @@ public class ThrowObjects : MonoBehaviour
     {
         return maxThrows;
     }
+    public void SetRemainingThrows(int count)
+    {
+        count = count > maxThrows ? maxThrows : count;
+        remainingThrows = count;
+    }
 }
