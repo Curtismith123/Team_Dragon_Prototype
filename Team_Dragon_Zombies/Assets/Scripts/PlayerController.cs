@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject weaponModel;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] Transform shootPos;
-    private Transform origShootPos;
+
     [SerializeField] GameObject bullet;
     float shootDamage;
     float shootDist;
@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("-----Misc-----")]
     public GameObject hat;
 
+
     [Header("-----Damage Screen-----")]
     public float intensity;
     public Volume dmgEffect;
@@ -168,17 +169,19 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void Start()
     {
+
         HPOrig = HP;
         spawnPlayer();
         SpeedAlt = Speed;
         currentStamina = maxStamina;
         updatePlayerUI();
+
         hat.SetActive(false);
         currentEffect = EffectType.Fire;
         intensityOG = intensity;
         isDead = false;
         currentEffectIcon = GetComponentInChildren<Image>();
-        origShootPos = shootPos;
+
 
         mDmgEffectVol = dmgEffect.GetComponent<PostProcessVolume>();
         mDmgEffectVol.profile.TryGetSettings<Vignette>(out mDmgVignette);
@@ -192,7 +195,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void Update()
     {
-        shootPos = isTwoHanded ? thShootpoint.transform : ohShootpoint.transform;
+
+
+
         if (!gameManager.instance.IsPaused)
         {
             if (this.controller != null)
@@ -655,10 +660,13 @@ public class PlayerController : MonoBehaviour, IDamage
             Destroy(child.gameObject);
         }
         ApplyWeaponParts(weapon.weaponModel.transform);
+
+
     }
 
     void ApplyWeaponParts(Transform weaponPart)
     {
+
         foreach (Transform child in weaponPart)
         {
             MeshFilter meshFilter = child.GetComponent<MeshFilter>();
@@ -696,22 +704,27 @@ public class PlayerController : MonoBehaviour, IDamage
                 changeWeapon();
             }
             selectedWeapon = Mathf.Clamp(selectedWeapon, 0, weaponList.Count - 1);
+
         }
     }
 
     void changeWeapon()
     {
 
+        // Destroy any existing weapon models in the player's hand
         foreach (Transform child in weaponModel.transform)
         {
             Destroy(child.gameObject);
         }
 
+        // Instantiate the new weapon model in the player's hand
         ApplyWeaponParts(weaponList[selectedWeapon].weaponModel.transform);
 
+        // Set up the MeshFilter and MeshRenderer for the weapon's visuals
         MeshFilter newMeshFilter = weaponList[selectedWeapon].weaponModel.GetComponent<MeshFilter>();
         MeshRenderer newMeshRenderer = weaponList[selectedWeapon].weaponModel.GetComponent<MeshRenderer>();
 
+        // Update weapon stats
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
@@ -720,9 +733,9 @@ public class PlayerController : MonoBehaviour, IDamage
         spreadAngle = weaponList[selectedWeapon].spreadAngle;
         isTwoHanded = weaponList[selectedWeapon].isTwoHanded;
 
-
         gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
     }
+
 
     IEnumerator FireCooldown()
     {
@@ -909,5 +922,6 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         isDead = false;
     }
+
 
 }
