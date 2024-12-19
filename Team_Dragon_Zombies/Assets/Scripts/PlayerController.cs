@@ -256,6 +256,8 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             isAiming = true;
 
+
+
         }
         if (Input.GetButtonUp("Aim") && isAiming)
         {
@@ -270,10 +272,14 @@ public class PlayerController : MonoBehaviour, IDamage
             mDmgVignette.enabled.Override(true);
             mDmgVignette.intensity.Override(intensityOG + 0.2f);
         }
-        if (HP < 10)
+        else if (HP < 10)
         {
             mDmgVignette.enabled.Override(true);
             mDmgVignette.intensity.Override(intensityOG + 0.3f);
+        }
+        else
+        {
+            mDmgVignette.enabled.Override(false);
         }
     }
 
