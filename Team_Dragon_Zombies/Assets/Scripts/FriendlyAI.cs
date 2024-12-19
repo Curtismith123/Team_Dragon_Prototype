@@ -11,6 +11,7 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
     public Renderer model;
     public Transform headPos;
 
+
     [Header("-----Stats-----")]
     public int HP;
     public float faceTargetSpeed;
@@ -56,14 +57,13 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
 
     void Start()
     {
+        TurnOffHitPoint();
         player = GameObject.FindWithTag("Player");
         agent = agent ?? GetComponent<NavMeshAgent>();
         anim = anim ?? GetComponent<Animator>();
 
-        if (player == null || agent == null || anim == null)
-        {
-            Debug.LogWarning($"FriendlyAI {name} is missing required components.");
-        }
+
+
 
         agent.radius = 0.5f;
         agent.stoppingDistance = 0.5f;
@@ -351,6 +351,38 @@ public class FriendlyAI : MonoBehaviour, IDamage, IFriendly
         isDead = true;
         gameManager.instance.RemoveFriendly(this);
         Destroy(gameObject);
+    }
+
+    GameObject FindDeepChild(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+            {
+                return child.gameObject; // Return the specific child GameObject
+            }
+
+            // Recursively search deeper in the hierarchy
+            GameObject result = FindDeepChild(child, name);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+        return null; // Return null if no matching GameObject is found
+    }
+    void TurnOffHitPoint()
+    {
+        // Start searching from this GameObject's root
+        GameObject hitPoint = FindDeepChild(transform, "hitPoint");
+
+        // Check if hitPoint is found
+        if (hitPoint != null)
+        {
+            hitPoint.SetActive(false); // Disable ONLY the hitPoint GameObject
+
+        }
+
     }
 
 }
