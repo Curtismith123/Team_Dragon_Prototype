@@ -18,6 +18,9 @@ public class ThrowObjects : MonoBehaviour
     public float throwForce;
     public float throwUpwardForce;
 
+    [Tooltip("Maximum downward angle (in degrees) the player can throw.")]
+    public float maxDownwardAngle = -15f;
+
     public int remainingThrows = 0;
     private bool readyToThrow;
 
@@ -47,14 +50,29 @@ public class ThrowObjects : MonoBehaviour
             Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
 
             Vector3 forceDirection = cam.transform.forward;
+
+            float angle = Vector3.Angle(cam.transform.forward, Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up));
+
+            if (angle > maxDownwardAngle)
+            {
+
+                bool isLookingDown = cam.transform.forward.y < 0;
+
+                if (isLookingDown)
+                {
+
+                    forceDirection = Quaternion.Euler(-maxDownwardAngle, cam.eulerAngles.y, 0) * Vector3.forward;
+                }
+            }
+
             RaycastHit hit;
 
-            if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+            if (Physics.Raycast(cam.position, forceDirection, out hit, 500f))
             {
                 forceDirection = (hit.point - attackPoint.position).normalized;
             }
 
-            Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            Vector3 forceToAdd = forceDirection * throwForce + Vector3.up * throwUpwardForce;
             projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
 
 
