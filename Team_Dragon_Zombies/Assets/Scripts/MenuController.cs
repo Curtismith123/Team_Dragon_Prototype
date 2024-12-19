@@ -74,9 +74,9 @@ public class MenuController : MonoBehaviour
         }
 
         resDropDown.AddOptions(resOptions);
-        resDropDown.value = 38;
+        resDropDown.value = 16;
         resDropDown.RefreshShownValue();
-        menuSetResolution(38);
+        menuSetResolution(16);
     }
 
     // Update is called once per frame
@@ -181,7 +181,7 @@ public class MenuController : MonoBehaviour
 
     public void menuGraphicsApply()
     {
-        
+
         PlayerPrefs.SetInt("masterQuality", qualityLevel);
         QualitySettings.SetQualityLevel(qltyDropdown.value);
 
