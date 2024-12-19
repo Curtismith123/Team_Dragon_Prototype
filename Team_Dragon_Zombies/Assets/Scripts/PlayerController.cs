@@ -103,6 +103,9 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float stepRate = 0.4f;
     [SerializeField][Range(0, 1)] float audStepsVol;
 
+    [SerializeField] AudioClip[] audReload;
+    [SerializeField][Range(0, 1)] float audReloadVol = 1f;
+
     bool isPlayingSteps;
     [Header("-----Misc-----")]
     public GameObject hat;
@@ -126,6 +129,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool canFire = true;
     private bool hasJumped;
 
+    private bool isReloading = false;
 
     [Header("-----Player Prefab-----")]
     private static PlayerController instance;
@@ -732,12 +736,36 @@ public class PlayerController : MonoBehaviour, IDamage
     //-------------------------------------------AMMO LOGIC (COMPLETE)
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && weaponList.Count > 0)
+        if (Input.GetButtonDown("Reload") && weaponList.Count > 0 && !isReloading)
         {
             Weapon currentWeapon = weaponList[selectedWeapon];
-            currentWeapon.ammoCur = Mathf.Min(currentWeapon.ammoMax, currentWeapon.ammoCur + currentWeapon.ammoMax);
-            gameManager.instance.ammoUpdate(weaponList[selectedWeapon].ammoCur);
+
+            if (currentWeapon.ammoCur < currentWeapon.ammoMax)
+            {
+                StartCoroutine(ReloadWeapon(currentWeapon));
+            }
+
         }
+    }
+
+    IEnumerator ReloadWeapon(Weapon weapon)
+    {
+        isReloading = true;
+
+        if (audReload.Length > 0)
+        {
+            AudioClip reloadClip = audReload[Random.Range(0, audReload.Length)];
+            aud.PlayOneShot(reloadClip, audReloadVol);
+        }
+
+        yield return new WaitForSeconds(.5f);
+
+        int ammoNeeded = weapon.ammoMax - weapon.ammoCur;
+        weapon.ammoCur += ammoNeeded;
+        weapon.ammoCur = Mathf.Clamp(weapon.ammoCur, 0, weapon.ammoMax);
+        gameManager.instance.ammoUpdate(weapon.ammoCur);
+
+        isReloading = false;
     }
     //-------------------------------------------
 
