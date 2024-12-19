@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 7353888940616951298}
   - component: {fileID: -8027760808565402387}
   - component: {fileID: 757754478039420082}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BarrelD
-  m_TagString: Untagged
+  m_TagString: Breaker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeSize: 0.2
-  explosionForce: 10
+  explosionForce: 6
   explosionRadius: 4
   explosionUpward: 0.4
-  DropItem: {fileID: 9047859364084295120, guid: 4cb8d1e4091c4c34c92f97a87a96b4c9, type: 3}
+  DropItem: {fileID: 1685723280189641393, guid: ee6d6cb1fa9054540ba04b11180d6b44, type: 3}
   rb: {fileID: 8725657131192380327}
   isBroken: 0
   ignoreLayers:
@@ -157,13 +157,13 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3087005695
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 1
