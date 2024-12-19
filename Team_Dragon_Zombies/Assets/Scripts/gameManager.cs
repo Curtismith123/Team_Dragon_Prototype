@@ -113,12 +113,14 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        qltyDropdown.value = 5;
+        QualitySettings.SetQualityLevel(5);
 
         resolutions = Screen.resolutions;
         resDropDown.ClearOptions();
 
         List<string> resOptions = new List<string>();
-        int currRes = 19;
+        int currRes = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -133,7 +135,7 @@ public class gameManager : MonoBehaviour
 
 
         resDropDown.AddOptions(resOptions);
-        resDropDown.value = currRes;
+        resDropDown.value = 38;
         resDropDown.RefreshShownValue();
 
 
@@ -434,8 +436,8 @@ public class gameManager : MonoBehaviour
         if (menuType == "Graphics")
         {
             //Reset brightness
-            qltyDropdown.value = 1;
-            QualitySettings.SetQualityLevel(1);
+            qltyDropdown.value = 5;
+            QualitySettings.SetQualityLevel(5);
             fullScrToggle.isOn = true;
             Screen.fullScreen = true;
 

@@ -54,6 +54,8 @@ public class MenuController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        qltyDropdown.value = 5;
+        QualitySettings.SetQualityLevel(5);
         resolutions = Screen.resolutions;
         resDropDown.ClearOptions();
 
@@ -72,8 +74,9 @@ public class MenuController : MonoBehaviour
         }
 
         resDropDown.AddOptions(resOptions);
-        resDropDown.value = currRes;
+        resDropDown.value = 38;
         resDropDown.RefreshShownValue();
+        menuSetResolution(38);
     }
 
     // Update is called once per frame
@@ -116,8 +119,8 @@ public class MenuController : MonoBehaviour
         if (menuType == "Graphics")
         {
             //Reset brightness
-            qltyDropdown.value = 1;
-            QualitySettings.SetQualityLevel(1);
+            qltyDropdown.value = 5;
+            QualitySettings.SetQualityLevel(5);
             fullScrToggle.isOn = true;
             Screen.fullScreen = true;
 
@@ -178,9 +181,9 @@ public class MenuController : MonoBehaviour
 
     public void menuGraphicsApply()
     {
-        //brightness
+        
         PlayerPrefs.SetInt("masterQuality", qualityLevel);
-        QualitySettings.SetQualityLevel(qualityLevel);
+        QualitySettings.SetQualityLevel(qltyDropdown.value);
 
         PlayerPrefs.SetInt("masterFullSCreen", (IsFullScreen ? 1 : 0));
         Screen.fullScreen = IsFullScreen;
