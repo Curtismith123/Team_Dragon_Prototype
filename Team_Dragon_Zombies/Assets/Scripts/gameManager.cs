@@ -146,27 +146,17 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
-        if (throwObjects == null)
-        {
-
-            throwObjects = player.GetComponent<ThrowObjects>();
-        }
+        throwObjects = playerScript.GetComponent<ThrowObjects>();
         InitializeThrowers();
 
-        // patch code in an attempt to clear unknown origin bug . 
-        //ThrowObjects throwtalker = player.GetComponent<ThrowObjects>();
-        //throwtalker.ResetThrow();
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", volumeSlider.value);
-        //sensTextValue.text = MenuController.instance.mainSens.ToString("F0");
-        //sensSlider.value = MenuController.instance.mainSens;
-        //cameraController.camController.Sensitivity = MenuController.instance.mainSens;
 
-        //sensTextValue.text = PlayerPrefs.GetInt("mainSens").ToString("F0");    }
+        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", volumeSlider.value);
+
     }
 
     void Update()
     {
-
+        InitializeThrowers();
         if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.P) && !gameEnded)
         {
 
@@ -296,6 +286,7 @@ public class gameManager : MonoBehaviour
 
     public void UpdateThrowers(int remainingThrows)
     {
+
         float fillAmount = Mathf.Clamp01((float)remainingThrows / throwObjects.GetTotalThrows());
         Throwers.fillAmount = fillAmount;
     }

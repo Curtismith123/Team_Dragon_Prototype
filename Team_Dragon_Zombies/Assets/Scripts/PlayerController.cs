@@ -196,6 +196,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void Update()
     {
 
+        UpdateConversionGaugeUI();
 
 
         if (!gameManager.instance.IsPaused)
@@ -621,7 +622,7 @@ public class PlayerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.1f);
         }
 
-        mDmgVignette.enabled.Override(HP > 0 && HP <= 20 ? true : false);
+
     }
 
     public void updatePlayerUI()
