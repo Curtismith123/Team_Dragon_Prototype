@@ -78,9 +78,10 @@ public class MenuController : MonoBehaviour
         }
 
         resDropDown.AddOptions(resOptions);
-        resDropDown.value = 16;
+        int maxRes = resOptions.Count - 1;
+        resDropDown.value = maxRes;
         resDropDown.RefreshShownValue();
-        menuSetResolution(16);
+        menuSetResolution(maxRes);
     }
 
     // Update is called once per frame
