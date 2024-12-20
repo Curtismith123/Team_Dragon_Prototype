@@ -253,7 +253,8 @@ public class PlayerController : MonoBehaviour, IDamage
             RotateEffect();
         }
         // Aim to shoot 
-        if (Input.GetButtonDown("Aim") && weaponList.Count > 0)
+
+        if (Input.GetButtonDown("Aim") && weaponList.Count > 0 && gameManager.instance.menuActive == null)
         {
             isAiming = true;
 
@@ -852,7 +853,7 @@ public class PlayerController : MonoBehaviour, IDamage
                     if (isAiming)
                     {
                         // Move to aiming position
-                        weaponModel.transform.position = Vector3.Lerp(
+                        weaponModel.transform.position = Vector3.MoveTowards(
                             weaponModel.transform.position,
                             thAimPos.transform.position,
                             Time.deltaTime * switchTime
@@ -866,7 +867,7 @@ public class PlayerController : MonoBehaviour, IDamage
                     else
                     {
                         // Move to idle position
-                        weaponModel.transform.position = Vector3.Lerp(
+                        weaponModel.transform.position = Vector3.MoveTowards(
                             weaponModel.transform.position,
                             thIdlePos.transform.position,
                             Time.deltaTime * switchTime
