@@ -3914,10 +3914,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 58813532}
     m_Modifications:
-    - target: {fileID: 3568825319183394701, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5020111064623009101, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
       propertyPath: m_Name
       value: OrcMiniBoss(New)
@@ -3926,34 +3922,6 @@ PrefabInstance:
       propertyPath: dropItem
       value: 
       objectReference: {fileID: 1638726873}
-    - target: {fileID: 5760961530845725163, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: hitPoint
-      value: 
-      objectReference: {fileID: 1908917164}
-    - target: {fileID: 5760961530845725163, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: roamDist
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760961530845725163, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: roamTimer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760961530845725163, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: rangeTuner
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8889650418605804943, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.495
-      objectReference: {fileID: 0}
-    - target: {fileID: 8889650418605804943, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.495
-      objectReference: {fileID: 0}
-    - target: {fileID: 8889650418605804943, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.495
-      objectReference: {fileID: 0}
     - target: {fileID: 8889650418605804943, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
       propertyPath: m_LocalPosition.x
       value: -42.164997
@@ -8385,11 +8353,6 @@ Transform:
   - {fileID: 952345937}
   m_Father: {fileID: 2003016241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1908917164 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3054242117156703901, guid: 4089b2aff88ea4648a6b4fc7ee1e6f38, type: 3}
-  m_PrefabInstance: {fileID: 902243882}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1919784672
 PrefabInstance:
   m_ObjectHideFlags: 0

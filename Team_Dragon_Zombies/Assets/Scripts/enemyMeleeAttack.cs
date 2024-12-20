@@ -7,7 +7,8 @@ using static StatusEffectSO;
 
 public class enemyMeleeAttack : MonoBehaviour, IDamage
 {
-
+    [Header("---SetTrue If Boss or miniBoss")]
+    public bool isBoss;
     [SerializeField] public float rangeTuner;
     [SerializeField] public GameObject hitPoint;
     [SerializeField] GameObject dropItem;
@@ -101,6 +102,10 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
     void Update()
     {
+        if (isBoss)
+        {
+            agent.SetDestination(gameManager.instance.playerScript.transform.position);
+        }
         // Update animation speed
         float agentSpeed = agent.velocity.magnitude;
         float animSpeed = anim.GetFloat("Speed");
@@ -319,9 +324,9 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
 
 
         HP -= amount;
-        //anim.SetTrigger("Damage");
-        //popupDamage.text = amount.ToString();
-        //Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
+        anim.SetTrigger("Damage");
+        popupDamage.text = amount.ToString();
+        Instantiate(popupDamagePrefab, transform.position, Quaternion.identity);
         StartCoroutine(flashRed());
 
         dmgPoints(finalDamage, popupDamagePrefab);
@@ -341,7 +346,7 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
             }
             StartCoroutine(Die());
             gameManager.instance.updateGameGoal(-1);
-            Destroy(gameObject);
+
         }
     }
     void dmgPoints(float amt, GameObject popupPrefab)
@@ -352,8 +357,11 @@ public class enemyMeleeAttack : MonoBehaviour, IDamage
     private IEnumerator Die()
     {
         anim.SetTrigger("Death");
-        yield return new WaitForSeconds(3f);
+        agent.isStopped = true;
+
+        yield return new WaitForSeconds(2f);
         OnDeath?.Invoke();
+        Destroy(gameObject);
     }
 
     IEnumerator flashRed()
