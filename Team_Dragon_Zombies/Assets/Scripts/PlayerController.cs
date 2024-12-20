@@ -266,22 +266,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
         }
 
-        // Low Health Effect
-        if (HP < 20)
-        {
-            mDmgVignette.intensity.Override(intensityOG);
-            mDmgVignette.enabled.Override(true);
-            mDmgVignette.intensity.Override(intensityOG + 0.2f);
-        }
-        else if (HP < 10)
-        {
-            mDmgVignette.enabled.Override(true);
-            mDmgVignette.intensity.Override(intensityOG + 0.3f);
-        }
-        else
-        {
-            mDmgVignette.enabled.Override(false);
-        }
     }
 
     public void spawnPlayer()
@@ -621,7 +605,7 @@ public class PlayerController : MonoBehaviour, IDamage
             mDmgVignette.intensity.Override(intensity);
             yield return new WaitForSeconds(0.1f);
         }
-
+        mDmgVignette.enabled.Override(HP > 0 && HP <= 20 ? true : false);
 
     }
 

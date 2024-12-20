@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuSettings;
     [SerializeField] GameObject settingsActive;
     [SerializeField] GameObject inSetActive;
+    [SerializeField] GameObject restartGamePopout;
     // Audio Objects
     [Header("-----Audio-----")]
     [SerializeField] AudioSource aud;
@@ -590,6 +591,13 @@ public class gameManager : MonoBehaviour
                 friendlyAI.AssignFollowOffset(i, totalFriendlies);
             }
         }
+    }
+
+    public void restartGamePop()
+    {
+        menuActive.SetActive(false);
+        settingsActive = restartGamePopout;
+        settingsActive.SetActive(true);
     }
 }
 

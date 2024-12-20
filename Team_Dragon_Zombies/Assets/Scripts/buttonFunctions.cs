@@ -41,8 +41,12 @@ public class buttonFunctions : MonoBehaviour
     public void respawn()
     {
         gameManager.instance.playerScript.spawnPlayer();
+        //sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         gameManager.instance.respawnManager();
         gameManager.instance.resetMenu();
+        ThrowObjects objectRef = gameManager.instance.playerScript.GetComponent<ThrowObjects>();
+        objectRef.SetRemainingThrows(0);
         //gameManager.instance.stateUnpause();
     }
 
