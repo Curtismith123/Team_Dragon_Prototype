@@ -273,6 +273,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 881579407}
     - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: explosionForce
       value: 6
       objectReference: {fileID: 0}
@@ -2038,6 +2042,10 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2164,6 +2172,10 @@ PrefabInstance:
     - target: {fileID: 4302706839107745055, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: m_Name
       value: BarrelD (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7606,6 +7618,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1685723280189641393, guid: ee6d6cb1fa9054540ba04b11180d6b44, type: 3}
     - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: explosionForce
       value: 6
       objectReference: {fileID: 0}
@@ -8026,6 +8042,10 @@ PrefabInstance:
       propertyPath: DropItem
       value: 
       objectReference: {fileID: 983977000}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: explosionForce
       value: 6
@@ -9226,6 +9246,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 961752008178712354, guid: ecfcf6f94790e404580a4c14a5dee3fe, type: 3}
     - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: explosionForce
       value: 6
       objectReference: {fileID: 0}
@@ -10032,6 +10056,10 @@ MonoBehaviour:
   emissionColor: {r: 1, g: 0.647, b: 0, a: 1}
   emissionIntensity: 0.5
   glowLight: {fileID: 0}
+  flashEnabled: 1
+  flashSpeed: 1
+  flashMinIntensity: 0.1
+  flashMaxIntensity: 1
 --- !u!82 &1843965545
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11022,6 +11050,10 @@ PrefabInstance:
       propertyPath: DropItem
       value: 
       objectReference: {fileID: 1685723280189641393, guid: ee6d6cb1fa9054540ba04b11180d6b44, type: 3}
+    - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
+      propertyPath: flashEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8507740554943283941, guid: e600e8ea23b8d41488b55a08cd7b675c, type: 3}
       propertyPath: explosionForce
       value: 6

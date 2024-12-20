@@ -25,14 +25,22 @@ public class Explode : MonoBehaviour
 
     public Color emissionColor = new Color(1f, 0.647f, 0f);
     public float emissionIntensity = 0.5f;
-
     public Light glowLight;
+
+    public bool flashEnabled = false;
+    public float flashSpeed = 1.0f;
+    public float flashMinIntensity = 0.1f;
+    public float flashMaxIntensity = 1.0f;
+
+    private float initialEmissionIntensity;
+    private float initialLightIntensity;
 
     void Start()
     {
         player = gameManager.instance.playerScript;
         rb.isKinematic = true;
         audioSource = player.GetComponent<AudioSource>();
+
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -45,7 +53,7 @@ public class Explode : MonoBehaviour
             if (meshFilter != null)
             {
                 objectSize = Vector3.Scale(meshFilter.sharedMesh.bounds.size, transform.lossyScale);
-                objectMinBounds = renderer.bounds.min;
+                objectMinBounds = GetComponent<Renderer>().bounds.min;
             }
             else
             {
@@ -60,6 +68,12 @@ public class Explode : MonoBehaviour
 
         SetEmissionColor();
         AddGlowLight();
+
+        initialEmissionIntensity = emissionIntensity;
+        if (glowLight != null)
+        {
+            initialLightIntensity = glowLight.intensity;
+        }
     }
 
     void Update()
@@ -67,6 +81,15 @@ public class Explode : MonoBehaviour
         if (isBroken)
         {
             rb.isKinematic = false;
+        }
+
+        if (flashEnabled)
+        {
+            float t = Mathf.PingPong(Time.time * flashSpeed, 1.0f);
+            float dynamicIntensity = Mathf.Lerp(flashMinIntensity, flashMaxIntensity, t);
+
+            UpdateEmission(dynamicIntensity);
+            UpdateGlowLight(dynamicIntensity);
         }
     }
 
@@ -84,7 +107,6 @@ public class Explode : MonoBehaviour
             DropItem = null;
             ExplodeObjects();
             CheckChildrenForExplosion();
-
         }
     }
 
@@ -205,11 +227,32 @@ public class Explode : MonoBehaviour
             audioSource.PlayOneShot(clip);
         }
     }
+
     private void InitObject()
     {
         if (DropItem != null)
         {
             Instantiate(DropItem, this.transform.position + Vector3.up, Quaternion.identity);
+        }
+    }
+
+    private void UpdateEmission(float dynamicIntensity)
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            if (renderer.material.HasProperty("_EmissionColor"))
+            {
+                renderer.material.SetColor("_EmissionColor", emissionColor * emissionIntensity * dynamicIntensity);
+            }
+        }
+    }
+
+    private void UpdateGlowLight(float dynamicIntensity)
+    {
+        if (glowLight != null)
+        {
+            glowLight.intensity = initialLightIntensity * dynamicIntensity * 2f;
         }
     }
 }
