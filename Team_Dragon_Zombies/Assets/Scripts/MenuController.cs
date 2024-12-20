@@ -48,6 +48,10 @@ public class MenuController : MonoBehaviour
     [Header("-----New Game-----")]
     public string newGameLevel;
     private string loadLevel;
+
+    [Header("-----Tutorial Level-----")]
+    public string tutorialLevel;
+
     [Header("-----Credits----")]
     public GameObject credits;
 
@@ -201,6 +205,11 @@ public class MenuController : MonoBehaviour
     public void newGameYes()
     {
         SceneManager.LoadScene(newGameLevel);
+    }
+
+    public void startTutorialYes()
+    {
+        SceneManager.LoadScene(tutorialLevel);
     }
 
     public void mainAudioApply()
