@@ -12,19 +12,15 @@ public class UnlockedDoors : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         doorSource = GetComponent<AudioSource>();
-        isOpen = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isOpen)
+        if (other.CompareTag("Player"))
         {
-            isOpen = true;
+
             anim.SetBool("Open", true);
             PlaySound(clip);
         }

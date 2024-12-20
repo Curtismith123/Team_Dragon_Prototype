@@ -9,7 +9,6 @@ public class M_DoorController : MonoBehaviour
     [Header("--Keyed Ojects--")]
     [SerializeField] private string requiredKeyID; // Key ID required to unlock the door
     private bool isUnlocked = false; // Tracks if the door is unlocked
-    private bool isOpen = false; // Flag to stop producing sound after open
     public GameObject locked;
     public GameObject unlocked;
 
@@ -32,7 +31,7 @@ public class M_DoorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isOpen)
+        if (other.CompareTag("Player"))
         {
             if (!isUnlocked) // Check if the door is locked
             {
@@ -54,7 +53,7 @@ public class M_DoorController : MonoBehaviour
 
             // Play the open animation
             anim.SetBool("Open", true);
-            isOpen = true;
+
             PlaySound(openClip);
         }
     }
