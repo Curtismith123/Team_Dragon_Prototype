@@ -165,7 +165,10 @@ public class EyeBatBoss : MonoBehaviour, IDamage
 
     bool HasLineOfSightToPlayer()
     {
-        if (player == null) return false;
+        // OLD LINE 
+        //if (player == null) return false;
+        //NEW LINE
+        if (player == null) { player = gameManager.instance.player; }
         Vector3 dirToPlayer = player.transform.position - transform.position;
         float dist = dirToPlayer.magnitude;
         Ray ray = new Ray(transform.position + Vector3.up, dirToPlayer.normalized);
@@ -582,4 +585,6 @@ public class EyeBatBoss : MonoBehaviour, IDamage
         if (warningText != null)
             warningText.gameObject.SetActive(false);
     }
+
+
 }
