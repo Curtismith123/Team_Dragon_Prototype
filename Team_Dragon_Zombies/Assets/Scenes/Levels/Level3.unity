@@ -1239,6 +1239,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 643869576382528718, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
+      propertyPath: deathAnimDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2240209529603791878, guid: 454e951e2014618489e9a8a7eb4374be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2642,7 +2646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8080581983293906277, guid: 0332385c86e6cd349bbc529bfbc4a3eb, type: 3}
       propertyPath: keyID
-      value: 201
+      value: 8472
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9756,6 +9760,10 @@ PrefabInstance:
     - target: {fileID: 3689900774193318450, guid: fa4b5c31605c9ea47a4759ab57fa6eaf, type: 3}
       propertyPath: m_Name
       value: DoubleDoorWithSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515749630152162401, guid: fa4b5c31605c9ea47a4759ab57fa6eaf, type: 3}
+      propertyPath: requiredKeyID
+      value: 8472
       objectReference: {fileID: 0}
     - target: {fileID: 8422978496188021368, guid: fa4b5c31605c9ea47a4759ab57fa6eaf, type: 3}
       propertyPath: m_LocalScale.x

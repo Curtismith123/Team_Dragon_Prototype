@@ -264,7 +264,7 @@ public class gameManager : MonoBehaviour
         if (!keyInventory.Contains(keyID))
         {
             keyInventory.Add(keyID);
-            Debug.Log($"Key {keyID} collected!");
+
         }
     }
 
@@ -273,10 +273,10 @@ public class gameManager : MonoBehaviour
         if (keyInventory.Contains(keyID))
         {
             keyInventory.Remove(keyID);
-            Debug.Log($"Key {keyID} used!");
+
             return true;
         }
-        Debug.LogWarning($"Key {keyID} not yet obtained!");
+
         return false;
     }
 
