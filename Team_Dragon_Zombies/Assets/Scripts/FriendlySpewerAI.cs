@@ -179,19 +179,19 @@ public class FriendlySpewerAI : MonoBehaviour, IDamage, IFriendly
 
         if (projectilePrefab == null)
         {
-            Debug.LogError($"{name}: ProjectilePrefab is not assigned.");
+
             yield break;
         }
 
         if (SpewerPos == null)
         {
-            Debug.LogError($"{name}: SpewerPos is not assigned.");
+
             yield break;
         }
 
         if (currentEnemy == null)
         {
-            Debug.LogError($"{name}: No target to shoot at.");
+
             yield break;
         }
 
